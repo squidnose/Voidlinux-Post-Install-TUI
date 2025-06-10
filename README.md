@@ -3,8 +3,12 @@ A ncurses TUI for my voidlinux scripts (Including scripts).
 
 After a install of voidlinux using voidlinux-installer do this:
 ```
-sudo xbps-install -Sy git
-git clone squidnose/Voidlinux-Post-Install-TUI
+sudo xbps-install -Syu
+sudo reboot
+```
+```
+sudo xbps-install -S git
+git https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
 cd Voidlinux-Post-Install-TUI
 ./Void-post-install-script.sh
 ```
