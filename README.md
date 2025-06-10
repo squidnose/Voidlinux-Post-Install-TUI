@@ -7,7 +7,7 @@ sudo xbps-install -Syu
 sudo reboot
 ```
 ```
-sudo xbps-install -S git
+sudo xbps-install -S git dialog newt
 git https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
 cd Voidlinux-Post-Install-TUI
 ./Void-post-install-script.sh
