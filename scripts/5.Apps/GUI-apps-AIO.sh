@@ -1,8 +1,8 @@
 #/bin/bash
 
 #AV, Files, Office, Wifi
-echo "Basic Internet and AV utils: firefox, octoxbps, mpv, vlc, kolorpaint, tuxpaint, shotcut, spectalce, , Parabolic(yt-dlp)"
-sudo xbps-install -y octoxbps firefox gwenview mpv vlc kolorpaint tuxpaint shotcut spectacle
+echo "Basic Internet and AV utils: firefox, octoxbps, mpv, vlc, kolourpaint, tuxpaint, shotcut, spectalce, , Parabolic(yt-dlp)"
+sudo xbps-install -y octoxbps firefox gwenview mpv vlc kolourpaint tuxpaint shotcut spectacle
 flatpak install --noninteractive flathub org.nickvision.tubeconverter
 
 echo "Remote acces: RustDesk, Remminia"
