@@ -4,6 +4,8 @@ A ncurses TUI for my voidlinux scripts (Including scripts).
 After a install of voidlinux using voidlinux-installer do this:
 ```
 sudo xbps-install -Syu
+sudo xbps-install -u xbps
+sudo xbps-install -Syu
 sudo reboot
 ```
 ```
