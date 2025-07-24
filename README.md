@@ -28,7 +28,8 @@ chmod +x Void-post-install-script.sh
   - If you have a Early GCN card, read the text file provided. DONT RUN IT!
   - I have had problems with the nvidia390 not working, make sure to install a older kernel verison, like linux6.1 withlinux6.1-headers before running the script. The same for nvidia470 and nvidia
   - There will be a nvidia580 script once nvidia drops support for Maxwell and Pascall. This will probably require linux6.12 witch is the current defualt on void. 
-  -  Pipewire is Awesome for Video and Audio streaming. Do remeber to set pipewire to autorun in your desktop enviroment.
-  -  Language setup, Power managemt, Void management are not done yet.
+-  Pipewire is Awesome for Video and Audio streaming. Do remeber to set pipewire to autorun in your desktop enviroment.
+-  KDE plasma for a Similar GUI as steamdeck in Destkop mode. 
+-  Language setup, Power managemt, Void management are not done yet.
 
 GLHF
