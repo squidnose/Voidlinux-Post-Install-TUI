@@ -1,6 +1,8 @@
 # Voidlinux-Post-Install-Script-TUI-
 A ncurses TUI for my voidlinux scripts (Including scripts). 
 
+I you want [Installation Instructions](install.md) open the install.md
+
 # What to do after install
 After a install of voidlinux using voidlinux-installer do this:
 ```
