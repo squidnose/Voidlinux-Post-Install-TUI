@@ -10,7 +10,8 @@ sudo reboot
 ```
 ```
 sudo xbps-install -S git dialog newt
-git https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
+git clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
 cd Voidlinux-Post-Install-TUI
+chmod +x Void-post-install-script.sh
 ./Void-post-install-script.sh
 ```
