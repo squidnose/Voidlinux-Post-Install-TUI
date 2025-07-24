@@ -1,6 +1,7 @@
 # Voidlinux-Post-Install-Script-TUI-
 A ncurses TUI for my voidlinux scripts (Including scripts). 
 
+# What to do after install
 After a install of voidlinux using voidlinux-installer do this:
 ```
 sudo xbps-install -Syu
