@@ -8,7 +8,7 @@ TARGET_DIR="$HOME/.config"
 
 # Get the script's directory (so config-files is always relative to it)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SOURCE_DIR="$SCRIPT_DIR/config-files"
+SOURCE_DIR="$SCRIPT_DIR/Config-Files"
 
 # Ensure source exists
 if [ ! -d "$SOURCE_DIR" ]; then
