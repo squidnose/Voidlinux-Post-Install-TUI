@@ -224,7 +224,10 @@ clear # Clear the screen before the first menu appears.
 # 1. Check initial directory permissions (dependency check now in install_deps.sh)
 check_base_dir_permissions
 
-# 2. Start the dynamic menu navigation from the root 'scripts' directory
+# 2. Set all .sh scripts to executable
+find scripts/ -type f -name "*.sh" -exec chmod +x {} \;
+
+# 3. Start the dynamic menu navigation from the root 'scripts' directory
 display_dynamic_menu "Main Menu" "$SCRIPT_DIR"
 
 #==================================== Final Exit Messages ====================================
