@@ -26,6 +26,7 @@ chmod +x Void-post-install-script.sh
   - For all amd GPUs newer than GCN id reccomend the GCN drivers. It includes RADV whitch is developed by valve and has often better performance.
   - The RDNA option is for if AMDVLK works better for you than RADV. (Less Reccomended)
   - If you have a Early GCN card, read the text file provided. DONT RUN IT!
+  - emulate-vulkan-lavapipe.sh is for Non vulkan cards like amd Terrascale, Intel HD 3000 and older, Nvidia only when using nouveau. 
   - I have had problems with the nvidia390 not working, make sure to install a older kernel verison, like linux6.1 withlinux6.1-headers before running the script. The same for nvidia470 and nvidia
   - There will be a nvidia580 script once nvidia drops support for Maxwell and Pascall. This will probably require linux6.12 witch is the current defualt on void. 
 -  Pipewire is Awesome for Video and Audio streaming. Do remeber to set pipewire to autorun in your desktop enviroment.
