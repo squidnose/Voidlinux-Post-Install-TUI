@@ -227,7 +227,7 @@ check_base_dir_permissions
 # 2. Start the dynamic menu navigation from the root 'scripts' directory
 display_dynamic_menu "Main Menu" "$SCRIPT_DIR"
 
-# --- Final Exit Messages ---
+#==================================== Final Exit Messages ====================================
 clear
 echo "=========================================="
 echo "  Thank you for using the Void-Post-Install-Script!   "
