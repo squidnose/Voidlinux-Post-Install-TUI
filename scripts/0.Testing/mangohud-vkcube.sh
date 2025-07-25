@@ -1,2 +1,2 @@
 #!/bin/bash
-mangohud vkcube
+mangohud vkcube --present_mode 0
