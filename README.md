@@ -19,18 +19,20 @@ chmod +x Void-post-install-script.sh
 ./Void-post-install-script.sh
 ```
 ## What Scripts To run?
-- core-utilities.sh installes my favourite terminal Goddies like Fastfetch, Htop and Nano
-- dkms.sh Is important to Run if you want to use Nvidia Drivers.
-- Repos are important for Steam and Flatpak applications
-- GPU drivers are based on the GPU you have.
-  - For all amd GPUs newer than GCN id reccomend the GCN drivers. It includes RADV whitch is developed by valve and has often better performance.
-  - The RDNA option is for if AMDVLK works better for you than RADV. (Less Reccomended)
-  - If you have a Early GCN card, read the text file provided. DONT RUN IT!
-  - emulate-vulkan-lavapipe.sh is for Non vulkan cards like amd Terrascale, Intel HD 3000 and older, Nvidia only when using nouveau. 
-  - I have had problems with the nvidia390 not working, make sure to install a older kernel verison, like linux6.1 withlinux6.1-headers before running the script. The same for nvidia470 and nvidia
-  - There will be a nvidia580 script once nvidia drops support for Maxwell and Pascall. This will probably require linux6.12 witch is the current defualt on void. 
--  Pipewire is Awesome for Video and Audio streaming. Do remeber to set pipewire to autorun in your desktop enviroment.
--  KDE plasma for a Similar GUI as steamdeck in Destkop mode. 
+- core-utilities.sh = installes my favourite terminal Goddies like Fastfetch, Htop and Nano
+- dkms.sh = Is important to Run if you want to use Nvidia Drivers.
+- repos.sh = are important for Steam and Flatpak applications
+- GPU drivers:
+  - amd-GCN-gpu-drivers.sh = RADV vulkan driver. For all amd GPUs newer than GCN. It includes RADV whitch is partially developed by valve and has often better performance.
+  - amd-RDNA-gpu-drivers.sh = AMDVLK vulkan driver. Vulkan drivers from AMD it may work better in certin situations. (Less Reccomended)
+  - emulate-vulkan-lavapipe.sh = is for Non vulkan cards like amd Terrascale, Intel HD 3000 and older, Nvidia only when using nouveau. It uses CPU to emulate Vulkan. 
+  - intel-gpu-drivers.sh = for all intel GPUS. 
+  - nvidia-fermi-gpu-drivers.sh = Nvidia390 driver. For nvidia 400 and 500 series. Some Fremi gpus may have 600 or 700 nameing. Open CPU-x and consult with techpowerup.
+  - nvidia-kepler-gpu-drivers.sh = Nvidia470 driver. For nvidia 600 and 700 series. Some 600 and 700 series may be have Fermi chip, consult CPU-x and Techpowerup. 
+  - nvidia-gpu-drivers.sh = New stable nvidia driver. For 900 and 1000 and newer. Soon will only support only RTX 2000 and gtx 1600 and newer.
+  - nvidia-Nouveau-drivers.sh = FOSS driver for Nvidia. For any nvidia card. Will work better on older GPUS.  
+-  pipewire-alsa.sh = Pipewire is Awesome for Video and Audio streaming on wayland. Do remeber to set pipewire to autorun in your desktop enviroment. 
+-  kde-plasma.sh = KDE plasma for a Similar GUI as steamdeck in Destkop mode. 
 -  Language setup, Power managemt, Void management are not done yet.
 
 GLHF
