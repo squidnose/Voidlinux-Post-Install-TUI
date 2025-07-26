@@ -59,10 +59,7 @@ run_script() {
     fi
 
 # --- Script Execution ---
-    whiptail --msgbox "Running '$script_name' directly. Follow terminal instructions. Press Enter when finished." "$HEIGHT" "$WIDTH"
     "$script_path"
-    read -rp "Script finished. Press Enter to return to the menu." # Use -r for safety with read
-
     return 0
 }
 
