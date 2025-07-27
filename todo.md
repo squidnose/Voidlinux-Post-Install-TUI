@@ -31,5 +31,8 @@
 - [ ] CZ and EN version separate or better handle Languages.
 - [ ] Add more desktops: xfce, mate, cinnamon, gnome
 - [ ] Add Window Managers: Wayfire, Niri, I3, Sway, IceWM, JWM... With usable default configs!
+- [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
+- [ ] Add a Build and compile for Terracan Vulkan driver for AMD/ATI Terrascale 2 and 3 GPUS
+- [ ] Add a Build and compile for Zenpower Monitoring. 
 
 
