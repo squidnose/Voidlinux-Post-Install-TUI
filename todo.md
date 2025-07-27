@@ -1,6 +1,5 @@
-# Future Plans
-What is missing void install script:
-
+# To Do List For Project
+## Fixes
 - [ ] Furmark nonexistent
 - [ ] Numlock automaticly start sddm
 - [ ] Lact service not enabled
@@ -17,20 +16,20 @@ What is missing void install script:
 - [ ] Usbmuxd service
 - [ ] Bluetooth service
 - [ ] Firefox language pack
-- [ ] Remove AIO apps and replace with script that will download based on selected apps in a config file.
-- [ ] Have a Option to preinstall apps for: Office work, Internet, Games, SW managment.
-- [ ] CZ and EN version separate or better handle Languages. 
-
-For future:
-- [X] A tui for vkpurge
-- [X] Chooser for browser
-- [ ] Add more desktops: xfce, mate, cinnamon, gnome
 - [ ] Swtpm for virtmanager for win11 compatibility
 - [ ] Wrong setup for folder, musl compatibility
 - [ ] Keep it simple and just ask yes or no. Stop with the seperate 
 - [ ] Have a setup of apps for a desktop environment 
 - [ ] Have a MUSL and Glibc varinat
 - [ ] For musl: steam-udev-rules
-- [ ] Add a message: add permissions to steam flatoak
+- [ ] Add a message: add permissions to steam flatpak
+
+## Future plans
+- [ ] Add Uninstall scripts for everything
+- [ ] Remove AIO apps and replace with script that will download based on selected apps in a config file.
+- [ ] Have a Option to preinstall apps for: Office work, Internet, Games, SW managment.
+- [ ] CZ and EN version separate or better handle Languages.
+- [ ] Add more desktops: xfce, mate, cinnamon, gnome
+- [ ] Add Window Managers: Wayfire, Niri, I3, Sway, IceWM, JWM... With usable default configs!
 
 
