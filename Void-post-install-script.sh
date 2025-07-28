@@ -60,6 +60,7 @@ run_script() {
 
 # --- Script Execution ---
     "$script_path"
+    read -p "Done, press enter to continue"
     return 0
 }
 
