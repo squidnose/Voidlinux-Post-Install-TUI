@@ -32,7 +32,7 @@
 - [ ] Add more desktops: xfce, mate, cinnamon, gnome
 - [ ] Add Window Managers: Wayfire, Niri, I3, Sway, IceWM, JWM... With usable default configs!
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
-- [ ] Add a Build and compile for Terracan Vulkan driver for AMD/ATI Terrascale 2 and 3 GPUS
+- [ ] Add a Build and compile for Terracan Vulkan driver for AMD/ATI Terrascale 2 and 3 GPUS. https://gitlab.freedesktop.org/Triang3l/mesa Add dxvk 1.10.3 as last veriosn to support vulkan 1.0
 - [ ] Add a Build and compile for Zenpower Monitoring. 
 
 
