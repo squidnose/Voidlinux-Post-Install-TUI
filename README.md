@@ -23,14 +23,13 @@ chmod +x Void-post-install-script.sh
 - dkms.sh = Is important to Run if you want to use Nvidia Drivers.
 - repos.sh = are important for Steam and Flatpak applications
 - GPU drivers:
-  - amd-GCN-gpu-drivers.sh = RADV vulkan driver. For all amd GPUs newer than GCN. It includes RADV whitch is partially developed by valve and has often better performance.
-  - amd-RDNA-gpu-drivers.sh = AMDVLK vulkan driver. Vulkan drivers from AMD it may work better in certin situations. (Less Reccomended)
-  - amd-Terrascale-gpu-drivers.sh = Drivers for Radeon Kernel driver. For AMD/ATI HD3000 - HD 6000. Can be installed for Any AMD gpu but lacks Vulkan Support.
-  - Switch-to-AmdGPU-GCN1.sh = Enable AMDGPU drivers for GCN 1 GPUS. Performs better in GPU intensive situations. Has better support. May be more CPU intensive. Disables VGA output from DVI-I adapters(is being worked on). 
+  - amd-ati-RADV.sh = For all AMD and ATI cards. It includes the RADV vulkan driver whitch is partially developed by valve and has often better performance to AMDVLK.
+  - amd-AMDVLK.sh = For AMD RDNA gpus and up(RX 5000+).It includes the AMDVLK vulkan driver from AMD. It may work better in certin situations. (Less Reccomended)
+  - Switch-to-AmdGPU-GCN1.sh = Enable AMDGPU drivers for GCN1 GPUS. Performs better in GPU intensive situations. Has better support. May be more CPU intensive. Disables VGA output from DVI-I adapters(is being worked on). 
   - intel-gpu-drivers.sh = for all intel GPUS. 
-  - nvidia-fermi-gpu-drivers.sh = Nvidia390 driver. For nvidia 400 and 500 series. Some Fremi gpus may have 600 or 700 naming(eg. GT 710M). Open CPU-x and consult with techpowerup. You must select linux 6.1 at startup.
-  - nvidia-kepler-gpu-drivers.sh = Nvidia470 driver. For nvidia 600 and 700 series. Some 600 and 700 series may be have Fermi chip, consult CPU-x and Techpowerup. You must select linux 6.1 at startup.
-  - nvidia-gpu-drivers.sh = New stable nvidia driver. For 900 and 1000 and newer. Soon will only support only RTX 2000 and gtx 1600 and newer.
+  - nvidia390-Fermi.sh = For nvidia 400 and 500 series. Some Fremi gpus may have 600 or 700 naming(eg. GT 710M). Open CPU-x and consult with techpowerup. You must select linux 6.1 at startup.
+  - nvidia470-Kepler.sh = For nvidia 600 and 700 series. Some 600 and 700 series may be have Fermi chip, consult CPU-x and Techpowerup. You must select linux 6.12 at startup.
+  - nvidia-New-Stable.sh = New stable nvidia driver. For GTX 900 and 1000 series and newer. Soon will only support only RTX 2000 and GTX 1600 series and newer.
   - nvidia-Nouveau-drivers.sh = FOSS driver for Nvidia. For any nvidia card. Will work better on older GPUS.
   - emulate-vulkan-lavapipe.sh = is for Non vulkan cards like amd Terrascale, Intel HD 3000 and older, Nvidia only when using nouveau. It uses CPU to emulate Vulkan. 
 -  pipewire-alsa.sh = Pipewire is Awesome for Video and Audio streaming on wayland. Do remeber to set pipewire to autorun in your desktop enviroment. 
