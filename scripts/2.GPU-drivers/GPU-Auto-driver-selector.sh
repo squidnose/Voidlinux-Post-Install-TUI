@@ -90,12 +90,12 @@ if [ "$gpu_count" -gt 1 ]; then
     echo "6) Only NVIDIA"
     read -rp "Choice: " combo
     case "$combo" in
-        1) install_amd; install_intel ;;
-        2) install_amd; install_nvidia ;;
-        3) install_intel; install_nvidia ;;
-        4) install_amd ;;
-        5) install_intel ;;
-        6) install_nvidia ;;
+        1) install_amd; install_intel; exit 0 ;;
+        2) install_amd; install_nvidia; exit 0 ;;
+        3) install_intel; install_nvidia; exit 0 ;;
+        4) install_amd; exit 0 ;;
+        5) install_intel; exit 0 ;;
+        6) install_nvidia; exit 0 ;;
         *) echo "Invalid option. Aborting."; exit 1 ;;
     esac
 fi
