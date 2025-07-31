@@ -1,5 +1,14 @@
 #!/bin/bash
+#Colorisation
+GREEN='\033[1;32m'
+RED='\033[1;31m'
+BLUE='\033[1;34m'
+NC='\033[0m'
 
+#find dir to run scripts
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+
+#chek if you have dual gpus
 gpu_count=$(lspci -nn | grep -Ei "vga|3d" | wc -l)
 if [ "$gpu_count" -gt 1 ]; then
     echo "! Multiple GPUs detected. This script may not handle hybrid graphics correctly !"
@@ -7,6 +16,7 @@ if [ "$gpu_count" -gt 1 ]; then
     read -p "Press Enter to continue, CTRL+c to cancel"
 fi
 
+#info about gpu model
 gpu_info=$(lspci -nn | grep -Ei "vga|3d")
 
 echo "Detected GPU: $gpu_info"
@@ -14,43 +24,45 @@ echo "Detected GPU: $gpu_info"
 # Detect Vendor
 if echo "$gpu_info" | grep -qi "nvidia"; then
     VENDOR="NVIDIA"
+    echo -e "${GREEN}Vendor: $VENDOR${NC}"
 elif echo "$gpu_info" | grep -qi " amd \| ati "; then
     VENDOR="AMD"
+    echo -e "${RED}Vendor: $VENDOR${NC}"
 elif echo "$gpu_info" | grep -qi " intel "; then
     VENDOR="Intel"
+    echo -e "${BLUE}Vendor: $VENDOR${NC}"
 else
     VENDOR="Unknown"
 fi
 
-echo "Vendor: $VENDOR"
 
 # Detect Nvidia Generation
 if [[ "$VENDOR" == "NVIDIA" ]]; then
-    if echo "$gpu_info" | grep -q "GTX 7\|GTX 6\|GK1\|GK2"; then
-        echo "Detected Generation: Kepler"
-        ./nvidia470-Kepler.sh
-    elif echo "$gpu_info" | grep -q "GTX 4\|GTX 5\|GTS 4\|GF1"; then
+    if echo "$gpu_info" | grep -q " GF1\| GF2"; then
         echo "Detected Generation: Fermi"
-        ./nvidia390-Fermi.sh
-    elif echo "$gpu_info" | grep -q "GTX 9\|GTX 10\|GM1\|GM2\|GP1"; then
+        "$SCRIPT_DIR/nvidia390-Fermi.sh"
+    elif echo "$gpu_info" | grep -q " GK1\| GK2"; then
+        echo "Detected Generation: Kepler"
+        "$SCRIPT_DIR/nvidia470-Kepler.sh"
+    elif echo "$gpu_info" | grep -q " GM1\| GM2\| GP1\| GP2"; then
         echo "Detected Generation: Maxwell Or Pascal"
-        ./nvidia-New-Stable.sh
-    elif echo "$gpu_info" | grep -q "RTX 20\|GTX 16\|TU1"; then
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+    elif echo "$gpu_info" | grep -q " TU1\| TU2"; then
         echo "Detected Generation: Turing"
-        ./nvidia-New-Stable.sh
-    elif echo "$gpu_info" | grep -q "RTX 30\|GA1"; then
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+    elif echo "$gpu_info" | grep -q " GA1\| GA2"; then
         echo "Detected Generation: Ampere"
-        ./nvidia-New-Stable.sh
-    elif echo "$gpu_info" | grep -q "RTX 40\|AD1"; then
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+    elif echo "$gpu_info" | grep -q " AD1\| AD2"; then
         echo "Detected Generation: Ada Lovelace"
-        ./nvidia-New-Stable.sh
-    elif echo "$gpu_info" | grep -q "RTX 50\|GB1\|GB2"; then
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+    elif echo "$gpu_info" | grep -q " GB1\| GB2"; then
         echo "Detected Generation: Blackwell"
-        ./nvidia-New-Stable.sh
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
     else
         echo "You are either using a older card, or the script failed to recognize your gpu"
         read -p "Install FOSS Nouveau drivers? Enter to install, CTRL+c to cancel"
-        ./nvidia-Nouveau-drivers.sh
+        "$SCRIPT_DIR/nvidia-Nouveau-drivers.sh"
     fi
 fi
 
@@ -58,10 +70,10 @@ fi
 if [[ "$VENDOR" == "AMD" ]]; then
     if echo "$gpu_info" | grep -q "RV[1-5]"; then
         echo "Detected: RV100-500 series (use mesa-amber)"
-        ./mesa-amber.sh
+        "$SCRIPT_DIR/mesa-amber.sh"
     else
         echo "Detected AMD GPU, installing for Terrascale, GCN, RDNA and UDNA."
-        ./amd-ati-RADV.sh
+        "$SCRIPT_DIR/amd-ati-RADV.sh"
     fi
 fi
 
@@ -69,16 +81,17 @@ fi
 if [[ "$VENDOR" == "Intel" ]]; then
     if echo "$gpu_info" | grep -q "Gen[1-4]"; then
         echo "Detected: Intel Gen 1–4 (use mesa-amber)"
-        ./mesa-amber.sh
+        "$SCRIPT_DIR/mesa-amber.sh"
     elif echo "$gpu_info" | grep -q "HD Graphics\|UHD\|Iris"; then
         echo "Detected: Intel GPU Gen 5 and Newer"
-        ./intel-gpu-drivers.sh
+        "$SCRIPT_DIR/intel-gpu-drivers.sh"
     else
         echo "Failed to Detect Intel GPU generation."
         read -p "Install standard intel drivers? Enter to install, CTRL+c to cancel"
-        ./intel-gpu-drivers.sh
+         "$SCRIPT_DIR/intel-gpu-drivers.sh"
     fi
 fi
+
 #Install mesa GLHF
 if [[ "$VENDOR" == "Unknown" ]]; then
     echo "Failed to Detect GPU."
