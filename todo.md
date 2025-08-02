@@ -23,6 +23,9 @@
 - [ ] Have a MUSL and Glibc varinat
 - [ ] For musl: steam-udev-rules
 - [ ] Add a message: add permissions to steam flatpak
+- [ ] add ntfs-3g exfat-utils
+- [ ] Fix nvidia prime/optimus
+- [ ] Add brodcom support
 
 ## Future plans
 - [ ] Add Uninstall scripts for everything
