@@ -19,6 +19,10 @@ chmod +x Void-post-install-script.sh
 ./Void-post-install-script.sh
 ```
 ## What Scripts To run?
+### Tools
+- Clear-XBPS-cache.sh = Removes Old cached packages. Only run if you have no problems with existing packages and whole system.
+- Remove-Old-Kernels.sh = Uses VKpurge to remove unused kernels. Usefull to run for people with nvidia GPUs or other DKMS SW. Run only when you are sure that kernel update did not brake DKMS modules (like nvidia driver). 
+- TBD 
 ### Basic Setup
 - core-utilities.sh = Installes my favourite terminal Goddies like Fastfetch, Htop and Nano
 - dkms.sh = Important to Run if you want to use Nvidia Drivers.
@@ -38,18 +42,18 @@ chmod +x Void-post-install-script.sh
 ### Audio Video GUI
 -  pipewire-alsa.sh = Pipewire is Awesome for Video and Audio streaming on wayland. Do remeber to set pipewire to autorun in your desktop enviroment. 
 -  kde-plasma.sh = KDE plasma for a Similar GUI as steamdeck in Destkop mode.
+-  remove-xfce4.sh = removes XFCE
 ### Apps
-- TBD
-### Power Managment
-- Power-Porfiles-Daemon.sh = Power performance slider backend. May not yield best battery life.
-### Void Managment
-- Clear-XBPS-cache.sh = Removes Old cached packages. Only run if you have no problems with existing packages and whole system.
-- Remove-Old-Kernels.sh = Uses VKpurge to remove unused kernels. Usefull to run for people with nvidia GPUs or other DKMS SW. Run only when you are sure that kernel update did not brake DKMS modules (like nvidia driver). 
-
-### Games
+#### Games
 - PrismLauncher.sh = Minecraft Java Launcher
 - luanti.sh = Free Minecraft Look alike
 - mangohud.sh = in game FPS counter
 - steam.sh = Choose between Steam XBPS and Flatpak. XBPS is highly reccomended. 
+- TBD
+### Power Managment
+- Power-Porfiles-Daemon.sh = Power performance slider backend. May not yield best battery life.
+### Void Managment
+7.Drivers-Wifi-and-Others
+- Broadcom-WL-BT.sh = Broadcom Wifi Driver. May need authenticaiton, open linssid and clone. (TBD)
 
 GLHF
