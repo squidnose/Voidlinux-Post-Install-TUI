@@ -1,8 +1,6 @@
 # To Do List For Project
 ## Fixes
-- [ ] Furmark nonexistent
 - [ ] Numlock automaticly start sddm
-- [ ] Lact service not enabled
 - [ ] Bash colourization
 - [ ] Btop missing
 - [ ] Lm sensors detect
@@ -24,12 +22,12 @@
 - [ ] Add a message: add permissions to steam flatpak
 - [ ] add ntfs-3g exfat-utils
 - [ ] Fix nvidia prime/optimus
-- [ ] Add brodcom support
+- [ ] Add brodcom support(Kinda, needs permissions though, Use linssid before connection to wifi)
 
 ## Future plans
-- [ ] Add Uninstall scripts for everything
+- [ ] Add Uninstall scripts for everything(nah, just for anoing things)
 - [ ] Remove AIO apps and replace with script that will download based on selected apps in a config file.
-- [ ] Have a Option to preinstall apps for: Office work, Internet, Games, SW managment.
+- [ ] Have a Option to preinstall apps for: Office work, Internet, Games, SW managment.(in progress)
 - [ ] CZ and EN version separate or better handle Languages.
 - [ ] Add more desktops: xfce, mate, cinnamon, gnome
 - [ ] Add Window Managers: Wayfire, Niri, I3, Sway, IceWM, JWM... With usable default configs!
