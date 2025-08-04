@@ -5,10 +5,10 @@
 - [ ] Lact service not enabled
 - [ ] Bash colourization
 - [ ] Btop missing
-- [ ] Lm sensors
-- [ ] Nvidia suspend
+- [ ] Lm sensors detect
+- [ ] Suspend: Nvidia, Elogind
 - [ ] Kde connect seperate because of networking
-- [ ] Proton trick
+- [ ] Proton tricks
 - [ ] appmenu-gtk3-module
 - [ ] Libva intel driver
 - [ ] Speech-dispatcher
@@ -18,9 +18,8 @@
 - [ ] Firefox language pack
 - [ ] Swtpm for virtmanager for win11 compatibility
 - [ ] Wrong setup for folder, musl compatibility
-- [ ] Keep it simple and just ask yes or no. Stop with the seperate 
+- [x] Keep it simple and just ask yes or no. Stop with the seperate 
 - [ ] Have a setup of apps for a desktop environment 
-- [ ] Have a MUSL and Glibc varinat
 - [ ] For musl: steam-udev-rules
 - [ ] Add a message: add permissions to steam flatpak
 - [ ] add ntfs-3g exfat-utils
@@ -35,6 +34,7 @@
 - [ ] Add more desktops: xfce, mate, cinnamon, gnome
 - [ ] Add Window Managers: Wayfire, Niri, I3, Sway, IceWM, JWM... With usable default configs!
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
+- [ ] Have a MUSL and Glibc varinat
 - [ ] Add a Build and compile for Terracan Vulkan driver for AMD/ATI Terrascale 2 and 3 GPUS. https://gitlab.freedesktop.org/Triang3l/mesa Add dxvk 1.10.3 as last veriosn to support vulkan 1.0
 - [ ] Add a Build and compile for Zenpower Monitoring.
 - [ ] Explor: Avahi, Elogind, Fan constroll, 
