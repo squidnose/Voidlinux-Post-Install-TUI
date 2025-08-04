@@ -66,7 +66,7 @@ sudo xbps-install -y CPU-X hardinfo corectrl LACT
 flatpak install --noninteractive flathub io.github.nokse22.inspector io.github.arunsivaramanneo.GPUViewer
 
 echo "Serial Comms: Chirp (Amature radios), Arduino IDE (1.8 and 2.X), Piper (Gaming Mouse Conf)"
-sudo xbps-install -y chrip arduino piper libratbag
+sudo xbps-install -y chirp arduino piper libratbag
 flatpak install --noninteractive flathub cc.arduino.IDE2
 sudo usermod -aG dialout $USER
 

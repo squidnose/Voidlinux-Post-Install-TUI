@@ -63,7 +63,6 @@ run_script() {
     read -p "Done, press enter to continue"
     return 0
 }
-
 display_dynamic_menu() {
     local title="$1"
     local current_path="$2"
@@ -79,11 +78,11 @@ display_dynamic_menu() {
             menu_options+=("..-back" "Go back to the previous menu")
         fi
 
-        # Find folders and scripts in the current directory.
+        # Find folders, scripts, and text files in the current directory.
         # We use 'find' with '-maxdepth 1' to only look in the current directory,
         # and then sort the results for a consistent menu order.
         local items
-        items=$(find "$current_path" -maxdepth 1 -mindepth 1 \( -type d -o -type f -name "*.sh" \) | sort)
+        items=$(find "$current_path" -maxdepth 1 -mindepth 1 \( -type d -o -type f -name "*.sh" -o -type f ! -name "*.sh" \) | sort)
 
         # Process each item found and add it to our menu options array.
         while read -r item; do
@@ -96,6 +95,9 @@ display_dynamic_menu() {
             elif [ -f "$item" ] && [[ "$item_name" == *.sh ]]; then
                 # If the item is a script with a '.sh' extension, add it to the menu with a script label.
                 menu_options+=("$item_name" "(Script) Run this script")
+            elif [ -f "$item" ]; then
+                # If the item is a file but not a '.sh' script, we'll assume it's a text file to be read.
+                menu_options+=("$item_name" "(File) Read this file")
             fi
         done <<< "$items"
 
@@ -128,12 +130,10 @@ display_dynamic_menu() {
         # Process the user's choice based on the selected option.
         if [[ "$choice" == "Exit" ]]; then
             # The user explicitly chose to exit the script.
-            clear
         echo "=========================================="
         echo "  Thank you for using My Voidlinux-Post-Install-TUI!   "
         echo "=========================================="
         exit 0
-            exit 0
         elif [[ "$choice" == "..-back" ]]; then
             # The user chose to go back. We update the current path to the parent directory.
             current_path=$(dirname "$current_path")
@@ -148,6 +148,12 @@ display_dynamic_menu() {
             elif [ -f "$chosen_path" ] && [[ "$chosen_path" == *.sh ]]; then
                 # The user selected a script, so we call the 'run_script' function.
                 run_script "$chosen_path"
+            elif [ -f "$chosen_path" ]; then
+                # The user selected a file to read. We will now use 'less' to display it.
+                # This provides a full-screen, scrollable view.
+                clear
+                less "$chosen_path"
+                # The script will continue after 'less' is closed by the user (by pressing 'q').
             else
                 # This is a fallback for when a selected file or folder is no longer available.
                 whiptail --msgbox "Error: '$choice' could not be found or is not a valid script." "$HEIGHT" "$WIDTH"

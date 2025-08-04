@@ -1,0 +1,51 @@
+#Internet
+Broweser-Selection
+transmission
+Discord
+
+#Office
+LibreOffice
+OnlyOffice-Flatpak
+Non-Free-Fonts
+Korganizer
+
+#Media
+Gnome-Cheese
+KDE-krita
+switchero
+KDE-Gwenview
+
+#Phone integration
+KDE-Connect
+ADB
+
+#Remote Connection
+Remminia
+
+#Virtualization
+Virt-Manager
+
+#Games
+luanti
+kpat-solitare
+PrismLauncher
+mangohud
+
+#SW info and managment
+octoxbps
+Appimge-Pool
+Gnome-system-monitor
+
+#HW info
+CPU-X
+Hardinfo
+Mission-Center
+LACT
+
+#non linux apps
+dosbox
+wine
+
+#Wifi
+Linux-Wifi-Hotspot
+Linssid
