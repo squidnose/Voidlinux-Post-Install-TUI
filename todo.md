@@ -23,6 +23,7 @@
 - [ ] add ntfs-3g exfat-utils
 - [ ] Fix nvidia prime/optimus
 - [ ] Add brodcom support(Kinda, needs permissions though, Use linssid before connection to wifi)
+- [ ] Add kernel optimizations (Remove Specter V1 V2 ect ) https://gist.github.com/themagicalmammal/e443d3c5440d566f8206e5b957ab1493 
 
 ## Future plans
 - [ ] Add Uninstall scripts for everything(nah, just for anoing things)
