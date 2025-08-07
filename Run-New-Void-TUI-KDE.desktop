@@ -1,0 +1,17 @@
+[Desktop Entry]
+Comment[cs_CZ]=
+Comment=
+Exec=konsole --fullscreen -e bash -c 'echo "Enter Password:" &&\nsudo xbps-install -Syu xbps &&\nsudo xbps-install -Syu git dialog newt &&\nrm -rf Voidlinux-Post-Install-TUI &&\ngit clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git &&\ncd Voidlinux-Post-Install-TUI &&\nchmod +x Void-post-install-script.sh &&\n./Void-post-install-script.sh\n'
+GenericName[cs_CZ]=
+GenericName=
+Icon=void-logo
+MimeType=
+Name[cs_CZ]=Run-New-Void-TUI-KDE
+Name=Run-New-Void-TUI-KDE
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
