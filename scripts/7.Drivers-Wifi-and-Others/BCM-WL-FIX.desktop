@@ -1,0 +1,20 @@
+[Desktop Entry]
+Comment[en_US]=
+Comment=
+Comment[cs_CZ]=
+Exec=pkexec bash -c 'modprobe -r wl && sleep 3 && modprobe wl'
+GenericName[en_US]=Fix BCM-WL driver
+GenericName=Fix BCM-WL driver
+GenericName[cs_CZ]=Fix BCM-WL driver
+Icon=network-manager
+MimeType=
+Name[en_US]=BCM-WL-FIX
+Name=BCM-WL-FIX
+Name[cs_CZ]=BCM-WL-FIX
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
