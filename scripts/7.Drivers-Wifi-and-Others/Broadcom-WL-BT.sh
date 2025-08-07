@@ -8,6 +8,6 @@ sleep 5
 sudo modprobe wl
 
 echo"Enableed broadcom drivers once"
-echo"After reboot run BCM-fix-wl.sh"
+echo"After reboot run BCM-WL-FIX.desktop"
 
 
