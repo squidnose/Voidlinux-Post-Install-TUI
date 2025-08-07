@@ -37,6 +37,7 @@
 - [ ] Add a Build and compile for Zenpower Monitoring.
 - [ ] Explor: Avahi, Elogind, Fan constroll,
 - [ ] Explor hblock add blocking
+- [ ] DVD burning ETC
 
 
 
