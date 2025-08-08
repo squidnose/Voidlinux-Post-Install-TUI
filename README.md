@@ -18,6 +18,11 @@ cd Voidlinux-Post-Install-TUI
 chmod +x Void-post-install-script.sh
 ./Void-post-install-script.sh
 ```
+## If you want a desktop icon
+If you want a desktop icon, copy over theese files based on what DE you have:
+- Run-New-Void-TUI.desktop (for most desktop enviroments)
+- Run-New-Void-TUI-XFCE.sh (For XFCE and is hard-coded to use xfce4-terminal but you can change it based on what terminal you use by editing the file)
+
 ## Instructions
 - Use arrow keys to move up and down in the menu
 ![Alt text](https://squidnose.cz/lib/exe/fetch.php?media=0:void-tui.png)
