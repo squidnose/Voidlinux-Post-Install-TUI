@@ -1,6 +1,7 @@
 #/bin/bash
 echo "Install KDE plasma and KDE apps?"
-#read -p "Press Enter to install, CTRL+c to cancel"
+echo "!!!THIS WILL REBOOT YOUR COMPUTER!!!"
+read -p "Press Enter to continue, CTRL+c to cancel"
 echo "Installing KDE Plasma, Network manager(Ready for eduroam):"
 sudo xbps-install -Syu kde-plasma kde-baseapps xorg wayland plasma-integration sddm dbus NetworkManager python3-dbus
 
@@ -15,10 +16,21 @@ sudo xbps-install -Syu kdegraphics-thumbnailers ffmpegthumbs
 
 echo "Enabling services:"
 sudo ln -s /etc/sv/dbus/ /var/service
-sudo ln -s /etc/sv/sddm/ /var/service
 sudo ln -s /etc/sv/NetworkManager/ /var/service
 
-echo "Chek if services dbus, sddm and Network Manager are enabled:"
-ls -1 /var/service
-echo "You may need to restart"
+dms=("lightdm" "gdm" "lxdm" "slim" "xdm" "ly")
+
+for dm in "${dms[@]}"; do
+    if [ -L "/var/service/$dm" ]; then
+        echo "Disabling $dm..."
+        sudo rm "/var/service/$dm"
+    fi
+done
+
+# Enable and start SDDM
+if [ ! -L /var/service/sddm ]; then
+    echo "Enabling SDDM..."
+    sudo ln -s /etc/sv/sddm /var/service/
+fi
+sudo reboot
 
