@@ -5,8 +5,7 @@
 - Id reccomend using ventoy for the install. But also add Refind ISO to the Ventoy disk! Some MB dont recognize the Voidlinux UEFI on first boot. Grab the CR-R image file: https://www.rodsbooks.com/refind/getting.html
 - If you are using the XFCE variant, id highly suggest to partiton your disks in Gnome Disks. A nice GUI for disk managment:
 ```
-sudo xbps-install -Syu
-sudo xbps-install -u xbps
+sudo xbps-install -Syu xbps
 sudo xbps-install -Sy gnome-disk-utility 
 ```
 You can also boot into a live version of Linux mint and to the partitioning there
