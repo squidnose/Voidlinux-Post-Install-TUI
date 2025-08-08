@@ -3,7 +3,7 @@ echo "Install KDE plasma and KDE apps?"
 echo "!!!THIS WILL REBOOT YOUR COMPUTER!!!"
 read -p "Press Enter to continue, CTRL+c to cancel"
 echo "Installing KDE Plasma, Network manager(Ready for eduroam):"
-sudo xbps-install -Syu kde-plasma kde-baseapps xorg wayland plasma-integration sddm dbus NetworkManager python3-dbus
+sudo xbps-install -Syu kde-plasma kde-baseapps xorg wayland plasma-integration sddm dbus NetworkManager python3-dbus plasma-browser-integration
 
 echo "Installing KDE integrations: Google-drive, Browser Inegration, Firewall Information gathering(Local):"
 sudo xbps-install -Syu kio-gdrive plasma-integration ufw plasma-firewall clinfo qt6-wayland-tools aha
