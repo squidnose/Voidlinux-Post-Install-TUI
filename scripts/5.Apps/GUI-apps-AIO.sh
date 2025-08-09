@@ -55,33 +55,33 @@ flatpak install flathub com.geeks3d.furmarkeasytag
 
 #HW/SW tweeking, Programing
 echo "System Monitoring and Config Utils: system monitor, grub customizer, system log, MissionCenter, Fan Controll"
-sudo xbps-install -y gnome-system-monitor ksystemlog grub-customizer
-flatpak install --noninteractive flathub io.missioncenter.MissionCenter io.github.wiiznokes.fan-control
+sudo xbps-install gnome-system-monitor ksystemlog grub-customizer
+flatpak install flathub io.missioncenter.MissionCenter io.github.wiiznokes.fan-control
 
 echo "Disk Utilities: Disks, gparted, filelight and baobab(disk usage), sweeper(file cleanup), gsmartcontroll(disk health)"
-sudo xbps-install -y gnome-disk-utility gparted baobab filelight sweeper gsmartcontrol smartmontools nvme-cli
+sudo xbps-install gnome-disk-utility gparted baobab filelight sweeper gsmartcontrol smartmontools nvme-cli
 
 echo "HW utils: CPU-x, Hardinfo, Corectl + LACT(msi afterburner like), Inspector, GPU viewer"
-sudo xbps-install -y CPU-X hardinfo corectrl LACT
-flatpak install --noninteractive flathub io.github.nokse22.inspector io.github.arunsivaramanneo.GPUViewer
+sudo xbps-install CPU-X hardinfo corectrl LACT
+flatpak install flathub io.github.nokse22.inspector io.github.arunsivaramanneo.GPUViewer
 
 echo "Serial Comms: Chirp (Amature radios), Arduino IDE (1.8 and 2.X), Piper (Gaming Mouse Conf)"
-sudo xbps-install -y chirp arduino piper libratbag
-flatpak install --noninteractive flathub cc.arduino.IDE2
+sudo xbps-install chirp arduino piper libratbag
+flatpak install flathub cc.arduino.IDE2
 sudo usermod -aG dialout $USER
 
 echo "Programing: Logisim Evolution, Codeblocks, Visual Studio Code"
-sudo xbps-install -y logisim-evolution codeblocks
-flatpak install --noninteractive flathub com.visualstudio.code
+sudo xbps-install logisim-evolution codeblocks
+flatpak install flathub com.visualstudio.code
 
 echo "Console apps: ifuse, oneko, cmatrix, 7zip+unrar, btop, glxinfo, clamav"
-sudo xbps-install -y ifuse oneko 7zip 7zip-unrar cmatrix btop glxinfo clamav lspci lsusb
+sudo xbps-install ifuse oneko 7zip 7zip-unrar cmatrix btop glxinfo clamav lspci lsusb
 
 echo "Flatpak Apps + appimage Pool"
-flatpak install --noninteractive flathub io.github.flattool.Warehouse
-flatpak install --noninteractive flathub com.github.tchx84.Flatseal
-flatpak install --noninteractive flathub io.github.prateekmedia.appimagepool
+flatpak install flathub io.github.flattool.Warehouse
+flatpak install flathub com.github.tchx84.Flatseal
+flatpak install flathub io.github.prateekmedia.appimagepool
 
 echo "Power Management"
-sudo xbps-install -y tlp cpupower power-profiles-daemon
+sudo xbps-install tlp cpupower power-profiles-daemon
 
