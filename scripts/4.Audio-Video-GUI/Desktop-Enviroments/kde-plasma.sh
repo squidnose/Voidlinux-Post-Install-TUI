@@ -11,4 +11,5 @@ sudo xbps-install -Syu spectacle ark 7zip-unrar kolourpaint krename kwalletmanag
 echo "installing file previews. To configure it, go to Configure Dolphin -> General -> Previews." 
 sudo xbps-install -Syu kdegraphics-thumbnailers ffmpegthumbs
 
-
+echo "installing Themes for: Cursor, Icons" 
+sudo xbps-install -Syu breeze-cursors breeze
