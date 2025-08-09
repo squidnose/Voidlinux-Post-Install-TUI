@@ -52,9 +52,5 @@ if [ ! -L "/var/service/$CHOICEDM" ]; then
     echo "Enabling $CHOICEDM..."
     sudo ln -s "/etc/sv/$CHOICEDM" /var/service/
 fi
-
-# Confirm reboot
-if whiptail --title "Reboot Required" --yesno "A reboot is required to apply the new display manager. Reboot now?" 10 60; then
     sudo reboot
-fi
 exit 0
