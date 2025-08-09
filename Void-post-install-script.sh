@@ -1,4 +1,9 @@
 #!/bin/bash
+#==================================== Cheking Dependecies ====================================
+# Ensure whiptail exists
+if ! command -v whiptail >/dev/null 2>&1; then
+    sudo xbps-install -Syu newt
+fi
 
 #==================================== Define parameters ====================================
 

@@ -1,7 +1,7 @@
 #/bin/bash
 echo "Install Pipewire"
 echo "YOU WILL HAVE TO CONFIGURE PIPEWIRE TO AUTOSTART IN YOUR DESKTOP ENVIROMENT"
-sudo xbps-install alsa-pipewire alsa-ucm-conf pipewire sof-firmware
+sudo xbps-install -Syu alsa-pipewire alsa-ucm-conf pipewire sof-firmware
 sudo mkdir -p /etc/pipewire/pipewire.conf.d
 sudo ln -sf /usr/share/examples/wireplumber/10-wireplumber.conf /etc/pipewire/pipewire.conf.d/
 sudo ln -sf /usr/share/examples/pipewire/20-pipewire-pulse.conf /etc/pipewire/pipewire.conf.d/

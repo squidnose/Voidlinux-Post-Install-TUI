@@ -1,7 +1,4 @@
 #/bin/bash
-echo "Aktualizovat a Přidat Repozitáře: 32 bit, Non-free, Non-free-32 bit, Flathub?"
-#read -p "Zmáčkni enter k instalaci, CTRL+c k zrušení"
-
 echo "Synchronize and Update:"
 sudo xbps-install -Syu
 echo "Adding Repos"

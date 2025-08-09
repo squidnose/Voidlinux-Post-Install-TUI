@@ -1,8 +1,9 @@
+#!/usr/bin/env xdg-open
 [Desktop Entry]
 Comment[en_US]=
 Comment=
 Comment[cs_CZ]=
-Exec=bash -c 'echo "Enter Password:" &&\nsudo xbps-install -Syu xbps &&\nsudo xbps-install -Syu git dialog newt &&\nrm -rf Voidlinux-Post-Install-TUI &&\ngit clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git &&\ncd Voidlinux-Post-Install-TUI &&\nchmod +x Void-post-install-script.sh &&\n./Void-post-install-script.sh\n'
+Exec=bash -c 'echo "Enter Password:" &&\nsudo xbps-install -Syu xbps &&\nsudo xbps-install -Syu git &&\nrm -rf Voidlinux-Post-Install-TUI &&\ngit clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git &&\ncd Voidlinux-Post-Install-TUI &&\nchmod +x Void-post-install-script.sh &&\n./Void-post-install-script.sh\n'
 GenericName[en_US]=
 GenericName=
 GenericName[cs_CZ]=

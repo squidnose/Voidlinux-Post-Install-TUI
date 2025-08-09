@@ -1,0 +1,7 @@
+#/bin/bash
+echo "basic comandline stuff"
+sudo xbps-install -Syu git wget curl nano
+
+
+
+
