@@ -2,35 +2,35 @@
 
 #AV, Files, Office, Wifi
 echo "Basic Internet and AV utils: firefox, octoxbps, mpv, vlc, kolourpaint, tuxpaint, shotcut, spectalce, , Parabolic(yt-dlp)"
-sudo xbps-install -y octoxbps firefox gwenview mpv vlc kolourpaint tuxpaint shotcut spectacle
-flatpak install --noninteractive flathub org.nickvision.tubeconverter
+sudo xbps-install octoxbps firefox gwenview mpv vlc kolourpaint tuxpaint shotcut spectacle
+flatpak install flathub org.nickvision.tubeconverter
 
 echo "Remote acces: RustDesk, Remminia"
-sudo xbps-install -y remmina remmina-kwallet
-flatpak install --noninteractive flathub com.rustdesk.RustDesk
+sudo xbps-install remmina remmina-kwallet
+flatpak install flathub com.rustdesk.RustDesk
 
 echo "AV editing: Gimp, Krita, Kdenlive, Audacity, handbrake, easytag, brasero "
-flatpak install --noninteractive flathub org.gimp.GIMP org.audacityteam.Audacity
-sudo xbps-install -y krita kdenlive handbrake easytag brasero
+flatpak install flathub org.gimp.GIMP org.audacityteam.Audacity
+sudo xbps-install krita kdenlive handbrake easytag brasero
 
 echo "KDE apps: Kwalet GUI, Kde connect, Firewall, ark(archive manager), krename (like doubble comander)"
-sudo xbps-install -y kwalletmanager kdeconnect plasma-firewall ufw ark krename
+sudo xbps-install kwalletmanager kdeconnect plasma-firewall ufw ark krename
 
 echo "Wifi utils: Linssid, wifi hotspot"
-sudo xbps-install -y linux-wifi-hotspot linssid
+sudo xbps-install linux-wifi-hotspot linssid
 
 echo "Office and Files: Libreoffice, Onlyoffice, Kcalc, korganizer, xournalpp, Flash Cards,"
-sudo xbps-install -y libreoffice kcalc korganizer xournalpp
-flatpak install --noninteractive flathub org.onlyoffice.desktopeditors  io.github.david_swift.Flashcards
+sudo xbps-install libreoffice kcalc korganizer xournalpp
+flatpak install flathub org.onlyoffice.desktopeditors  io.github.david_swift.Flashcards
 
 echo "files: Pika Backup, localsend, transmission(Torrent), Switchero"
-sudo xbps-install -y transmission-qt
-flatpak install --noninteractive flathub org.gnome.World.PikaBackup org.localsend.localsend_app io.gitlab.adhami3310.Converter
+sudo xbps-install transmission-qt
+flatpak install flathub org.gnome.World.PikaBackup org.localsend.localsend_app io.gitlab.adhami3310.Converter
 
 echo "OBS with virtual camera + Gpu Screen Recorder"
-flatpak install --noninteractive flathub com.dec05eba.gpu_screen_recorder com.obsproject.Studio
+flatpak install flathub com.dec05eba.gpu_screen_recorder com.obsproject.Studio
 #virtual camera
-sudo xbps-install -y v4l2loopback
+sudo xbps-install v4l2loopback
 
 
 
@@ -38,18 +38,18 @@ sudo xbps-install -y v4l2loopback
 
 #Emulation, Translation and Gaming
 echo "Wine - Windows Aplication Translation Layer + Dosbox + 86BOX:"
-sudo xbps-install -y wine wine-32bit wine-gecko wine-mono winetricks winegui dosbox
-flatpak install --noninteractive flathub net._86box._86Box
+sudo xbps-install wine wine-32bit wine-gecko wine-mono winetricks winegui dosbox
+flatpak install flathub net._86box._86Box
 
-echo "Games: Mangohud+config, Minecraft/PrismLaucher, Luanti, steam"
-sudo xbps-install -y PrismLauncher openjdk8-jre openjdk17-jre openjdk21-jre luanti MangoHud MangoHud-32bit steam
-mkdir ~/.config/MangoHud/
-cp MangoHud.conf ~/.config/MangoHud/
+echo "Games: Mangohud, Minecraft/PrismLaucher, Luanti, steam"
+sudo xbps-install PrismLauncher openjdk8-jre openjdk17-jre openjdk21-jre luanti MangoHud MangoHud-32bit steam
+#mkdir ~/.config/MangoHud/
+#cp MangoHud.conf ~/.config/MangoHud/
 
 
 echo "Benchmakring: Geekbench, Furmark"
-flatpak install --noninteractive flathub com.geekbench.Geekbench6
-flatpak install --noninteractive flathub com.geeks3d.furmarkeasytag
+flatpak install flathub com.geekbench.Geekbench6
+flatpak install flathub com.geeks3d.furmarkeasytag
 
 
 
