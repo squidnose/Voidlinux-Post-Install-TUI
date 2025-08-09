@@ -3,7 +3,7 @@ A ncurses TUI for my voidlinux scripts (Including scripts).
 
 I you want [Installation Instructions](install.md) open the install.md
 
-## What to do after install
+## Instalation Wizard (1.Post-Install-Setup-Wizzard.sh)
 After a install of voidlinux using voidlinux-installer do this:
 ```
 sudo xbps-install -Syu
@@ -15,10 +15,10 @@ sudo reboot
 sudo xbps-install -S git dialog newt
 git clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
 cd Voidlinux-Post-Install-TUI
-chmod +x Void-post-install-script.sh
-./Void-post-install-script.sh
+chmod +x 1.Post-Install-Setup-Wizzard.sh
+./1.Post-Install-Setup-Wizzard.sh
 ```
-## If you want a desktop icon
+## Script Coletion (Void-post-install-script.sh)
 If you want a desktop icon, copy over theese files based on what DE you have:
 - Run-New-Void-TUI.desktop (for most desktop enviroments)
 - Run-New-Void-TUI-XFCE.sh (For XFCE and is hard-coded to use xfce4-terminal but you can change it based on what terminal you use by editing the file)
