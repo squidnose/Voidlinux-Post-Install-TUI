@@ -4,6 +4,8 @@
 - [ ] Remove AIO apps and replace with script that will download based on selected apps in a config file.
 - [ ] Have a Option to preinstall apps for: Office work, Internet, Games, SW managment.(in progress)
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
+- [ ] Setup Wizzard is awesome! But needs: Pulseaudio, Alsa, Cpy destkop files
+- [ ] Add info files to each directory.
 ## Fixes
 - [ ] Numlock automaticly start sddm
 - [ ] Bash colourization
@@ -21,16 +23,16 @@
 - [ ] For musl: steam-udev-rules
 - [ ] Add a message: add permissions to steam flatpak
 - [ ] add ntfs-3g exfat-utils
-- [ ] Fix nvidia prime/optimus
-- [ ] Fix brodcom support(needs permissions, Open linssid before connection to wifi)
-- [ ] Add kernel optimizations (Remove Specter V1 V2 ect ) https://gist.github.com/themagicalmammal/e443d3c5440d566f8206e5b957ab1493 
+- [X] Fix nvidia prime/optimus
+- [X] Fix brodcom support(has a script you must run avery time you reboot)
+- [X] Add kernel optimizations (Remove Specter V1 V2 ect ) https://gist.github.com/themagicalmammal/e443d3c5440d566f8206e5b957ab1493 
 
 ## Add features
 - [ ] Usbmuxd service
-- [ ] Bluetooth service
+- [X] Bluetooth service
 - [ ] Add Uninstall scripts for everything(nah, just for anoing things)
 - [ ] CZ and EN version separate or better handle Languages.
-- [ ] Add more desktops: xfce, mate, cinnamon, gnome
+- [X] Add more desktops: xfce, mate, cinnamon, gnome
 - [ ] Add Window Managers: Wayfire, Niri, I3, Sway, IceWM, JWM... With usable default configs!
 - [ ] Have a MUSL and Glibc varinat
 - [ ] Add a Build and compile for Terracan Vulkan driver for AMD/ATI Terrascale 2 and 3 GPUS. https://gitlab.freedesktop.org/Triang3l/mesa Add dxvk 1.10.3 as last veriosn to support vulkan 1.0
