@@ -20,8 +20,6 @@ elif echo "$CPU" | grep -qi intel; then
     REC_CPU="Intel detected - If your CPU is 10gen and older disableing Intel-Specter-Meltdown will improove perfomance at the cost of security"
 fi
 
-
-
 #GPU Recommendations
 if echo "$GPU" | grep -qi nvidia; then
     REC_GPU="NVIDIA detected - proprietary driver recommended."
