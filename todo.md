@@ -27,6 +27,8 @@
 - [X] Fix brodcom support(has a script you must run avery time you reboot)
 - [X] Add kernel optimizations (Remove Specter V1 V2 ect ) https://gist.github.com/themagicalmammal/e443d3c5440d566f8206e5b957ab1493
 - [ ] Gnome is missing cursor icon...
+- [ ] XFCE uninstall doesnt work
+- [ ] Add the nvidia fix to the gpu autoselector script
 
 ## Add features
 - [ ] Usbmuxd service
