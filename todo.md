@@ -29,6 +29,7 @@
 - [ ] Gnome is missing cursor icon...
 - [ ] XFCE uninstall doesnt work
 - [ ] Add the nvidia fix to the gpu autoselector script
+- [ ] Gnome-Disks not there????
 
 ## Add features
 - [ ] Usbmuxd service
