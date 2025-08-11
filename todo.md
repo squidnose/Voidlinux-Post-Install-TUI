@@ -1,7 +1,7 @@
 # To Do List For Project
 ## in Progress
-- [ ] Add 0.info.md to each directory with usefull information
-- [ ] Remove AIO apps and replace with script that will download based on selected apps in a config file.
+- [X] Add 0.info.md to each directory with usefull information
+- [x] Remove AIO apps and replace with script that will download based on selected apps in a config file.
 - [ ] Have a Option to preinstall apps for: Office work, Internet, Games, SW managment.(in progress)
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
 - [ ] Setup Wizzard is awesome! But needs: Pulseaudio, Alsa, Cpy destkop files
