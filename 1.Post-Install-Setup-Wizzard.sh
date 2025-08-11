@@ -1,6 +1,9 @@
 #!/bin/bash
 # Post-Install-Setup-Wizard.sh
-
+clear
+echo "=========================================="
+echo "  Debug Output, plese chek for any erors: "
+echo "=========================================="
 #Direcotry setup
 set -e
 
@@ -36,15 +39,19 @@ if whiptail --title "$TITLE" --yesno "Update and sync System XBPS now?" 10 60; t
     sudo xbps-install -Syu
     echo "Updated system XBPS"
     pause "System updated."
+else
+    echo "Did not run system Update, this may cause issues!!!"
 fi
 
 # 3. Enable services
 if whiptail --title "$TITLE" --yesno "Enable: NetworkManager, dbus, and elogind?\nThis will reboot the system\nRun if you did not select them duiring install or are not sure, re-run the script afterwoods skipping this part" 10 60; then
     bash "$BASE_DIR/1.Basic-Setup/services-networkmanager-dbus-elogind.sh"
+    echo "Ran services-networkmanager-dbus-elogind.sh"
     sudo reboot
+else
+    echo "Did not enable or disable NetworkManager, dbus or elogind. Check if they are turned on/listed here:"
+    ls /var/service
 fi
-echo "Did not enable or disable NetworkManager, dbus or elogind. Check if they are turned on/listed here:"
-ls /var/service
 # 4.0 Install recommended utilities
 if whiptail --title "$TITLE" --yesno "Install recommended utilities:\n git, wget, curl, nano?" 10 60; then
     bash "$BASE_DIR/1.Basic-Setup/utils-recommended.sh"
@@ -71,6 +78,8 @@ if whiptail --title "$TITLE" --yesno "Enable More Repositories?\nnonfree, multil
     bash "$BASE_DIR/1.Basic-Setup/repos.sh"
     echo "Installed nonfree, multilib-nonfree and flathub repositories"
     pause "Repos installed."
+else
+    echo "Did not enable repositories, this will greatly decreese functionality."
 fi
 
 # 6. Install kernel headers (DKMS)
@@ -102,14 +111,14 @@ KERNELOPTI=$(whiptail --title "$TITLE" --menu "Install Kernel Optimizations?" 15
     3>&1 1>&2 2>&3)
 case $KERNELOPTI in
     1) echo "No Kernel Optimizations Applied" ;;
-    2) bash "$BASE_DIR/4.Kernel-Parameter-Optimizations/AMD-optimizations.sh" ;;
-    3) bash "$BASE_DIR/4.Kernel-Parameter-Optimizations/Intel-Specter-Meltdown.sh" ;;
+    2) bash "$BASE_DIR/0.Tools/4.Kernel-Parameter-Optimizations/1.Presets/AMD-Ryzen-optimizations.sh" && echo "ran AMD-Ryzen-optimizations.sh" ;;
+    3) bash "$BASE_DIR/0.Tools/4.Kernel-Parameter-Optimizations/1.Presets/Intel-Specter-Meltdown.sh" && echo "ran Intel-Specter-Meltdown.sh" ;;
 esac
 
 # 8. GPU driver choice
 if whiptail --title "$TITLE" --yesno "Install GPU drivers and GPU related packages?" 10 60; then
     bash "$BASE_DIR/2.GPU-drivers/GPU-Auto-driver-selector.sh"
-    pause "Driver Installer Ran."
+    echo "Driver Installer Ran."
 fi
 
 # 9. Wi-Fi drivers
@@ -123,17 +132,18 @@ DRIVER=$(whiptail --title "$TITLE" --menu "Install DKMS Wi-Fi Drivers\nYou may n
     3>&1 1>&2 2>&3)
 case $DRIVER in
     1) echo "No DKMS wifi driver installed" ;;
-    2) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/Broadcom-WL-BT.sh" ;;
-    3) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8822bu-dkms.sh" ;;
-    4) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8821cu-dkms.sh" ;;
-    5) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8821au-dkms.sh" ;;
-    6) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8812au-dkms.sh" ;;
+    2) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/Broadcom-WL-BT.sh" && echo "Ran Broadcom-WL-BT.sh" ;;
+    3) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8822bu-dkms.sh" && echo "Ran rtl8822bu-dkms.sh" ;;
+    4) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8821cu-dkms.sh" && echo "Ran rtl8821cu-dkms.sh" ;;
+    5) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8821au-dkms.sh" && echo "Ran rtl8821au-dkms.sh" ;;
+    6) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8812au-dkms.sh" && echo "Ran rtl8812au-dkms.sh" ;;
 esac
 
 #9.1 eduroam
 if whiptail --title "$TITLE" --yesno "Install dependencie for Eduroam WiFi?\npython3-dbus" 10 60; then
     sudo xbps-install -Syu python3-dbus
     pause "python3-dbus is now installed."
+    echo "Installed python3-dbus"
 fi
 
 #9.2 Bluetooth service
@@ -148,9 +158,9 @@ PM=$(whiptail --title "$TITLE" --menu "Choose power management" 15 60 3 \
     "3" "None" \
     3>&1 1>&2 2>&3)
 case $PM in
-    1) bash "$BASE_DIR/6.Power-Managment/Power-Porfiles-Daemon.sh" ;;
-    2) bash "$BASE_DIR/6.Power-Managment/TLP.sh" ;;
-    3) echo "Done";;
+    1) bash "$BASE_DIR/6.Power-Managment/Power-Porfiles-Daemon.sh" && echo "Ran Power-Porfiles-Daemon.sh" ;;
+    2) bash "$BASE_DIR/6.Power-Managment/TLP.sh" && echo "Ran TLP.sh" ;;
+    3) echo "No Power managment Feature configured" ;;
 esac
 
 # 11. Desktop environment choice
@@ -167,30 +177,30 @@ DE=$(whiptail --title "$TITLE" --menu "Install/change Desktop Environment" 20 60
     "9" "Budgie" \
     3>&1 1>&2 2>&3)
 case $DE in
-    0) echo "Done" ;;
-    1) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/xfce4-and-plugins.sh" ;;
-    2) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/kde-plasma.sh" ;;
-    3) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/gnome.sh" ;;
-    4) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/cinnamon.sh" ;;
-    5) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/mate.sh" ;;
-    6) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/lxqt.sh" ;;
-    7) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/lxde.sh" ;;
-    8) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/enlightenment.sh" ;;
-    9) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/budgie.sh" ;;
+    0) echo "No change with the desktop enviroment" ;;
+    1) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/xfce4-and-plugins.sh" && echo "Ran xfce4-and-plugins.sh" ;;
+    2) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/kde-plasma.sh" && echo "Ran kde-plasma.sh" ;;
+    3) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/gnome.sh" && echo "Ran gnome.sh" ;;
+    4) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/cinnamon.sh" && echo "Ran cinnamon.sh" ;;
+    5) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/mate.sh" && echo "Ran mate.sh" ;;
+    6) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/lxqt.sh" && echo "Ran lxqt.sh" ;;
+    7) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/lxde.sh" && echo "Ran lxde.sh" ;;
+    8) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/enlightenment.sh" && echo "Ran enlightenment.sh" ;;
+    9) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/budgie.sh" && echo "Ran budgie.sh" ;;
 esac
 
 #11.1 Audio Setup
 AUDIO=$(whiptail --title "$TITLE" --menu "Install a Audio Server" 15 60 4 \
     "1" "Alsa+Pipewire+SOF firmware (recommended)" \
-    "2" "ALSA" \
-    "3" "Pulse Audio" \
+    "2" "ALSA not ready" \
+    "3" "Pulse Audio not ready" \
     "4" "None" \
     3>&1 1>&2 2>&3)
 case $AUDIO in
-    1) bash "$BASE_DIR/4.Audio-Video-GUI/Audio/pipewire-alsa.sh" && bash "$BASE_DIR/4.Audio-Video-GUI/Audio/pipewire-autostart.sh" ;;
+    1) bash "$BASE_DIR/4.Audio-Video-GUI/Audio/pipewire-alsa.sh" && bash "$BASE_DIR/4.Audio-Video-GUI/Audio/pipewire-autostart.sh" && echo "Ran pipewire-alsa.sh and pipewire-autostart.sh" ;;
     2) pause "TBD" ;;
     3) pause "TBD" ;;
-    4) echo "Done" ;;
+    4) echo "No audio server changes" ;;
 
 esac
 
@@ -198,17 +208,20 @@ esac
 if whiptail --title "$TITLE" --yesno "Do you want to install GUI front ends for XBPS and flathub?\nInstall octoxbps and discover?" 10 60; then
     sudo xbps-install -Syu octoxbps discover
     pause "octoxbps and discover are now installed."
+    echo "octoxbps and discover are now installed."
 fi
 
 #11.3
 if whiptail --title "$TITLE" --yesno "Do You want to install a Web Browser of your choosing?" 10 60; then
     bash "$BASE_DIR/5.Apps/01.Internet/Browser-Selection.sh"
     pause "A web browser of your choosing is now installed."
+    echo "A web browser of your choosing is now installed."
 fi
 
 if whiptail --title "$TITLE" --yesno "Do You wish to run a App selection Script?\n You can choose between recommended and manually selected apps" 10 60; then
     bash "$BASE_DIR/5.Apps/GUI-apps-AIO.sh"
     pause "Apps based on your selection are installed"
+    echo "A web browser of your choosing is now installed."
 fi
 
 # 12. Desktop shortcut
@@ -224,3 +237,6 @@ if whiptail --title "$TITLE" --yesno "Reboot to apply some changes?" 10 60; then
     sudo reboot
 fi
 
+echo "=========================================="
+echo "Thank you for using My Voidlinux wizzard! "
+echo "=========================================="
