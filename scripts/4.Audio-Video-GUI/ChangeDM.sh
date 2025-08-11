@@ -17,8 +17,8 @@ DRIVER=$(whiptail --title "$TITLE" --menu "LAST QUESTION: Change or Add a Displa
     "3" "LightDM (For XFCE, Cinnamon, MATE, Enlightenment, Budgie)" \
     "4" "GDM (For GNOME)" \
     "5" "LXDM (For LXDE)" \
-    "6" "Slim (Is Simple)" \
-    "7" "XDM (Is Old and Basic)" \
+    "6" "Slim (Is Simple and Doesnt work with modern Desktops)" \
+    "7" "XDM (Is Old and i have no idea how it works)" \
     3>&1 1>&2 2>&3)
 
 # Default choice

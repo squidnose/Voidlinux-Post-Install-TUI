@@ -3,7 +3,7 @@
 # Script to optimize older Intel CPUs
 
 # Define the kernel parameters to be added
-KERNEL_PARAMS="nowatchdog page_alloc.shuffle=1"
+KERNEL_PARAMS="amd_pstate.shared_mem=1 amd_pstate=active"
 
 # Check if the parameters are already set
 if grep -q "GRUB_CMDLINE_LINUX_DEFAULT=.*$KERNEL_PARAMS" /etc/default/grub; then

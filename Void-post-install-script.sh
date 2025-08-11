@@ -171,7 +171,9 @@ display_dynamic_menu() {
 #==================================== Main Script Logic ====================================
 
 clear # Clear the screen before the first menu appears.
-
+echo "=========================================="
+echo " Debug Output, please chek for any errors:"
+echo "=========================================="
 # 1. Check initial directory permissions (dependency check now in install_deps.sh)
 check_base_dir_permissions
 
