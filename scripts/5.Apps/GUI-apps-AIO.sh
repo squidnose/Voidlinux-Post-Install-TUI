@@ -1,87 +1,88 @@
-#/bin/bash
+#!/bin/bash
+TITLE="App Selector"
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
-#AV, Files, Office, Wifi
-echo "Basic Internet and AV utils: firefox, octoxbps, mpv, vlc, kolourpaint, tuxpaint, shotcut, spectalce, , Parabolic(yt-dlp)"
-sudo xbps-install octoxbps firefox gwenview mpv vlc kolourpaint tuxpaint shotcut spectacle
-flatpak install flathub org.nickvision.tubeconverter
+# Tell the user how to use the controls
+whiptail --title "$TITLE" --msgbox "Welcome to the App Selector!\n\nControls:\n- SPACE = Select/Deselect an item\n- TAB = Switch buttons\n- ENTER = Confirm selection\n\nPress OK to continue." 25 60
 
-echo "Remote acces: RustDesk, Remminia"
-sudo xbps-install remmina remmina-kwallet
-flatpak install flathub com.rustdesk.RustDesk
+# Array to store selected scripts
+declare -a SELECTED_SCRIPTS=()
 
-echo "AV editing: Gimp, Krita, Kdenlive, Audacity, handbrake, easytag, brasero "
-flatpak install flathub org.gimp.GIMP org.audacityteam.Audacity
-sudo xbps-install krita kdenlive handbrake easytag brasero
+# Function to browse a category
+browse_category() {
+    local category="$1"
+    local files=("$SCRIPT_DIR/$category"/*.sh)
+    local checklist_items=()
 
-echo "KDE apps: Kwalet GUI, Kde connect, Firewall, ark(archive manager), krename (like doubble comander)"
-sudo xbps-install kwalletmanager kdeconnect plasma-firewall ufw ark krename
+    # Build whiptail checklist entries
+    for f in "${files[@]}"; do
+        local fname="$(basename "$f")"
+        checklist_items+=("$fname" "" OFF)
+    done
 
-echo "Wifi utils: Linssid, wifi hotspot"
-sudo xbps-install linux-wifi-hotspot linssid
+    # If no scripts found
+    if [ ${#checklist_items[@]} -eq 0 ]; then
+        whiptail --title "$TITLE" --msgbox "No scripts found in $category." 10 40
+        return
+    fi
 
-echo "Office and Files: Libreoffice, Onlyoffice, Kcalc, korganizer, xournalpp, Flash Cards,"
-sudo xbps-install libreoffice kcalc korganizer xournalpp
-flatpak install flathub org.onlyoffice.desktopeditors  io.github.david_swift.Flashcards
+    # Show checklist
+    local selected
+    selected=$(whiptail --title "Category: $category" \
+        --checklist "Select apps to install from $category" 25 78 15 \
+        "${checklist_items[@]}" \
+        3>&1 1>&2 2>&3)
 
-echo "files: Pika Backup, localsend, transmission(Torrent), Switchero"
-sudo xbps-install transmission-qt
-flatpak install flathub org.gnome.World.PikaBackup org.localsend.localsend_app io.gitlab.adhami3310.Converter
+    # Add selected scripts to global array
+    for choice in $selected; do
+        choice="${choice//\"/}" # Remove quotes
+        SELECTED_SCRIPTS+=("$SCRIPT_DIR/$category/$choice")
+    done
+}
 
-echo "OBS with virtual camera + Gpu Screen Recorder"
-flatpak install flathub com.dec05eba.gpu_screen_recorder com.obsproject.Studio
-#virtual camera
-sudo xbps-install v4l2loopback
+# Main menu loop
+while true; do
+    # Build category list from folders
+    mapfile -t categories < <(find "$SCRIPT_DIR" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | sort)
 
+    # Add "Done" option
+    menu_items=()
+    for cat in "${categories[@]}"; do
+        menu_items+=("$cat" "")
+    done
+    menu_items+=("DONE" "Run selected scripts")
 
+    # Show menu
+    choice=$(whiptail --title "$TITLE" --menu "Select a category to browse, or DONE to run scripts." 25 78 17 \
+        "${menu_items[@]}" \
+        3>&1 1>&2 2>&3)
 
+    # Handle choice
+    if [ "$choice" = "DONE" ]; then
+        break
+    elif [ -n "$choice" ]; then
+        browse_category "$choice"
+    else
+        # Cancel pressed
+        exit 1
+    fi
+done
 
+# Final confirmation
+if [ ${#SELECTED_SCRIPTS[@]} -eq 0 ]; then
+    whiptail --title "$TITLE" --msgbox "No scripts selected. Exiting." 10 40
+    exit 0
+fi
 
-#Emulation, Translation and Gaming
-echo "Wine - Windows Aplication Translation Layer + Dosbox + 86BOX:"
-sudo xbps-install wine wine-32bit wine-gecko wine-mono winetricks winegui dosbox
-flatpak install flathub net._86box._86Box
+whiptail --title "$TITLE" --yesno "You selected ${#SELECTED_SCRIPTS[@]} scripts.\nRun them now?" 10 60
+if [ $? -ne 0 ]; then
+    exit 0
+fi
 
-echo "Games: Mangohud, Minecraft/PrismLaucher, Luanti, steam"
-sudo xbps-install PrismLauncher openjdk8-jre openjdk17-jre openjdk21-jre luanti MangoHud MangoHud-32bit steam
-#mkdir ~/.config/MangoHud/
-#cp MangoHud.conf ~/.config/MangoHud/
+# Run selected scripts
+for script in "${SELECTED_SCRIPTS[@]}"; do
+    chmod +x "$script"
+    bash "$script"
+done
 
-
-echo "Benchmakring: Geekbench, Furmark"
-flatpak install flathub com.geekbench.Geekbench6
-flatpak install flathub com.geeks3d.furmarkeasytag
-
-
-
-#HW/SW tweeking, Programing
-echo "System Monitoring and Config Utils: system monitor, grub customizer, system log, MissionCenter, Fan Controll"
-sudo xbps-install gnome-system-monitor ksystemlog grub-customizer
-flatpak install flathub io.missioncenter.MissionCenter io.github.wiiznokes.fan-control
-
-echo "Disk Utilities: Disks, gparted, filelight and baobab(disk usage), sweeper(file cleanup), gsmartcontroll(disk health)"
-sudo xbps-install gnome-disk-utility gparted baobab filelight sweeper gsmartcontrol smartmontools nvme-cli
-
-echo "HW utils: CPU-x, Hardinfo, Corectl + LACT(msi afterburner like), Inspector, GPU viewer"
-sudo xbps-install CPU-X hardinfo corectrl LACT
-flatpak install flathub io.github.nokse22.inspector io.github.arunsivaramanneo.GPUViewer
-
-echo "Serial Comms: Chirp (Amature radios), Arduino IDE (1.8 and 2.X), Piper (Gaming Mouse Conf)"
-sudo xbps-install chirp arduino piper libratbag
-flatpak install flathub cc.arduino.IDE2
-sudo usermod -aG dialout $USER
-
-echo "Programing: Logisim Evolution, Codeblocks, Visual Studio Code"
-sudo xbps-install logisim-evolution codeblocks
-flatpak install flathub com.visualstudio.code
-
-echo "Console apps: ifuse, oneko, cmatrix, 7zip+unrar, btop, glxinfo, clamav"
-sudo xbps-install ifuse oneko 7zip 7zip-unrar cmatrix btop glxinfo clamav lspci lsusb
-
-echo "Flatpak Apps + appimage Pool"
-flatpak install flathub io.github.flattool.Warehouse
-flatpak install flathub com.github.tchx84.Flatseal
-flatpak install flathub io.github.prateekmedia.appimagepool
-
-echo "Power Management"
-sudo xbps-install tlp cpupower power-profiles-daemon
-
+whiptail --title "$TITLE" --msgbox "All selected scripts have been executed." 10 40

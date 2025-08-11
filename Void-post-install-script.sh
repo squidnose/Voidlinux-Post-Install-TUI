@@ -64,7 +64,11 @@ run_script() {
     fi
 
 # --- Script Execution ---
+    echo "=========================================="
+    echo "Running $script_path"
     "$script_path"
+    echo "Ran $script_path"
+    echo "=========================================="
     read -p "Done, press enter to continue"
     return 0
 }
@@ -156,7 +160,7 @@ display_dynamic_menu() {
             elif [ -f "$chosen_path" ]; then
                 # The user selected a file to read. We will now use 'less' to display it.
                 # This provides a full-screen, scrollable view.
-                clear
+
                 less "$chosen_path"
                 # The script will continue after 'less' is closed by the user (by pressing 'q').
             else
