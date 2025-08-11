@@ -142,6 +142,7 @@ display_dynamic_menu() {
         echo "=========================================="
         echo "  Thank you for using My Voidlinux-Post-Install-TUI!   "
         echo "=========================================="
+        read -p "Press Enter To continue"
         exit 0
         elif [[ "$choice" == "..-back" ]]; then
             # The user chose to go back. We update the current path to the parent directory.
@@ -186,5 +187,6 @@ find scripts/ -type f -name "*.sh" -exec chmod +x {} \;
 
 # 3. Start the dynamic menu navigation from the root 'scripts' directory
 display_dynamic_menu "Main Menu" "$SCRIPT_DIR"
+
 
 
