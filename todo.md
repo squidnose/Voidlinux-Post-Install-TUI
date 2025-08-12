@@ -4,7 +4,7 @@
 - [x] Remove AIO apps and replace with script that will download based on selected apps in a config file.
 - [ ] Have a Option to preinstall apps for: Office work, Internet, Games, SW managment.(in progress)
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
-- [ ] Setup Wizzard is awesome! But needs: Pulseaudio, Alsa, Cpy destkop files
+- [ ] Setup Wizzard is awesome! But needs: Pulseaudio, Alsa
 - [ ] Add info files to each directory.
 ## Fixes
 - [ ] Numlock automaticly start sddm
