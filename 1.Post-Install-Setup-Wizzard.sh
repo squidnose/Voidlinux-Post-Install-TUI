@@ -226,7 +226,8 @@ fi
 
 # 12. Desktop shortcut
 if whiptail --title "$TITLE" --yesno "Do you wish to add a desktop shortcut for a Non streamlined verison of this script?" 10 60; then
-    pause "TBD"
+    cp $(dirname "$(realpath "$0")")/Run-New-Void-TUI-XFCE.sh ~/Desktop
+    cp $(dirname "$(realpath "$0")")/Run-New-Void-TUI.desktop ~/Desktop
 fi
 
 # 13. Display manager
