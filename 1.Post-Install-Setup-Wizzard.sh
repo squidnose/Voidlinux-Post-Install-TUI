@@ -73,6 +73,20 @@ if whiptail --title "$TITLE" --yesno "Install Fun utilities: cmatrix, oneko, cow
     pause "Fun utilities installed."
 fi
 
+# 4.2 Install Fun utilities
+if whiptail --title "$TITLE" --yesno "Install Fun utilities: cmatrix, oneko, cowsay, espeak, fortune-mod-void?" 10 60; then
+    bash "$BASE_DIR/1.Basic-Setup/utils-fun.sh"
+    echo "Installed Fun utilities"
+    pause "Fun utilities installed."
+fi
+
+# 4.3 Install Disk utilities
+if whiptail --title "$TITLE" --yesno "Install Disk utilities: ntfs-3g exfat gsmartcontroll" 10 60; then
+    bash "$BASE_DIR/1.Basic-Setup/utils-disks.sh"
+    echo "Installed Fun utilities"
+    pause "Fun utilities installed."
+fi
+
 # 5. Add repositories
 if whiptail --title "$TITLE" --yesno "Enable More Repositories?\nnonfree, multilib-nonfree and flathub\nImportant for Steam, Discord, Nvidia or Broadcom Users!" 10 60; then
     bash "$BASE_DIR/1.Basic-Setup/repos.sh"
