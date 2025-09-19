@@ -2,8 +2,11 @@
 echo "For Intel cards Gen 5 and above (Intel HD 2000+)"
 echo "May have issues with Intel Gen 1-4 (GMA and similar). Solution is mesa-amber (Archlinux) or Debian Linux."
 
+echo "Installing 2D Xorg accelaration packages"
+sudo xbps-install -Sy xf86-video-intel
+
 echo "Installing 3D accelaration packages"
-sudo xbps-install -Syu mesa-dri mesa-opencl gamemode mesa-vulkan-intel xf86-video-intel vulkan-loader Vulkan-Headers Vulkan-Tools ocl-icd 
+sudo xbps-install -Syu mesa-dri mesa-opencl gamemode mesa-vulkan-intel vulkan-loader Vulkan-Headers Vulkan-Tools ocl-icd
 echo "Installing Video accelaration packages"
 sudo xbps-install -Syu mesa-vaapi mesa-vdpau intel-video-accel libspa-vulkan libva
 

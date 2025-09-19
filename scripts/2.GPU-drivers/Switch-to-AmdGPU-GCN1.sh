@@ -3,7 +3,8 @@
 # Script to enable AMDGPU driver for older GCN1 cards
 
 echo "This script will enable AMDGPU for older GCN1 cards."
-echo "This will disable VGA output from DVI-I adapters.(Is being worked on)"
+echo "This will disable VGA output from DVI-I adapters.(A fix is being worked on)"
+read -p "Press CTRL+c to cancel, Enter to continue"
 
 # Back up the current GRUB config
 echo "Backing up current GRUB configuration..."
