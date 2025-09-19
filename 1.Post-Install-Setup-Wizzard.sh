@@ -17,7 +17,7 @@ pause() {
     whiptail --title "$TITLE" --msgbox "$1" 15 60
 }
 # 0.1 Welcome
-pause "Hello $USER. Do you wish to continue in this wizard?\nClose to cancel, anything to continue."
+pause "Hello $USER.\nDo you wish to continue in this wizard?\nClose to cancel, anything to continue."
 
 # 0.2 HW info detection
 if whiptail --title "$TITLE" --yesno "Do you wish to find out Basic system specs and recomendations?" 10 60; then
@@ -43,15 +43,20 @@ else
     echo "Did not run system Update, this may cause issues!!!"
 fi
 
-# 3. Enable services
-if whiptail --title "$TITLE" --yesno "Enable: NetworkManager, dbus, and elogind?\nThis will reboot the system\nRun if you did not select them duiring install or are not sure, re-run the script afterwoods skipping this part" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/services-networkmanager-dbus-elogind.sh"
-    echo "Ran services-networkmanager-dbus-elogind.sh"
-    sudo reboot
+# 3. Enable services (runs only if not already enabled)
+if [ ! -e /var/service/dbus ] || [ ! -e /var/service/NetworkManager ]; then
+    if whiptail --title "$TITLE" --yesno "Enable: NetworkManager and dbus\nThis will reboot the system\nRun if you did not select them during install or are not sure, re-run the script afterwards skipping this part" 10 60; then
+        bash "$BASE_DIR/1.Basic-Setup/services-networkmanager-dbus.sh"
+        echo "Ran services-networkmanager-dbus.sh"
+        sudo reboot
+    else
+        echo "Skipped enabling NetworkManager/dbus. Current active services:"
+        ls /var/service
+    fi
 else
-    echo "Did not enable or disable NetworkManager, dbus or elogind. Check if they are turned on/listed here:"
-    ls /var/service
+    echo "NetworkManager and dbus are already enabled. Skipping service setup."
 fi
+
 # 4.0 Install recommended utilities
 if whiptail --title "$TITLE" --yesno "Install recommended utilities:\n git, wget, curl, nano?" 10 60; then
     bash "$BASE_DIR/1.Basic-Setup/utils-recommended.sh"
@@ -64,13 +69,6 @@ if whiptail --title "$TITLE" --yesno "Install Informational utilities:\n ncdu, f
     bash "$BASE_DIR/1.Basic-Setup/utils-informational.sh"
     echo "Installed informational utilities"
     pause "Informational utilities installed."
-fi
-
-# 4.2 Install Fun utilities
-if whiptail --title "$TITLE" --yesno "Install Fun utilities: cmatrix, oneko, cowsay, espeak, fortune-mod-void?" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/utils-fun.sh"
-    echo "Installed Fun utilities"
-    pause "Fun utilities installed."
 fi
 
 # 4.2 Install Fun utilities
@@ -118,16 +116,10 @@ case $KERNEL in
 esac
 
 # 7.5 kernel Optimization
-KERNELOPTI=$(whiptail --title "$TITLE" --menu "Install Kernel Optimizations?" 15 60 6 \
-    "1" "None" \
-    "2" "AMD optimizations" \
-    "3" "Intel Disable Specter and Meltdown (Lose security)" \
-    3>&1 1>&2 2>&3)
-case $KERNELOPTI in
-    1) echo "No Kernel Optimizations Applied" ;;
-    2) bash "$BASE_DIR/0.Tools/4.Kernel-Parameter-Optimizations/1.Presets/AMD-Ryzen-optimizations.sh" && echo "ran AMD-Ryzen-optimizations.sh" ;;
-    3) bash "$BASE_DIR/0.Tools/4.Kernel-Parameter-Optimizations/1.Presets/Intel-Specter-Meltdown.sh" && echo "ran Intel-Specter-Meltdown.sh" ;;
-esac
+if whiptail --title "$TITLE" --yesno "Set Custom Kernel parameters?" 15 60; then
+    bash "$BASE_DIR/0.Tools/4.Kernel-Parameter-Optimizations/kernel-parameter-TUI-config.sh"
+    echo "Ran Kernel parameter selector"
+fi
 
 # 8. GPU driver choice
 if whiptail --title "$TITLE" --yesno "Install GPU drivers and GPU related packages?" 10 60; then

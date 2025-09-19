@@ -1,16 +1,8 @@
 #!/bin/bash
+# Whiptail-based Web Browser Installation Script
+# License: MIT
 
-echo "=================================================="
-echo "          Web Browser Installation Script         "
-echo "=================================================="
-echo ""
-
-echo "This script allows you to install a web browser."
-echo "Please choose the browser you wish to install:"
-echo ""
-
-# Define browsers and their installation commands
-# Using indexed arrays for consistent order
+TITLE="Web Browser Installer"
 BROWSERS=(
     "Firefox"
     "Vivaldi"
@@ -27,108 +19,71 @@ BROWSERS=(
     "Tor Browser (Flatpak)"
 )
 
-# Using an associative array for commands, mapping display name to command string
 declare -A INSTALL_COMMANDS=(
-    ["Firefox"]="sudo xbps-install -y firefox"
-    ["Vivaldi"]="sudo xbps-install -y vivaldi"
-    ["Chromium"]="sudo xbps-install -y chromium chromium-widevine"
-    ["Lynx (Text-based)"]="sudo xbps-install -y lynx"
-    ["Google Chrome (Flatpak)"]="flatpak install -y flathub com.google.Chrome"
-    ["Brave Browser (Flatpak)"]="flatpak install -y flathub com.brave.Browser"
-    ["LibreWolf (Flatpak)"]="flatpak install -y flathub io.gitlab.librewolf-community"
-    ["Falkon (Flatpak)"]="flatpak install -y flathub org.kde.falkon"
-    ["Microsoft Edge (Flatpak)"]="flatpak install -y flathub com.microsoft.Edge"
-    ["Mullvad Browser (Flatpak)"]="flatpak install -y flathub net.mullvad.MullvadBrowser"
-    ["Waterfox (Flatpak)"]="flatpak install -y flathub net.waterfox.waterfox"
-    ["Zen Browser (Flatpak)"]="flatpak install -y flathub app.zen_browser.zen"
-    ["Tor Browser (Flatpak)"]="flatpak install -y flathub org.torproject.torbrowser-launcher"
+    ["Firefox"]="sudo xbps-install -Sy firefox"
+    ["Vivaldi"]="sudo xbps-install -Sy vivaldi"
+    ["Chromium"]="sudo xbps-install -Sy chromium chromium-widevine"
+    ["Lynx (Text-based)"]="sudo xbps-install -Sy lynx"
+    ["Google Chrome (Flatpak)"]="flatpak install -Sy flathub com.google.Chrome"
+    ["Brave Browser (Flatpak)"]="flatpak install -Sy flathub com.brave.Browser"
+    ["LibreWolf (Flatpak)"]="flatpak install -Sy flathub io.gitlab.librewolf-community"
+    ["Falkon (Flatpak)"]="flatpak install -Sy flathub org.kde.falkon"
+    ["Microsoft Edge (Flatpak)"]="flatpak install -Sy flathub com.microsoft.Edge"
+    ["Mullvad Browser (Flatpak)"]="flatpak install -Sy flathub net.mullvad.MullvadBrowser"
+    ["Waterfox (Flatpak)"]="flatpak install -Sy flathub net.waterfox.waterfox"
+    ["Zen Browser (Flatpak)"]="flatpak install -Sy flathub app.zen_browser.zen"
+    ["Tor Browser (Flatpak)"]="flatpak install -Sy flathub org.torproject.torbrowser-launcher"
 )
 
-# Display the menu in numerical order
-for i in "${!BROWSERS[@]}"; do
-    printf "  %2d) %s\n" "$((i+1))" "${BROWSERS[$i]}"
-done
-printf "  %2d) %s\n" "$(( ${#BROWSERS[@]} + 1 ))" "Exit (go back to main menu)"
-echo ""
-
-# Loop until a valid choice is made or user exits
-selected_browser_name=""
-while true; do
-    read -rp "Enter the number of your choice: " choice_num
-
-    # Check for exit option
-    if [[ "$choice_num" -eq "$(( ${#BROWSERS[@]} + 1 ))" ]]; then
-        echo "Browser installation cancelled."
-        exit 0 # Exit the script
-    fi
-
-    # Validate choice number and retrieve browser name
-    if (( choice_num > 0 && choice_num <= ${#BROWSERS[@]} )); then
-        selected_browser_name="${BROWSERS[$((choice_num-1))]}" # Adjust for 0-indexed array
-        break
-    else
-        echo "Invalid choice. Please enter a valid number from the list or the Exit option."
-    fi
+# --- Build whiptail radiolist items ---
+MENU_ITEMS=()
+for browser in "${BROWSERS[@]}"; do
+    MENU_ITEMS+=("$browser" "" OFF)
 done
 
-echo "" # Blank line for readability
+CHOICE=$(whiptail --title "$TITLE" \
+    --radiolist "Select a web browser to install (Tab to move, Space to select, Enter to confirm):" \
+    22 78 12 \
+    "${MENU_ITEMS[@]}" \
+    3>&1 1>&2 2>&3)
 
-# --- Execute Installation Based on Choice ---
-install_command="${INSTALL_COMMANDS[$selected_browser_name]}"
+# Cancel pressed?
+if [ $? -ne 0 ]; then
+    whiptail --msgbox "Browser installation cancelled." 8 50
+    exit 0
+fi
 
-echo "You chose to install: $selected_browser_name"
-echo "Executing command: $install_command"
-echo ""
+install_command="${INSTALL_COMMANDS[$CHOICE]}"
 
-# Check if it's a Flatpak installation
+# --- Validate dependencies before running ---
 if [[ "$install_command" == flatpak* ]]; then
     if ! command -v flatpak &>/dev/null; then
-        echo "Error: 'flatpak' command not found."
-        echo "Please install Flatpak first (e.g., 'sudo xbps-install flatpak') and then try again."
-        echo ""
+        whiptail --msgbox "Error: Flatpak is not installed.\nRun: sudo xbps-install flatpak" 10 60
         exit 1
     fi
-    # Check if flathub remote is added before attempting Flatpak install
-    if ! flatpak remotes | grep -q flathub &>/dev/null; then
-        echo "It seems the 'flathub' remote might not be added."
-        echo "You might need to add it: sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-        echo "Then try installing this browser again."
-        echo ""
+    if ! flatpak remotes | grep -q flathub; then
+        whiptail --msgbox "Flathub remote is missing.\nRun:\n  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo" 12 70
         exit 1
     fi
 elif [[ "$install_command" == sudo\ xbps-install* ]]; then
     if ! command -v xbps-install &>/dev/null; then
-        echo "Error: 'xbps-install' command not found. This should not happen on Void Linux."
-        echo "Please verify your system's package manager setup."
-        echo ""
+        whiptail --msgbox "Error: xbps-install not found (unexpected on Void Linux)." 10 60
         exit 1
     fi
 fi
 
-# Execute the installation command
-eval "$install_command" # Use eval to execute the string as a command
+# --- Run install ---
+whiptail --msgbox "Installing: $CHOICE\n\nCommand:\n$install_command" 12 70
+eval "$install_command"
 
 if [ $? -eq 0 ]; then
-    echo ""
-    echo "$selected_browser_name installation complete!"
-
-    # Specific note for Firefox
-    if [ "$selected_browser_name" == "Firefox" ]; then
-        echo ""
-        echo "Note for Firefox: You may want to install a language pack."
-        echo "For that, you can use OctoXBPS or run: sudo xbps-install -S firefox-i18n-<your_language_code>"
-        echo "Example for Czech sudo xbps-install -S firefox-i18n-cs"
+    msg="$CHOICE installation complete!"
+    if [ "$CHOICE" == "Firefox" ]; then
+        msg="$msg\n\nNote: For Firefox language packs:\n  sudo xbps-install -S firefox-i18n-<lang>\nExample: firefox-i18n-cs"
     fi
+    whiptail --msgbox "$msg" 15 70
 else
-    echo ""
-    echo "Error: $selected_browser_name installation failed."
-    echo "Please check the output above for details (e.g., internet connection, repository issues)."
+    whiptail --msgbox "❌ Error: $CHOICE installation failed.\nCheck your internet connection and repos." 12 70
 fi
-
-echo "" # Blank line for readability
-echo "Browser installation script finished."
-
-# Pause for user to see final messages before returning to main TUI
-
 
 exit 0

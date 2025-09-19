@@ -40,6 +40,20 @@ install_nvidia() {
         read -p "Install FOSS Nouveau drivers? Enter to install, CTRL+c to cancel"
         "$SCRIPT_DIR/nvidia-Nouveau-drivers.sh"
     fi
+if whiptail --title "$TITLE" --yesno "Set DRM modeset for Better Wayland support?" 10 60; then
+    bash "$BASE_DIR/Nvidia-FIX-DRM-modeset.sh"
+    echo "Ran Nvidia-FIX-DRM-modeset.sh"
+fi
+
+if whiptail --title "$TITLE" --yesno "Set Nvidia GPU for primary display?(Reccomended for hybrid laptop graphics)" 10 60; then
+    bash "$BASE_DIR/Nvidia-FIX-Only-Hybrid-Setup.sh"
+    echo "Ran Nvidia-FIX-Only-Hybrid-Setup.sh"
+fi
+
+if whiptail --title "$TITLE" --yesno "Fix Sleep mode with Nvidia (May reboot system)" 10 60; then
+    bash "$BASE_DIR/Nvidia-FIX-Suspend.sh"
+    echo "Nvidia-FIX-Suspend.sh"
+
 }
 
 install_amd() {

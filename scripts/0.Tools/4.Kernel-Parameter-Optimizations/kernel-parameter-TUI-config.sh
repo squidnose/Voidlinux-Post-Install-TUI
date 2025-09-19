@@ -4,7 +4,12 @@
 
 GRUB_FILE="/etc/default/grub"
 BACKUP_FILE="/etc/default/grub.backup"
-PARAM_LIST_FILE="./kernel_params.conf"  # One parameter per line
+
+# Directory where this script lives
+SCRIPT_DIR="$(cd "$(dirname "$(realpath "${BASH_SOURCE[0]}")")" && pwd)"
+
+# One parameter per line, sitting next to this script
+PARAM_LIST_FILE="$SCRIPT_DIR/kernel_params.conf"
 
 # Check parameter list file
 if [[ ! -f "$PARAM_LIST_FILE" ]]; then

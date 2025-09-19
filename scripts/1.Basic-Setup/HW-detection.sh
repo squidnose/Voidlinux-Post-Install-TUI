@@ -15,14 +15,14 @@ REC_WIFI="No special Netowrk card driver needed."
 
 #CPU Recommendations
 if echo "$CPU" | grep -qi amd; then
-    REC_CPU="AMD detected - AMD kernel optimizations Reccomended"
+    REC_CPU="AMD detected - Default Linux kernel will be fine."
 elif echo "$CPU" | grep -qi intel; then
-    REC_CPU="Intel detected - If your CPU is 10gen and older disableing Intel-Specter-Meltdown will improove perfomance at the cost of security"
+    REC_CPU="Intel detected - If your CPU is 8.gen, enabeling mitigations=off will improove performance at the cost of less security."
 fi
 
 #GPU Recommendations
 if echo "$GPU" | grep -qi nvidia; then
-    REC_GPU="NVIDIA detected - proprietary driver recommended."
+    REC_GPU="NVIDIA detected - proprietary driver recommended.(GTX400+)"
 elif echo "$GPU" | grep -qi amd; then
     REC_GPU="AMD detected - Mesa drivers work well."
 elif echo "$GPU" | grep -qi intel; then

@@ -9,10 +9,10 @@ echo "Adding 'nvidia-drm.modeset=1' to GRUB_CMDLINE_LINUX..."
 GRUB_FILE="/etc/default/grub"
 
 if grep -q "nvidia-drm.modeset=1" "$GRUB_FILE"; then
-    echo "✅ Kernel parameter already present."
+    echo "Kernel parameter already present."
 else
     sudo sed -i 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="nvidia-drm.modeset=1 /' "$GRUB_FILE"
-    echo "✅ Parameter added. Regenerating GRUB config..."
+    echo "Parameter added. Regenerating GRUB config..."
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
