@@ -123,8 +123,8 @@ fi
 
 # 8. GPU driver choice
 if whiptail --title "$TITLE" --yesno "Install GPU drivers and GPU related packages?" 10 60; then
-    bash "$BASE_DIR/2.GPU-drivers/GPU-Auto-driver-selector.sh"
-    echo "Driver Installer Ran."
+    bash "$BASE_DIR/2.GPU-drivers/1.GPU-Auto-driver-selector.sh"
+    echo "ran 1.GPU-Auto-driver-selector.sh."
 fi
 
 # 9. Wi-Fi drivers
