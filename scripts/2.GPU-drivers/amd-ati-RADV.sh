@@ -19,4 +19,4 @@ echo "Installing Radeontop, usefull for finding info about GPU. Similar to nvidi
 sudo xbps-install -Sy radeontop
 
 echo "To use AMDGPU driver on older GCN 1 and 2, run this script:"
-echo "Switch-to-AmdGPU-GCN1.sh"
+echo "amd-Switch-to-AmdGPU-GCN1.sh"
