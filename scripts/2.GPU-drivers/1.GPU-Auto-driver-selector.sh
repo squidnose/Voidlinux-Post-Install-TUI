@@ -53,7 +53,7 @@ fi
 if whiptail --title "$TITLE" --yesno "Fix Sleep mode with Nvidia (May reboot system)" 10 60; then
     bash "$BASE_DIR/Nvidia-FIX-Suspend.sh"
     echo "Nvidia-FIX-Suspend.sh"
-
+fi
 }
 
 install_amd() {
