@@ -7,7 +7,7 @@ BROWSERS=(
     "Firefox"
     "Vivaldi"
     "Chromium"
-    "Falkon (Flatpak)"
+    "Falkon"
     "Lynx (Text-based)"
     "Google Chrome (Flatpak)"
     "Brave Browser (Flatpak)"
