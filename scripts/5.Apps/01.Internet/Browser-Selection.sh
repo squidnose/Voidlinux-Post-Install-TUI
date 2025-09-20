@@ -7,11 +7,11 @@ BROWSERS=(
     "Firefox"
     "Vivaldi"
     "Chromium"
+    "Falkon (Flatpak)"
     "Lynx (Text-based)"
     "Google Chrome (Flatpak)"
     "Brave Browser (Flatpak)"
     "LibreWolf (Flatpak)"
-    "Falkon (Flatpak)"
     "Microsoft Edge (Flatpak)"
     "Mullvad Browser (Flatpak)"
     "Waterfox (Flatpak)"
@@ -23,16 +23,16 @@ declare -A INSTALL_COMMANDS=(
     ["Firefox"]="sudo xbps-install -Sy firefox"
     ["Vivaldi"]="sudo xbps-install -Sy vivaldi"
     ["Chromium"]="sudo xbps-install -Sy chromium chromium-widevine"
+    ["Falkon"]="sudo xbps-install -Sy falkon"
     ["Lynx (Text-based)"]="sudo xbps-install -Sy lynx"
-    ["Google Chrome (Flatpak)"]="flatpak install -Sy flathub com.google.Chrome"
-    ["Brave Browser (Flatpak)"]="flatpak install -Sy flathub com.brave.Browser"
-    ["LibreWolf (Flatpak)"]="flatpak install -Sy flathub io.gitlab.librewolf-community"
-    ["Falkon (Flatpak)"]="flatpak install -Sy flathub org.kde.falkon"
-    ["Microsoft Edge (Flatpak)"]="flatpak install -Sy flathub com.microsoft.Edge"
-    ["Mullvad Browser (Flatpak)"]="flatpak install -Sy flathub net.mullvad.MullvadBrowser"
-    ["Waterfox (Flatpak)"]="flatpak install -Sy flathub net.waterfox.waterfox"
-    ["Zen Browser (Flatpak)"]="flatpak install -Sy flathub app.zen_browser.zen"
-    ["Tor Browser (Flatpak)"]="flatpak install -Sy flathub org.torproject.torbrowser-launcher"
+    ["Google Chrome (Flatpak)"]="flatpak install -y flathub com.google.Chrome"
+    ["Brave Browser (Flatpak)"]="flatpak install -y flathub com.brave.Browser"
+    ["LibreWolf (Flatpak)"]="flatpak install -y flathub io.gitlab.librewolf-community"
+    ["Microsoft Edge (Flatpak)"]="flatpak install -y flathub com.microsoft.Edge"
+    ["Mullvad Browser (Flatpak)"]="flatpak install -y flathub net.mullvad.MullvadBrowser"
+    ["Waterfox (Flatpak)"]="flatpak install -y flathub net.waterfox.waterfox"
+    ["Zen Browser (Flatpak)"]="flatpak install -y flathub app.zen_browser.zen"
+    ["Tor Browser (Flatpak)"]="flatpak install -y flathub org.torproject.torbrowser-launcher"
 )
 
 # --- Build whiptail radiolist items ---
@@ -79,7 +79,10 @@ eval "$install_command"
 if [ $? -eq 0 ]; then
     msg="$CHOICE installation complete!"
     if [ "$CHOICE" == "Firefox" ]; then
-        msg="$msg\n\nNote: For Firefox language packs:\n  sudo xbps-install -S firefox-i18n-<lang>\nExample: firefox-i18n-cs"
+        if whiptail --title "Firefox Language Pack" --yesno "Install All Firefox Language packs?\nThis will take up more space\nYou can skip this and install firefox-i18n packs manually\neg: sudo xbps-install -Sy firefox-i18n-cs" 10 60; 
+        then 
+            sudo xbps-install -Sy firefox-i18n
+        fi
     fi
     whiptail --msgbox "$msg" 15 70
 else
