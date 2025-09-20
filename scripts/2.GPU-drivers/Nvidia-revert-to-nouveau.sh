@@ -4,4 +4,4 @@ read -p "Press Enter to install, CTRL+c to cancel"
 sudo xbps-remove -y nvidia340 nvidia340-libs-32bit nvidia340-opencl
 sudo xbps-remove -y nvidia390 nvidia390-libs-32bit nvidia390-opencl
 sudo xbps-remove -y nvidia470 nvidia470-libs-32bit nvidia470-opencl
-sudo xbps-remove -y nvidia nvidia-libs-32bit nvidia-opencl nvidia-docker
+sudo xbps-remove -y nvidia nvidia-dkms nvidia-libs nvidia-libs-32bit nvidia-gtklibs nvidia-opencl nvidia-docker nvidia-container-toolkit
