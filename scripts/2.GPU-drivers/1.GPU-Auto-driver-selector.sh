@@ -11,25 +11,27 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 #info about gpu model
 gpu_info=$(lspci -nn | grep -Ei "vga|3d")
 echo "Detected GPU: $gpu_info"
+NVIDIA_FIX_DIR="$SCRIPT_DIR/Nvidia-FIX"
+
 nvidia_fix() {
 
 if whiptail --title "$TITLE" --yesno "Set DRM modeset for Better Wayland support?" 10 60; then
-    bash "$SCRIPT_DIR/Nvidia-FIX-DRM-modeset.sh"
+    bash "$NVIDIA_FIX_DIR/Nvidia-FIX-DRM-modeset.sh"
     echo "Ran Nvidia-FIX-DRM-modeset.sh"
 fi
 
 if whiptail --title "$TITLE" --yesno "Set Nvidia GPU for primary display?(Reccomended for hybrid laptop graphics)" 10 60; then
-    bash "$SCRIPT_DIR/Nvidia-FIX/Nvidia-FIX-Only-Hybrid-Setup.sh"
+    bash "$NVIDIA_FIX_DIR/Nvidia-FIX/Nvidia-FIX-Only-Hybrid-Setup.sh"
     echo "Ran Nvidia-FIX-Only-Hybrid-Setup.sh"
 fi
 
 if whiptail --title "$TITLE" --yesno "Fix Sleep mode with Nvidia (May reboot system)" 10 60; then
-    bash "$SCRIPT_DIR/Nvidia-FIX/Nvidia-FIX-Suspend.sh"
+    bash "$NVIDIA_FIX_DIR/Nvidia-FIX/Nvidia-FIX-Suspend.sh"
     echo "Nvidia-FIX-Suspend.sh"
 fi
 
 if whiptail --title "$TITLE" --yesno "Fix Brighness Controll on Some laptops with Nvidia Only GPUS?" 10 60; then
-    bash "$SCRIPT_DIR/Nvidia-FIX/Nvidia-FIX-Brightness-Controll.sh"
+    bash "$NVIDIA_FIX_DIR/Nvidia-FIX/Nvidia-FIX-Brightness-Controll.sh"
     echo "Nvidia-FIX-Brightness-Controll-Nvidia.sh"
 fi
 
