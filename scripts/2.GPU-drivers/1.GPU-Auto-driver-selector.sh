@@ -29,7 +29,7 @@ if whiptail --title "$TITLE" --yesno "Fix Sleep mode with Nvidia (May reboot sys
 fi
 
 if whiptail --title "$TITLE" --yesno "Fix Brighness Controll on Some laptops with Nvidia Only GPUS?" 10 60; then
-    bash "$BASE_DIR/Nvidia-FIX/Nvidia-FIX-Brightness-Controll-Nvidia.sh"
+    bash "$BASE_DIR/Nvidia-FIX/Nvidia-FIX-Brightness-Controll.sh"
     echo "Nvidia-FIX-Brightness-Controll-Nvidia.sh"
 fi
 
