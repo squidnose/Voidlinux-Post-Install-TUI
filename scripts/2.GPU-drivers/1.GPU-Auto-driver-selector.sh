@@ -11,49 +11,66 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 #info about gpu model
 gpu_info=$(lspci -nn | grep -Ei "vga|3d")
 echo "Detected GPU: $gpu_info"
+nvidia_fix() {
 
-install_nvidia() {
-# Detect Nvidia Generation
-    if echo "$gpu_info" | grep -q " GF1\| GF2"; then
-        echo "Detected Generation: Fermi"
-        "$SCRIPT_DIR/nvidia390-Fermi.sh"
-    elif echo "$gpu_info" | grep -q " GK1\| GK2"; then
-        echo "Detected Generation: Kepler"
-        "$SCRIPT_DIR/nvidia470-Kepler.sh"
-    elif echo "$gpu_info" | grep -q " GM1\| GM2\| GP1\| GP2"; then
-        echo "Detected Generation: Maxwell Or Pascal"
-        "$SCRIPT_DIR/nvidia-New-Stable.sh"
-    elif echo "$gpu_info" | grep -q " TU1\| TU2"; then
-        echo "Detected Generation: Turing"
-        "$SCRIPT_DIR/nvidia-New-Stable.sh"
-    elif echo "$gpu_info" | grep -q " GA1\| GA2"; then
-        echo "Detected Generation: Ampere"
-        "$SCRIPT_DIR/nvidia-New-Stable.sh"
-    elif echo "$gpu_info" | grep -q " AD1\| AD2"; then
-        echo "Detected Generation: Ada Lovelace"
-        "$SCRIPT_DIR/nvidia-New-Stable.sh"
-    elif echo "$gpu_info" | grep -q " GB1\| GB2"; then
-        echo "Detected Generation: Blackwell"
-        "$SCRIPT_DIR/nvidia-New-Stable.sh"
-    else
-        echo "You are either using a older card, or the script failed to recognize your gpu"
-        read -p "Install FOSS Nouveau drivers? Enter to install, CTRL+c to cancel"
-        "$SCRIPT_DIR/nvidia-Nouveau-drivers.sh"
-    fi
 if whiptail --title "$TITLE" --yesno "Set DRM modeset for Better Wayland support?" 10 60; then
     bash "$BASE_DIR/Nvidia-FIX-DRM-modeset.sh"
     echo "Ran Nvidia-FIX-DRM-modeset.sh"
 fi
 
 if whiptail --title "$TITLE" --yesno "Set Nvidia GPU for primary display?(Reccomended for hybrid laptop graphics)" 10 60; then
-    bash "$BASE_DIR/Nvidia-FIX-Only-Hybrid-Setup.sh"
+    bash "$BASE_DIR/Nvidia-FIX/Nvidia-FIX-Only-Hybrid-Setup.sh"
     echo "Ran Nvidia-FIX-Only-Hybrid-Setup.sh"
 fi
 
 if whiptail --title "$TITLE" --yesno "Fix Sleep mode with Nvidia (May reboot system)" 10 60; then
-    bash "$BASE_DIR/Nvidia-FIX-Suspend.sh"
+    bash "$BASE_DIR/Nvidia-FIX/Nvidia-FIX-Suspend.sh"
     echo "Nvidia-FIX-Suspend.sh"
 fi
+
+if whiptail --title "$TITLE" --yesno "Fix Brighness Controll on Some laptops with Nvidia Only GPUS?" 10 60; then
+    bash "$BASE_DIR/Nvidia-FIX/Nvidia-FIX-Brightness-Controll-Nvidia.sh"
+    echo "Nvidia-FIX-Brightness-Controll-Nvidia.sh"
+fi
+
+}
+install_nvidia() {
+# Detect Nvidia Generation
+    if echo "$gpu_info" | grep -q " GF1\| GF2"; then
+        echo "Detected Generation: Fermi"
+        "$SCRIPT_DIR/nvidia390-Fermi.sh"
+        nvidia_fix
+    elif echo "$gpu_info" | grep -q " GK1\| GK2"; then
+        echo "Detected Generation: Kepler"
+        "$SCRIPT_DIR/nvidia470-Kepler.sh"
+        nvidia_fix
+    elif echo "$gpu_info" | grep -q " GM1\| GM2\| GP1\| GP2"; then
+        echo "Detected Generation: Maxwell Or Pascal"
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+        nvidia_fix
+    elif echo "$gpu_info" | grep -q " TU1\| TU2"; then
+        echo "Detected Generation: Turing"
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+        nvidia_fix
+    elif echo "$gpu_info" | grep -q " GA1\| GA2"; then
+        echo "Detected Generation: Ampere"
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+        nvidia_fix
+    elif echo "$gpu_info" | grep -q " AD1\| AD2"; then
+        echo "Detected Generation: Ada Lovelace"
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+        nvidia_fix
+    elif echo "$gpu_info" | grep -q " GB1\| GB2"; then
+        echo "Detected Generation: Blackwell"
+        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+        nvidia_fix
+    else
+        echo "You are either using a older card, or the script failed to recognize your gpu"
+        read -p "Install FOSS Nouveau drivers? Enter to install, CTRL+c to cancel"
+        "$SCRIPT_DIR/nvidia-Nouveau-drivers.sh"
+    fi
+
+
 }
 
 install_amd() {
