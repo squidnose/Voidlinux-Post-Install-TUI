@@ -15,10 +15,13 @@ URLS=$(curl -s https://api.github.com/repos/pythonlover02/Proton-Sarek/releases/
 
 # Convert URLs into whiptail menu items
 MENU_ITEMS=()
-i=1
 while IFS= read -r url; do
-    MENU_ITEMS+=("$i" "$url")
-    i=$((i+1))
+    filename=$(basename "$url")
+    if [[ "$filename" == *"async"* ]]; then
+        MENU_ITEMS+=("Async" "$filename")
+    else
+        MENU_ITEMS+=("Non-Async" "$filename")
+    fi
 done <<< "$URLS"
 
 # If no URLs were found
@@ -38,7 +41,11 @@ CHOICE=$(whiptail --title "Proton-Sarek Versions" \
   3>&1 1>&2 2>&3)
 
 # Get the selected URL
-URL=$(echo "$URLS" | sed -n "${CHOICE}p")
+if [[ "$CHOICE" == "Async" ]]; then
+    URL=$(echo "$URLS" | grep "async")
+else
+    URL=$(echo "$URLS" | grep -v "async")
+fi
 
 if [ -z "$URL" ]; then
     echo "❌ No version selected."
