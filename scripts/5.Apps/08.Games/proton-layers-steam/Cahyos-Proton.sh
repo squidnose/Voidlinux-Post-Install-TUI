@@ -43,7 +43,7 @@ done <<< "$URLS"
 
 # 3.5 If no URLs were found
 if [ ${#MENU_ITEMS[@]} -eq 0 ]; then
-    echo "❌ Could not find Proton-CachyOS download links."
+    echo "Could not find Proton-CachyOS download links."
     exit 1
 fi
 
@@ -63,7 +63,7 @@ CHOICE=$(whiptail --title "Proton-CachyOS Versions" \
 URL=$(echo "$URLS" | sed -n "${CHOICE}p")
 
 if [ -z "$URL" ]; then
-    echo "❌ No version selected."
+    echo "No version selected."
     exit 1
 fi
 
