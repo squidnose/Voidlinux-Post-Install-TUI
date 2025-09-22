@@ -45,6 +45,7 @@
 - [ ] Explor: Avahi, Elogind, Fan constroll,
 - [ ] Explor hblock add blocking
 - [ ] DVD burning ETC
+- [ ] Sabma service
 
 
 
