@@ -4,7 +4,29 @@ set -e
 echo "Installing latest Proton-Sarek release..."
 
 # Where Steam looks for custom Proton builds
-STEAM_DIR="$HOME/.steam/root/compatibilitytools.d"
+
+    CHOICE=$(whiptail --title "$TITLE" --menu "Choose Steam installation type:" 20 150 2 \
+        "1" "Native Steam (~/.steam/root/compatibilitytools.d)" \
+        "2" "Flatpak Steam (/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d)" \
+        3>&1 1>&2 2>&3) || exit 0
+
+    case $CHOICE in
+        1)
+            STEAM_DIR="$HOME/.steam/root/compatibilitytools.d"
+            echo "Installing to System version of steam"
+            ;;
+        2)
+            STEAM_DIR="$HOME/.var/app/com.valvesoftware.Steam/data/Steam/compatibilitytools.d"
+            echo "Installing to flatpak version of steam"
+            ;;
+        *)
+            echo "Invalid selection."
+            exit 1
+            ;;
+    esac
+    mkdir -p "$STEAM_DIR"
+
+
 mkdir -p "$STEAM_DIR"
 
 # Query GitHub API for latest release assets
@@ -30,7 +52,7 @@ fi
 # Show whiptail menu
 whiptail --title "Proton-Sarek Info" --msgbox "There are 2 synch options:\n
 Async   | Enables asynchronous pipeline compilation. This allows shaders to be compiled in the background.\n
-Non-Async | Standard build without async compilation.\n " 20 100
+Non-Async | Standard build without async compilation.\n " 20 150
 
 
 CHOICE=$(whiptail --title "Proton-Sarek Versions" \
