@@ -106,13 +106,11 @@ KERNEL=$(whiptail --title "$TITLE" --menu "Choose a kernel" 15 60 4 \
     "1" "Normal/Stable (Installed by Default)" \
     "2" "Latest/Mainline +DKMS (For Newer HW)" \
     "3" "LTS/Old +DKMS (For older Nvidia drivers 390 and 470)" \
-    "4" "Custom version" \
     3>&1 1>&2 2>&3)
 case $KERNEL in
     1) echo "Kept the Normal/Stable kernel" ;;
     2) bash "$BASE_DIR/1.Basic-Setup/new-kernel+dkms.sh" && echo "Installed the New mainline kernel +dkms" ;;
     3) bash "$BASE_DIR/1.Basic-Setup/old-kernel+dkms.sh" && echo "Installed the older LTS kernel +dkms. You may need to manually select it during boot." ;;
-    4) pause "TBD" ;;
 esac
 
 # 7.5 kernel Optimization
@@ -128,7 +126,7 @@ if whiptail --title "$TITLE" --yesno "Install GPU drivers and GPU related packag
 fi
 
 # 9. Wi-Fi drivers
-DRIVER=$(whiptail --title "$TITLE" --menu "Install DKMS Wi-Fi Drivers\nYou may need to use BCM-WL-FIX.desktop in section 7" 15 60 6 \
+DRIVER=$(whiptail --title "$TITLE" --menu "Install DKMS Wi-Fi Drivers\nYou may need to use BCM-WL-FIX.desktop from section 7" 15 60 6 \
     "1" "None" \
     "2" "Broadcom WiFi and Bluetooth-firmware" \
     "3" "Realtek rtl8822bu-dkms" \
