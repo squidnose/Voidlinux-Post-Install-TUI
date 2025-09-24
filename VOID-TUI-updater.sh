@@ -1,35 +1,44 @@
 #!/bin/bash
-#update xbps and check for dependencies has the added bonus of not asking user for password later
-echo "Enter Password:"
-sudo xbps-install -Syu xbps &&
-sudo xbps-install -Sy git dialog newt
 set -e
-# Where the repo lives locally
+
+# Update system and install dependencies
+echo "Enter Password:"
+sudo xbps-install -Syu xbps
+sudo xbps-install -Sy git dialog newt
+
+# Repo info
 APP_DIR="$HOME/Voidlinux-Post-Install-TUI"
 REPO_URL="https://github.com/squidnose/Voidlinux-Post-Install-TUI"
 
-# Try to update or clone
+# Function to check network
+network_available() {
+    ping -c 1 github.com &>/dev/null
+}
+
 if [ -d "$APP_DIR/.git" ]; then
-    echo "Found existing TUI install, attempting to update..."
-    if git -C "$APP_DIR" pull --ff-only; then
-        echo "Updated TUI."
+    echo "Found existing TUI install."
+    if network_available; then
+        echo "Network detected, attempting to update..."
+        cd
+        rm -rf $APP_DIR
+        git clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
     else
-        echo "Could not update (network issue or divergence)."
-        echo "Using offline version in $APP_DIR."
+        echo "No network detected, using offline version."
     fi
 else
-    echo "No local copy found, attempting initial clone..."
-    if git clone "$REPO_URL" "$APP_DIR"; then
-        echo "Cloned TUI."
+    echo "No local copy found."
+    if network_available; then
+        echo "Cloning TUI from GitHub..."
+        cd
+        rm -rf $APP_DIR
+        git clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
     else
-        echo "Could not clone (no network?)."
-        echo "Offline version not available."
+        echo "No network and no local copy available. Cannot proceed."
         exit 1
     fi
 fi
 
-# Now run the TUI from the local folder
-
-cd $APP_DIR
+# Run the TUI
+cd "$APP_DIR"
 chmod +x VOID-TUI.sh
 ./VOID-TUI.sh
