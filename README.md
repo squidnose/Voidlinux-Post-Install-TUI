@@ -39,8 +39,5 @@ This file will
   - Run a script
 - You will be prompted before running a scirpt to make sure you meant to run it.
 - You will need to press enter after running a script so that you will read the output incase there is a Error.
-- Run-New-Void-TUI-XFCE.sh and Run-New-Void-TUI-KDE.sh are desktop scripts that will donwload the latest version of my TUI and install it into /tmp(Deleted after reboot)
-  - You will need to Right click and add executable permissions!!! 
-  - If you want a offline version of my TUI, consider this: https://github.com/squidnose/VoidLinux-Script-Manager
  
-[[What Scripts To run?]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)
+## [[What Scripts To run?]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)
