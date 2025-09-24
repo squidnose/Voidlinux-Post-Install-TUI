@@ -27,7 +27,6 @@ This file will
 - download nessesery dependencies (and thus ask for password)
 - update the script you have downloaded from git.
 - if internet connection is not avaliable it will without updateing.
-- 
 **You may need to add executable permissions in the file properties. or remove the .download suffix(XFCE).**
   
 ## [[What Scripts To run?]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)
