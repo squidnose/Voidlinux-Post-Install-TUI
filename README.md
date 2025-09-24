@@ -29,8 +29,10 @@ This file will
 - if internet connection is not avaliable it will without updateing.
 - 
 **You may need to add executable permissions in the file properties. or remove the .download suffix(XFCE).**
+  
+## [[What Scripts To run?]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)
 
-## Instructions
+## Instructions (In case you dont know how to use a TUI)
 - Use arrow keys to move up and down in the menu
 ![Alt text](https://squidnose.cz/lib/exe/fetch.php?media=0:void-tui.png)
 - Press enter to either:
@@ -40,4 +42,4 @@ This file will
 - You will be prompted before running a scirpt to make sure you meant to run it.
 - You will need to press enter after running a script so that you will read the output incase there is a Error.
  
-## [[What Scripts To run?]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)
+
