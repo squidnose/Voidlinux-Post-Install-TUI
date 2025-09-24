@@ -31,6 +31,7 @@
 - [X] Add the nvidia fix to the gpu autoselector script
 - [ ] Gnome-Disks not there????
 - [X] Proton Layers only works with native package and not flatpak
+- [ ] colors are cool but need to be put into .config/Voidlinux-Post-Install-TUI
 
 ## Add features
 - [ ] Usbmuxd service
