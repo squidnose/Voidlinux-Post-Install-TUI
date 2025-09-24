@@ -229,10 +229,13 @@ if whiptail --title "$TITLE" --yesno "Do You wish to run a App selection Script?
 fi
 
 # 12. Desktop shortcut
-if whiptail --title "$TITLE" --yesno "Do you wish to add a desktop shortcut for a Non streamlined verison of this script?" 10 60; then
-    cp $(dirname "$(realpath "$0")")/VOID-TUI.desktop ~/Desktop
-fi
 
+
+if whiptail --title "$TITLE" --yesno "Do you wish to add a desktop shortcut for a Non streamlined version of this script?" 10 60; then
+    sudo xbps-install -Sy xdg-user-dirs
+    DESKTOP_DIR=$(xdg-user-dir DESKTOP)
+    cp "$(dirname "$(realpath "$0")")/VOID-TUI.desktop" "$DESKTOP_DIR/"
+fi
 # 13. Display manager
 bash "$BASE_DIR/4.Audio-Video-GUI/ChangeDM.sh"
 
