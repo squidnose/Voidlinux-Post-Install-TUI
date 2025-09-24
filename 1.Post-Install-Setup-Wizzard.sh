@@ -7,11 +7,26 @@ echo "=========================================="
 #Direcotry setup
 set -e
 
-BASE_DIR="$(dirname "$(realpath "$0")")/scripts"
+#==================================== Define parameters ====================================
+# Detect terminal size
+TERM_HEIGHT=$(tput lines)
+TERM_WIDTH=$(tput cols)
+# set TUI size based on terminal size
+HEIGHT=$(( TERM_HEIGHT * 3 / 4 ))
+WIDTH=$(( TERM_WIDTH * 4 / 5 ))
+MENU_HEIGHT=$(( HEIGHT - 10 ))
 
-# Basic variables
+# SCRIPT_DIR should point to the base directory containing your numbered script folders.
+SCRIPT_DIR="$(dirname "$(realpath "$0")")/scripts"
+
+#Colors added for feature parity
+export NEWT_COLORS_FILE="$SCRIPT_DIR/0.Tools/5.Config-Files/colors.conf"
+
+# Title
 TITLE="Void Linux Post-Install Wizard"
 BACKTITLE="Void Linux Streamlined Setup"
+
+#==================================== Linear Flow ====================================
 
 pause() {
     whiptail --title "$TITLE" --msgbox "$1" 15 60
@@ -21,14 +36,14 @@ pause "Hello $USER.\nDo you wish to continue in this wizard?\nClose to cancel, a
 
 # 0.2 HW info detection
 if whiptail --title "$TITLE" --yesno "Do you wish to find out Basic system specs and recomendations?" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/HW-detection.sh"
+    bash "$SCRIPT_DIR/1.Basic-Setup/HW-detection.sh"
     echo "Ran HW-detection.sh"
 fi
 
 
 # 1. Check & update groups
 if whiptail --title "$TITLE" --yesno "Add user $USER to recommended groups: wheel,floppy,dialout,audio,video,cdrom,optical,kvm,users,xbuilder,network?" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/UserGroups.sh"
+    bash "$SCRIPT_DIR/1.Basic-Setup/UserGroups.sh"
     echo "added user to: wheel,floppy,dialout,audio,video,cdrom,optical,kvm,users,xbuilder,network groups"
     pause "User groups updated."
 fi
@@ -46,7 +61,7 @@ fi
 # 3. Enable services (runs only if not already enabled)
 if [ ! -e /var/service/dbus ] || [ ! -e /var/service/NetworkManager ]; then
     if whiptail --title "$TITLE" --yesno "Enable: NetworkManager and dbus\nThis will reboot the system\nRun if you did not select them during install or are not sure, re-run the script afterwards skipping this part" 10 60; then
-        bash "$BASE_DIR/1.Basic-Setup/services-networkmanager-dbus.sh"
+        bash "$SCRIPT_DIR/1.Basic-Setup/services-networkmanager-dbus.sh"
         echo "Ran services-networkmanager-dbus.sh"
         sudo reboot
     else
@@ -59,35 +74,35 @@ fi
 
 # 4.0 Install recommended utilities
 if whiptail --title "$TITLE" --yesno "Install recommended utilities:\n git, wget, curl, nano?" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/utils-recommended.sh"
+    bash "$SCRIPT_DIR/1.Basic-Setup/utils-recommended.sh"
     echo "Installed recommended utilities"
     pause "recommended utilities installed."
 fi
 
 # 4.1 Install optional utilities
 if whiptail --title "$TITLE" --yesno "Install Informational utilities:\n ncdu, fastfetch, htop, tmux, btop, cmatrix, nvme-cli?" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/utils-informational.sh"
+    bash "$SCRIPT_DIR/1.Basic-Setup/utils-informational.sh"
     echo "Installed informational utilities"
     pause "Informational utilities installed."
 fi
 
 # 4.2 Install Fun utilities
 if whiptail --title "$TITLE" --yesno "Install Fun utilities: cmatrix, oneko, cowsay, espeak, fortune-mod-void?" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/utils-fun.sh"
+    bash "$SCRIPT_DIR/1.Basic-Setup/utils-fun.sh"
     echo "Installed Fun utilities"
     pause "Fun utilities installed."
 fi
 
 # 4.3 Install Disk utilities
 if whiptail --title "$TITLE" --yesno "Install Disk utilities: ntfs-3g exfat gsmartcontroll" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/utils-disks.sh"
+    bash "$SCRIPT_DIR/1.Basic-Setup/utils-disks.sh"
     echo "Installed Fun utilities"
     pause "Fun utilities installed."
 fi
 
 # 5. Add repositories
 if whiptail --title "$TITLE" --yesno "Enable More Repositories?\nnonfree, multilib-nonfree and flathub\nImportant for Steam, Discord, Nvidia or Broadcom Users!" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/repos.sh"
+    bash "$SCRIPT_DIR/1.Basic-Setup/repos.sh"
     echo "Installed nonfree, multilib-nonfree and flathub repositories"
     pause "Repos installed."
 else
@@ -96,7 +111,7 @@ fi
 
 # 6. Install kernel headers (DKMS)
 if whiptail --title "$TITLE" --yesno "Install Linux headers for DKMS modules? \nImportant for Nvidia or Broadcom Users!" 10 60; then
-    bash "$BASE_DIR/1.Basic-Setup/dkms.sh"
+    bash "$SCRIPT_DIR/1.Basic-Setup/dkms.sh"
     echo "Enabled DKMS for normal/Stable kernel"
     pause "Headers installed."
 fi
@@ -109,19 +124,19 @@ KERNEL=$(whiptail --title "$TITLE" --menu "Choose a kernel" 15 60 4 \
     3>&1 1>&2 2>&3)
 case $KERNEL in
     1) echo "Kept the Normal/Stable kernel" ;;
-    2) bash "$BASE_DIR/1.Basic-Setup/new-kernel+dkms.sh" && echo "Installed the New mainline kernel +dkms" ;;
-    3) bash "$BASE_DIR/1.Basic-Setup/old-kernel+dkms.sh" && echo "Installed the older LTS kernel +dkms. You may need to manually select it during boot." ;;
+    2) bash "$SCRIPT_DIR/1.Basic-Setup/new-kernel+dkms.sh" && echo "Installed the New mainline kernel +dkms" ;;
+    3) bash "$SCRIPT_DIR/1.Basic-Setup/old-kernel+dkms.sh" && echo "Installed the older LTS kernel +dkms. You may need to manually select it during boot." ;;
 esac
 
 # 7.5 kernel Optimization
 if whiptail --title "$TITLE" --yesno "Set Custom Kernel parameters?" 15 60; then
-    bash "$BASE_DIR/0.Tools/4.Kernel-Parameter-Optimizations/kernel-parameter-TUI-config.sh"
+    bash "$SCRIPT_DIR/0.Tools/4.Kernel-Parameter-Optimizations/kernel-parameter-TUI-config.sh"
     echo "Ran Kernel parameter selector"
 fi
 
 # 8. GPU driver choice
 if whiptail --title "$TITLE" --yesno "Install GPU drivers and GPU related packages?" 10 60; then
-    bash "$BASE_DIR/2.GPU-drivers/1.GPU-Auto-driver-selector.sh"
+    bash "$SCRIPT_DIR/2.GPU-drivers/1.GPU-Auto-driver-selector.sh"
     echo "ran 1.GPU-Auto-driver-selector.sh."
 fi
 
@@ -136,11 +151,11 @@ DRIVER=$(whiptail --title "$TITLE" --menu "Install DKMS Wi-Fi Drivers\nYou may n
     3>&1 1>&2 2>&3)
 case $DRIVER in
     1) echo "No DKMS wifi driver installed" ;;
-    2) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/Broadcom-WL-BT.sh" && echo "Ran Broadcom-WL-BT.sh" ;;
-    3) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8822bu-dkms.sh" && echo "Ran rtl8822bu-dkms.sh" ;;
-    4) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8821cu-dkms.sh" && echo "Ran rtl8821cu-dkms.sh" ;;
-    5) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8821au-dkms.sh" && echo "Ran rtl8821au-dkms.sh" ;;
-    6) bash "$BASE_DIR/7.Drivers-Wifi-and-Others/rtl8812au-dkms.sh" && echo "Ran rtl8812au-dkms.sh" ;;
+    2) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/Broadcom-WL-BT.sh" && echo "Ran Broadcom-WL-BT.sh" ;;
+    3) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/rtl8822bu-dkms.sh" && echo "Ran rtl8822bu-dkms.sh" ;;
+    4) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/rtl8821cu-dkms.sh" && echo "Ran rtl8821cu-dkms.sh" ;;
+    5) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/rtl8821au-dkms.sh" && echo "Ran rtl8821au-dkms.sh" ;;
+    6) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/rtl8812au-dkms.sh" && echo "Ran rtl8812au-dkms.sh" ;;
 esac
 
 #9.1 eduroam
@@ -152,7 +167,7 @@ fi
 
 #9.2 Bluetooth service
 if whiptail --title "$TITLE" --yesno "Install and enalbe Bluetooth?\nbluez bluez-alsa libspa-bluetooths" 10 60; then
-    bash "$BASE_DIR/7.Drivers-Wifi-and-Others/Bluetooth-service.sh"
+    bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/Bluetooth-service.sh"
 fi
 
 # 10. Power management
@@ -162,8 +177,8 @@ PM=$(whiptail --title "$TITLE" --menu "Choose power management" 15 60 3 \
     "3" "None" \
     3>&1 1>&2 2>&3)
 case $PM in
-    1) bash "$BASE_DIR/6.Power-Managment/Power-Porfiles-Daemon.sh" && echo "Ran Power-Porfiles-Daemon.sh" ;;
-    2) bash "$BASE_DIR/6.Power-Managment/TLP.sh" && echo "Ran TLP.sh" ;;
+    1) bash "$SCRIPT_DIR/6.Power-Managment/Power-Porfiles-Daemon.sh" && echo "Ran Power-Porfiles-Daemon.sh" ;;
+    2) bash "$SCRIPT_DIR/6.Power-Managment/TLP.sh" && echo "Ran TLP.sh" ;;
     3) echo "No Power managment Feature configured" ;;
 esac
 
@@ -182,15 +197,15 @@ DE=$(whiptail --title "$TITLE" --menu "Install/change Desktop Environment" 20 60
     3>&1 1>&2 2>&3)
 case $DE in
     0) echo "No change with the desktop enviroment" ;;
-    1) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/xfce4-and-plugins.sh" && echo "Ran xfce4-and-plugins.sh" ;;
-    2) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/kde-plasma.sh" && echo "Ran kde-plasma.sh" ;;
-    3) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/gnome.sh" && echo "Ran gnome.sh" ;;
-    4) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/cinnamon.sh" && echo "Ran cinnamon.sh" ;;
-    5) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/mate.sh" && echo "Ran mate.sh" ;;
-    6) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/lxqt.sh" && echo "Ran lxqt.sh" ;;
-    7) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/lxde.sh" && echo "Ran lxde.sh" ;;
-    8) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/enlightenment.sh" && echo "Ran enlightenment.sh" ;;
-    9) bash "$BASE_DIR/4.Audio-Video-GUI/Desktop-Enviroments/budgie.sh" && echo "Ran budgie.sh" ;;
+    1) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Desktop-Enviroments/xfce4-and-plugins.sh" && echo "Ran xfce4-and-plugins.sh" ;;
+    2) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Desktop-Enviroments/kde-plasma.sh" && echo "Ran kde-plasma.sh" ;;
+    3) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Desktop-Enviroments/gnome.sh" && echo "Ran gnome.sh" ;;
+    4) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Desktop-Enviroments/cinnamon.sh" && echo "Ran cinnamon.sh" ;;
+    5) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Desktop-Enviroments/mate.sh" && echo "Ran mate.sh" ;;
+    6) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Desktop-Enviroments/lxqt.sh" && echo "Ran lxqt.sh" ;;
+    7) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Desktop-Enviroments/lxde.sh" && echo "Ran lxde.sh" ;;
+    8) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Desktop-Enviroments/enlightenment.sh" && echo "Ran enlightenment.sh" ;;
+    9) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Desktop-Enviroments/budgie.sh" && echo "Ran budgie.sh" ;;
 esac
 
 #11.1 Audio Setup
@@ -201,7 +216,7 @@ AUDIO=$(whiptail --title "$TITLE" --menu "Install a Audio Server" 15 60 4 \
     "4" "None" \
     3>&1 1>&2 2>&3)
 case $AUDIO in
-    1) bash "$BASE_DIR/4.Audio-Video-GUI/Audio/pipewire-alsa.sh" && bash "$BASE_DIR/4.Audio-Video-GUI/Audio/pipewire-autostart.sh" && echo "Ran pipewire-alsa.sh and pipewire-autostart.sh" ;;
+    1) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-alsa.sh" && bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-autostart.sh" && echo "Ran pipewire-alsa.sh and pipewire-autostart.sh" ;;
     2) pause "TBD" ;;
     3) pause "TBD" ;;
     4) echo "No audio server changes" ;;
@@ -217,13 +232,13 @@ fi
 
 #11.3
 if whiptail --title "$TITLE" --yesno "Do You want to install a Web Browser of your choosing?" 10 60; then
-    bash "$BASE_DIR/5.Apps/01.Internet/Browser-Selection.sh"
+    bash "$SCRIPT_DIR/5.Apps/01.Internet/Browser-Selection.sh"
     pause "A web browser of your choosing is now installed."
     echo "A web browser of your choosing is now installed."
 fi
 
 if whiptail --title "$TITLE" --yesno "Do You wish to run a App selection Script?\n You can choose between recommended and manually selected apps" 10 60; then
-    bash "$BASE_DIR/5.Apps/GUI-apps-AIO.sh"
+    bash "$SCRIPT_DIR/5.Apps/GUI-apps-AIO.sh"
     pause "Apps based on your selection are installed"
     echo "A web browser of your choosing is now installed."
 fi
@@ -237,7 +252,7 @@ if whiptail --title "$TITLE" --yesno "Do you wish to add a desktop shortcut for 
     cp "$(dirname "$(realpath "$0")")/VOID-TUI.desktop" "$DESKTOP_DIR/"
 fi
 # 13. Display manager
-bash "$BASE_DIR/4.Audio-Video-GUI/ChangeDM.sh"
+bash "$SCRIPT_DIR/4.Audio-Video-GUI/ChangeDM.sh"
 
 #14. The end
 if whiptail --title "$TITLE" --yesno "Reboot to apply some changes?" 10 60; then

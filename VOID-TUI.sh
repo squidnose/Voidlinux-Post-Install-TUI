@@ -7,14 +7,24 @@ fi
 
 #==================================== Define parameters ====================================
 
+# Detect terminal size
+TERM_HEIGHT=$(tput lines)
+TERM_WIDTH=$(tput cols)
+# set TUI size based on terminal size
+HEIGHT=$(( TERM_HEIGHT * 3 / 4 ))
+WIDTH=$(( TERM_WIDTH * 4 / 5 ))
+MENU_HEIGHT=$(( HEIGHT - 10 ))
+
 # SCRIPT_DIR should point to the base directory containing your numbered script folders.
-# Assuming this script is in the same directory as the 'scripts' folder.
 SCRIPT_DIR="$(dirname "$(realpath "$0")")/scripts"
+
+#Colors
+export NEWT_COLORS_FILE="$SCRIPT_DIR/0.Tools/5.Config-Files/colors.conf"
+
+# Title
 TITLE="Void-Post-Install-Script" # This will be the main title
 BACKTITLE="Select and Item" # appears in top-left
-HEIGHT=35 # Adjusted height for better multi-level display
-WIDTH=100  # Adjusted width
-MENU_HEIGHT=16 # More items visible
+
 
 
 #==================================== Functions ====================================
