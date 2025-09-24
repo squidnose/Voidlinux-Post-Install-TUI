@@ -2,9 +2,8 @@
 Type=Application
 Name=Void Linux Post Install TUI
 Comment=Update and run the Void Linux Post Install TUI
-Exec=sh -c 'echo "Enter Password:" && sudo xbps-install -Syu xbps && sudo xbps-install -Sy git dialog newt || exit 1; APP_DIR="$HOME/Voidlinux-Post-Install-TUI"; REPO_URL="https://github.com/squidnose/Voidlinux-Post-Install-TUI"; if [ -d "$APP_DIR/.git" ]; then echo "Found existing TUI install, attempting to update..."; git -C "$APP_DIR" pull --ff-only || echo "Using offline version in $APP_DIR."; else echo "No local copy found, attempting initial clone..."; git clone "$REPO_URL" "$APP_DIR" || { echo "Could not clone (no network?)."; exit 1; }; fi; cd "$APP_DIR" && chmod +x VOID-TUI.sh && ./VOID-TUI.sh'
+Exec=bash -c "$HOME/Voidlinux-Post-Install-TUI/VOID-TUI-updater.sh"
 Terminal=true
 Icon=void-logo
 Categories=System;Utility;
-Path=
 StartupNotify=false
