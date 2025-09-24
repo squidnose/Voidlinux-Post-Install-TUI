@@ -18,16 +18,20 @@ cd Voidlinux-Post-Install-TUI
 chmod +x 1.Post-Install-Setup-Wizzard.sh
 ./1.Post-Install-Setup-Wizzard.sh
 ```
-## Easy Acces (VOID-TUI.sh)
+## Easy Acces 
+### VOID-TUI.sh
 If you want a desktop icon, copy this file to your desktop:
 ```
 VOID-TUI.desktop
 ```
-This file will
+This file will run VOID-TUI-updater.sh
+
+**You may need to add executable permissions in the file properties. or remove the .download suffix(XFCE).**
+### VOID-TUI-updater.sh
 - download nessesery dependencies (and thus ask for password)
 - update the script you have downloaded from git.
 - if internet connection is not avaliable it will without updateing.
-**You may need to add executable permissions in the file properties. or remove the .download suffix(XFCE).**
+
   
 ## [[What Scripts To run?]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)
 
