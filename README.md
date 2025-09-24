@@ -21,7 +21,7 @@ chmod +x 1.Post-Install-Setup-Wizzard.sh
 ## Easy Acces (VOID-TUI.sh)
 If you want a desktop icon, copy this file to your desktop:
 ```
-VOID-TUI.sh
+VOID-TUI.desktop
 ```
 This file will
 - download nessesery dependencies (and thus ask for password)
