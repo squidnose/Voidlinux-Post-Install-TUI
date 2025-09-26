@@ -66,4 +66,4 @@
 - [ ] Intel ucode
 - [ ] Gstreamer-vaapi and 32 bit
 - [ ] Vulkan validation layers?
-
+- [ ] Add virtual keyborad support: maliit-framework, maliit-keyboard, maliit-keyboard-doc THE SDDM THEME MUST HAVE A VIRTUAL DESKTOP BUTTON
