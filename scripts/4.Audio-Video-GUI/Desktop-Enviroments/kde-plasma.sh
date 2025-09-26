@@ -9,7 +9,7 @@ echo "Install kde apps: Notepad, Terminal, Files, Help-Center; Screenshots; Unzi
 sudo xbps-install -Sy spectacle ark 7zip-unrar kolourpaint krename kwalletmanager filelight discover octoxbps flatpak-kcm
 
 echo "Installing calendar Integrations and kdeconnect kdepim"
-sudo xbps-install -Sy kontact calendarsupport akonadi-calendar kdepim-addons kdepim-runtime akonadi-contacts akonadi-import-wizard kdeconnect
+sudo xbps-install -Sy kio-gdrive kontact calendarsupport akonadi-calendar kdepim-addons kdepim-runtime akonadi-contacts akonadi-import-wizard kdeconnect
 
 echo "installing file previews. To configure it, go to Configure Dolphin -> General -> Previews." 
 sudo xbps-install -Sy kdegraphics-thumbnailers ffmpegthumbs
