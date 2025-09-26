@@ -5,6 +5,7 @@
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
 - [ ] Setup Wizzard is awesome! But needs: Pulseaudio, Alsa
 - [ ] Add info files to each directory.
+- [ ] Remove single line installers in favor of list based (flatpak and xbps) Use functions 
 ## Fixes
 - [ ] Numlock automaticly start sddm
 - [ ] Bash colourization
@@ -22,6 +23,16 @@
 - [ ] colors are cool but need to be put into .config/Voidlinux-Post-Install-TUI
 - [ ] GPU auto-detect doesnt know how tell apart Intel and AMD generations. Replace with warning about depricated systems(RV500, Intel GMA, NV4).
 - [ ] Intel gpu generation could not tell what a Pentium 947 is... Maybe add Pentium and Celeron into the finding logic? 
+- [ ] Fix xorg config revert to nouveau
+- [ ] Add update prompt after nvidia driver install. For flatpak
+- [ ] Fix flathub not enabled base install
+- [ ] Remove nvdia xorg config
+- [ ] Reconfigure xorg after reverting to nouveau
+- [ ] Find scripts/ not found error
+- [ ] Select all break when selected more
+- [ ] Waydroid where??? Icon missing
+- [ ] Remove detect intel and amd generation. Pointless. Instead make statement about depricated 3d acceleration. 
+- [ ] Xdg portal looks like xfce even after un-installing it
 
 ## Add features
 - [ ] Usbmuxd service
@@ -38,5 +49,21 @@
 - [ ] DVD burning ETC
 - [ ] Sabma service
 - [ ] LocalSend
-
+- [ ] Add cups Printing
+- [ ] Add hw clock to Wizzard
+- [ ] Look at drkonqu void tui
+- [ ] Sddm, lightdm conf
+- [ ] Virus total cli? New tool??
+- [ ] Nextcloud
+- [ ] Qgis
+- [ ] Wayfire: wayfire, wf-shell, wayfire-plugins-extra, wcm, wl-clipboard, wl-clip-persist, 
+- [ ] Watch sensors and nvidia-smi
+- [ ] Add loging featute make log for TUI output
+- [ ] Add make disk-images For VMs
+- [ ] Switch to Bazzar(Other) from discover(kde only)
+- [ ] Obs missing???? And virt cam
+- [ ] Add note to wizzard: dkms usefull for obs virt cam
+- [ ] Intel ucode
+- [ ] Gstreamer-vaapi and 32 bit
+- [ ] Vulkan validation layers?
 
