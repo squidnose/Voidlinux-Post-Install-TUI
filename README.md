@@ -47,7 +47,11 @@ This file will run VOID-TUI-updater.sh
 - You will be prompted before running a scirpt to make sure you meant to run it.
 - You will need to press enter after running a script so that you will read the output incase there is a Error.
  
-Disclaimer:
+Disclaimers:
+```
+This is a work in progress and has the opportunity to break your system.
+I use it on all my void machines, but i suggest to first use it in a VM. 
+```
 ```
 I did get help from chatgpt. 
 if you dont feel comfortable with me getting help from AI, feel free to read the info.md files. 
