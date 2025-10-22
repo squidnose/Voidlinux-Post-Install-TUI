@@ -1,4 +1,4 @@
-# Voidlinux-Post-Install-Script-TUI-
+# Voidlinux-Post-Install-Script-TUI
 A whiptale TUI for my voidlinux scripts (Including scripts). 
 
 I you want [Installation Instructions](install.md) open the install.md
