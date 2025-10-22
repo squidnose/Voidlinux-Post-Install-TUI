@@ -1,5 +1,7 @@
 # Voidlinux-Post-Install-Script-TUI
-A whiptale TUI for my voidlinux scripts (Including scripts). 
+A whiptale TUI for my voidlinux scripts (Including scripts).
+
+The Goal is to make configuring and managing Voidlinux easier.
 
 I you want [Installation Instructions](install.md) open the install.md
 
