@@ -1,20 +1,44 @@
 # My prefered Method to install Voidlinux
-## Disk Prep
+## 1. Choose a .ISO
+### By platforms:
+- x86_64 - For most PCs and Laptops
+- i686   - Older PCs and Laptops, v Pentium 4 and higher
+- arm    - ARM single board computers like the raspberry PI, or any ARM powerd device. 
+- containers - For containers on servers(Not relevent for this tutorial)
+### By compiler
+
+- Glibc - The most compatible, needed for Nvidia a Broadcom and 32 bit support.
+- Musl  - Lower memory usage, Much less compatible. Do research before you use. 
+### By contents:
+- XFCE live image - Live grafical XFCE enviroment, includes void-installer script.
+- Base live image - Live terminal enviroment(No GUI), includes void-installer script.
+- rootfs tarball  - Contents of the Root Filesystem. Use if you know what you are doing. 
+### What to choose:
 - If i want anything other that XFCE i use the base install ISO from the downloads page: https://voidlinux.org/download/
 - For most people id reccomed Glibc version.
-- Id reccomend using ventoy for the install. But also add Refind ISO to the Ventoy disk! Some MB dont recognize the Voidlinux UEFI on first boot. Grab the CR-R image file: https://www.rodsbooks.com/refind/getting.html
-- If you are using the XFCE variant, id highly suggest to partiton your disks in Gnome Disks. A nice GUI for disk managment:
+## 2. Disk Prep (Optional)
+### Install media
+- Id reccomend using ventoy for the install. 
+- I also reccomed adding Refind ISO to the Ventoy disk!
+  - Some Machines dont recognize the Voidlinux UEFI on first boot. 
+  - Grab the CR-R image file: https://www.rodsbooks.com/refind/getting.html
+### Pre-Partiotion Disks 
+- You can partition your disk in void-installer. 
+- You dont have to do it this way
+- But i like to do it graphically in Gnome Disks Utility
+  - Its a nice GUI for disk managment.
+- If you are using the XFCE variant, do this:
 ```
 sudo xbps-install -Syu xbps
 sudo xbps-install -Sy gnome-disk-utility 
 ```
-You can also boot into a live version of Linux mint and to the partitioning there
+- Then look for the app Disks
 - In Gnome Disks set theese partitions:
-1-2 GB partition for Boot partiotion
-40-120 GB / for system root partition (Alias C drive)
-30 or more for /home for user data partition (Alias D drive with moved C:\Users\Username to D)
+  - 1-2 GB partition for Boot partiotion
+  - 40-120 GB / for system root partition (Alias C drive)
+  - 30 GB or more for /home for user data partition (Alias D drive with moved C:\Users\Username to D)
 
-## Void-installer
+## 3. Void-installer
 The official Installer from the Voidlinux team. 
 ```
 sudo void-installer
@@ -36,4 +60,59 @@ password is voidlinux
     - / 40-120 GB
     - /home 30+ GB
   - Install usually doesnt take long. But generating InitramFS can take longer, based on what HW you have
-  - When prezented with what service to run, id select with the spacebar: Network manager and Alsa. Make sure WPA supplicant if off.  
+  - You will be presented with services to enable or disable. 
+    - Up and Down arrow keys to select a service. 
+    - Use spacebar to Enable or Disable.
+    - The * shows its enabled.
+  - Enable:
+    - Network manager (For simpler networking)
+    - Alsa (For audio)
+  - Disable: 
+    - WPA supplicant(Textfile based config for WiFi)
+- The installer will either ask to reboot or you can:
+```
+sudo reboot
+```
+## 4. Update
+- After a sucsesfull reboot, it is important that you update
+```
+sudo xbps-install -Syu xbps
+sudo xbps-install -Syu
+```
+### No network connection?
+- To find out if your PC has connection:
+```
+ping google.com
+```
+CTRL+C To stop the ping
+
+- to connect wifi use nmcli:
+```
+nmcli device wifi connect "Your-SSID" --ask
+```
+
+
+## 5. Install my Voidlinux-Post-Install-Script-TUI
+- A.install dependencies
+```
+sudo xbps-install -Syu git dialog newt
+```
+- B. Clone Repository
+```
+git clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
+```
+- C. Open the cloned repository
+```
+cd Voidlinux-Post-Install-TUI
+```
+- D. Run the One time Wizard 
+```
+chmod +x 1.Post-Install-Setup-Wizzard.sh
+./1.Post-Install-Setup-Wizzard.sh
+```
+- E. You can also just run the Void-TUI
+```
+chmod +x VOID-TUI.sh
+./VOID-TUI.sh
+```
+## [[What Scripts To run?]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)

@@ -33,12 +33,13 @@
 - [ ] Waydroid where??? Icon missing
 - [ ] Remove detect intel and amd generation. Pointless. Instead make statement about depricated 3d acceleration. 
 - [ ] Xdg portal looks like xfce even after un-installing it
+- [x] Fix updater crash on old void installs - If you are affected, re-install the TUI
 
 ## Add features
 - [ ] Usbmuxd service
 - [ ] CZ and EN version separate or better handle Languages.
 - [ ] Make Universal Install scripts with parameters like -s for install -r for remove -f reconfigure. Basicly add xbps functions.
-- [X] Add more desktops: xfce, mate, cinnamon, gnome
+- [x] Add more desktops: xfce, mate, cinnamon, gnome
 - [ ] Add Window Managers: Wayfire, Niri, I3, Sway, IceWM, JWM... With usable default configs!
 - [ ] Have a MUSL and Glibc varinat or fix the script
 - [ ] Add a Build and compile for Terracan Vulkan driver for AMD/ATI Terrascale 2 and 3 GPUS. https://gitlab.freedesktop.org/Triang3l/mesa and Add dxvk 1.10.3 as last veriosn to support vulkan 1.0
@@ -69,3 +70,18 @@
 - [ ] Add virtual keyborad support: maliit-framework, maliit-keyboard, maliit-keyboard-doc THE SDDM THEME MUST HAVE A VIRTUAL DESKTOP BUTTON
 - [ ] Look into: https://github.com/depthrush/void-kde-install-script
 - [ ] Add https://github.com/shvchk/fallout-grub-theme
+- [ ] Add UFW 
+- [ ] add bbswitch for Nvdidia 390
+- [ ] make a .conf for color and Languages
+- [ ] Make a separate TUI for Terminal applicaitons and utils
+- [ ] Add swap support
+- [ ] add nvtop, libva-glx, opencl-clhpp. opencl2-headers, python3-opencl, clinfo, libclc, libvpl(intel)
+- [ ] add easyeffects and claf plugin
+- [ ] add nvidia-vaapi-driver
+- [ ] XDG portal managment
+- [ ] Add option to reconfigure package
+- [ ] Add the option to switch to experimental Xe drivers for Intel
+
+
+
+

@@ -4,7 +4,6 @@ set -e
 # Update system and install dependencies
 echo "Enter Password:"
 sudo xbps-install -Syu xbps
-sudo xbps-install -Sy git dialog newt
 
 # Repo info
 APP_DIR="$HOME/Voidlinux-Post-Install-TUI"
