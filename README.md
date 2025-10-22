@@ -45,4 +45,8 @@ This file will run VOID-TUI-updater.sh
 - You will be prompted before running a scirpt to make sure you meant to run it.
 - You will need to press enter after running a script so that you will read the output incase there is a Error.
  
-
+Disclaimer:
+```
+I did get help from chatgpt. 
+if you dont feel comfortable with me getting help from AI, feel free to read the info.md files. 
+```
