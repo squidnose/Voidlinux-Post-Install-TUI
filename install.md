@@ -35,6 +35,7 @@ sudo xbps-install -Sy gnome-disk-utility
 - Then look for the app Disks
 - In Gnome Disks set theese partitions:
   - 1-2 GB partition for Boot partiotion
+  - 2xRAM - For swap. (Optional)
   - 40-120 GB / for system root partition (Alias C drive)
   - 30 GB or more for /home for user data partition (Alias D drive with moved C:\Users\Username to D)
 
@@ -57,6 +58,7 @@ password is voidlinux
   - Partitions I like Gnome Disks but the Terminal based options are not bad.
   - In filesystem use the partitions set from earlier:
     - /boot/efi 1-2 GB
+    - 2xRAM - For swap. (Optional)
     - / 40-120 GB
     - /home 30+ GB
   - Install usually doesnt take long. But generating InitramFS can take longer, based on what HW you have
