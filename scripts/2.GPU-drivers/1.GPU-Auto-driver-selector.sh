@@ -107,6 +107,7 @@ install_mesa_glhf() {
     read -p "Install basic Mesa drivers? Enter to install, CTRL+c to cancel"
     sudo xbps-install -Syu mesa
     sudo xbps-install -Syu mesa-32bit #will fail on musl
+    echo "32-bit packages will fail on Musl"
 }
 
 
