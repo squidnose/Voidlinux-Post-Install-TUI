@@ -73,6 +73,10 @@
 - [ ] Add option to reconfigure package
 - [ ] Add the option to switch to experimental Xe drivers for Intel
 - [ ] Add update prompt after nvidia driver install. For flatpak?
+- [ ] Add xfwm-themes and albatros themes, balckbird, bluebird, gtk-united-gnome-theme
+- [ ] Add Kcm-wacomtablet and kcm-utils
+- [ ] Add snappyxd to xfce
+- [ ] Wizzard: ask if you want to install utils, the make it a list
 
 ## Stalled - I dont know how to do
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
