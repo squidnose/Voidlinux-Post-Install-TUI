@@ -76,29 +76,13 @@ install_nvidia() {
 }
 
 install_amd() {
-# Detect AMD Generation
-    if echo "$gpu_info" | grep -q "RV[1-5]"; then
-        echo "Detected: RV100-500 series (use mesa-amber)"
-        "$SCRIPT_DIR/mesa-amber.sh"
-    else
-        echo "Detected AMD GPU, installing for Terrascale, GCN, RDNA and UDNA."
-        "$SCRIPT_DIR/amd-ati-RADV.sh"
-    fi
+    echo "Detected AMD GPU, installing for Terrascale, GCN, RDNA and UDNA."
+    "$SCRIPT_DIR/amd-ati-RADV.sh"
 }
 
 install_intel() {
-# Detect Intel Generation
-    if echo "$gpu_info" | grep -q "Gen[1-4]"; then
-        echo "Detected: Intel Gen 1–4 (use mesa-amber)"
-        "$SCRIPT_DIR/mesa-amber.sh"
-    elif echo "$gpu_info" | grep -q "HD Graphics\|UHD\|Iris"; then
-        echo "Detected: Intel GPU Gen 5 and Newer"
-        "$SCRIPT_DIR/intel-gpu-drivers.sh"
-    else
-        echo "Failed to Detect Intel GPU generation."
-        read -p "Install standard intel drivers? Enter to install, CTRL+c to cancel"
-         "$SCRIPT_DIR/intel-gpu-drivers.sh"
-    fi
+    echo "Detected: Intel GPU Gen 5 and Newer"
+    "$SCRIPT_DIR/intel-gpu-drivers.sh"
 }
 
 install_mesa_glhf() {
@@ -111,7 +95,7 @@ install_mesa_glhf() {
 }
 
 
-#chek if you have dual gpus
+#check if you have dual gpus
 gpu_count=$(lspci -nn | grep -Ei "vga|3d" | wc -l)
 if [ "$gpu_count" -gt 1 ]; then
     echo "Multiple GPUs detected!"
@@ -146,7 +130,7 @@ elif echo "$gpu_info" | grep -qi " amd \| ati "; then
 elif echo "$gpu_info" | grep -qi " intel "; then
     VENDOR="Intel"
     echo -e "${BLUE}Vendor: $VENDOR${NC}"
-     install_intel
+    install_intel
 else
     VENDOR="Unknown"
     install_mesa_glhf

@@ -12,5 +12,5 @@ else
 fi
 
 
-sudo xbps-install nvidia nvidia-libs-32bit nvidia-opencl nvidia-docker vulkan-loader vulkan-loader-32bit Vulkan-Headers Vulkan-Tools libspa-vulkan libspa-vulkan-32bit ocl-icd ocl-icd-32bit
+sudo xbps-install nvidia nvidia-libs-32bit nvidia-opencl nvidia-docker vulkan-loader vulkan-loader-32bit Vulkan-Headers Vulkan-Tools libspa-vulkan libspa-vulkan-32bit ocl-icd ocl-icd-32bit nvidia-vaapi-driver
 echo "NVIDIA Maxwell, Pascal, and Volta support is ending soon."
