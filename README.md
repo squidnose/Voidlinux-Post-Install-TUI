@@ -19,9 +19,8 @@ git clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
 cd Voidlinux-Post-Install-TUI
 chmod +x 1.Post-Install-Setup-Wizzard.sh
 ./1.Post-Install-Setup-Wizzard.sh
-```
-## Easy Acces 
-### VOID-TUI.sh
+``` 
+### VOID-TUI.desktop
 If you want a desktop icon, copy this file to your desktop:
 ```
 VOID-TUI.desktop
@@ -32,21 +31,11 @@ This file will run VOID-TUI-updater.sh
 ### VOID-TUI-updater.sh
 - download nessesery dependencies (and thus ask for password)
 - update the script you have downloaded from git.
-- if internet connection is not avaliable it will without updateing.
+- if internet connection is not avaliable it will run without updating.
 
   
-## [[What Scripts To run?]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)
+### [[What to run? - Wiki]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/wiki/About)
 
-## Instructions (In case you dont know how to use a TUI)
-- Use arrow keys to move up and down in the menu
-![Alt text](https://squidnose.cz/lib/exe/fetch.php?media=0:void-tui.png)
-- Press enter to either:
-  - Enter a folder
-  - Read a file
-  - Run a script
-- You will be prompted before running a scirpt to make sure you meant to run it.
-- You will need to press enter after running a script so that you will read the output incase there is a Error.
- 
 Disclaimers:
 ```
 This is a work in progress and has the opportunity to break your system.
