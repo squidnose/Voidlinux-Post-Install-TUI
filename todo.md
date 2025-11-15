@@ -6,27 +6,22 @@
 - [ ] Add info files to each directory.
 - [ ] Remove single line installers in favor of list based (flatpak and xbps) Use functions 
 ## Fixes
-- [ ] Numlock automaticly start sddm
-- [ ] Bash colourization
 - [ ] Suspend: Nvidia, Elogind
 - [ ] Kde connect seperate because of networking
-- [ ] Proton tricks
+- [X] Proton tricks
 - [ ] appmenu-gtk3-module
 - [ ] Speech-dispatcher
 - [ ] Kio extras
-- [ ] For musl: steam-udev-rules
-- [ ] Add a message: add permissions to steam flatpak
+- [X] For musl: steam-udev-rules
+- [X] Add a message: add permissions to steam flatpak
 - [ ] Gnome-Disks not there????
-- [ ] colors are cool but need to be put into .config/Voidlinux-Post-Install-TUI
 - [ ] Fix xorg config when reverting to nouveau
-
 - [ ] Fix flathub not enabled base install
 - [ ] Remove nvdia xorg config
 - [ ] Reconfigure xorg after reverting to nouveau
 - [ ] Find scripts/ not found error
 - [ ] Select all break when selected more
-- [ ] Waydroid where??? Icon missing
-- [ ] Remove detect intel and amd generation. Pointless. Instead make statement about depricated 3d acceleration. 
+- [ ] Waydroid where??? Desktop file missing
 - [ ] Xdg portal looks like xfce even after un-installing it
 - [x] Fix updater crash on old void installs - If you are affected, re-install the TUI
 
@@ -77,7 +72,10 @@
 - [ ] Add Kcm-wacomtablet and kcm-utils
 - [ ] Add snappyxd to xfce
 - [ ] Wizzard: ask if you want to install utils, the make it a list
-
+- [ ] Numlock automaticly start sddm
+- [ ] Bash colourization
+- [ ] Look into https://www.bitlbee.org/main.php/news.r.html
+- [ ] colors are cool but need to be put into .config/Voidlinux-Post-Install-TUI
 ## Stalled - I dont know how to do
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
 - [ ] Fix brodcom support(has a script you must run avery time you reboot)

@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "This script will install Steam"
 echo "Please choose your preferred installation method:"
-echo "  1) (Reccomended for MUSL)  Install via Flatpak (sandboxed, often newer versions) "
-echo "  2) (Reccomenden for Glibc) Install via XBPS (faster, system-integrated, Void Linux's native package manager)"
+echo "  1) (For Glibc) Install via XBPS (faster, system-integrated, Void Linux's native package manager)"
+echo "  2) (For MUSL)  Install via Flatpak (sandboxed, often newer versions) "
 echo ""
 
 # Loop until a valid choice is made
@@ -10,11 +10,11 @@ while true; do
     read -rp "Enter your choice (1 or 2): " choice
     case "$choice" in
         1)
-            INSTALL_METHOD="flatpak"
+            INSTALL_METHOD="xbps"
             break
             ;;
         2)
-            INSTALL_METHOD="xbps"
+            INSTALL_METHOD="flatpak"
             break
             ;;
         *)
@@ -30,7 +30,9 @@ echo "" # Blank line for readability
 if [ "$INSTALL_METHOD" == "flatpak" ]; then
     echo "Attempting to install via Flatpak..."
     if command -v flatpak &>/dev/null; then
-        flatpak install --noninteractive flathub com.valvesoftware.Steam
+        flatpak install --noninteractive flathub com.valvesoftware.Steam com.github.Matoking.protontricks
+        sudo xbps-install -Syu steam-udev-rules
+        echo "You may need to add more permissions to steam flatpak"
         if [ $? -eq 0 ]; then
             echo "Installation complete!"
         else
