@@ -76,6 +76,7 @@
 - [ ] Bash colourization
 - [ ] Look into https://www.bitlbee.org/main.php/news.r.html
 - [ ] colors are cool but need to be put into .config/Voidlinux-Post-Install-TUI
+- [ ] add plank panel XFCE
 ## Stalled - I dont know how to do
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
 - [ ] Fix brodcom support(has a script you must run avery time you reboot)
