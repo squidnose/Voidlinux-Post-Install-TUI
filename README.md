@@ -59,9 +59,13 @@ VOID-TUI.desktop
 - If dont know what scripts to run, you can read any 0.info.md files in the script.
 - You can read 0.info.md online: [[What to run? 0.info.md]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)
 
-Disclaimers:
+The wiki is a work in progress: https://github.com/squidnose/Voidlinux-Post-Install-TUI/wiki
+
+## 6. Disclaimer:
 ```
 I did get help from LLMs.
 However, this is not a copy and paste slop script. Many hours have gone into making it human readeble. 
 if you dont feel comfortable with me getting help from AI, feel free to read the info.md files. 
 ```
+## 7. Liscence
+The code is Licensed under the BSD-2-Clause Liscence.
