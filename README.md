@@ -68,4 +68,4 @@ However, this is not a copy and paste slop script. Many hours have gone into mak
 if you dont feel comfortable with me getting help from AI, feel free to read the info.md files. 
 ```
 ## 7. Liscence
-The code is Licensed under the BSD-2-Clause Liscence.
+The code is Licensed under the BSD-2-Clause License.
