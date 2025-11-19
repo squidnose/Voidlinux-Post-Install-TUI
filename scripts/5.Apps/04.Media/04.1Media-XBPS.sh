@@ -2,6 +2,8 @@
 # Linux Bulk App Chooser (LBAC)
 # https://codeberg.org/squidnose-code/Linux-Bulk-App-Chooser
 #==================================== Configs ====================================
+##Title Name
+TITLE="Media Apps"
 ## Package list:
 PACKAGES=(kdenlive mpv shotcut vlc handbrake)
 ## Manual list entries:
@@ -20,9 +22,28 @@ INSTALL="sudo xbps-install -Su"
 REMOVE="sudo xbps-remove"
 RECONFIGURE="sudo xbps-reconfigure"
 FORCE_RECONFIGURE="sudo xbps-reconfigure --force"
+#==================================== Show Package List ====================================
+## Build a readable list for whiptail
+PACKAGE_LIST="Available Packages:\n\n"
+
+i=0 ##Index helper
+while [ $i -lt ${#MANUAL_OPTIONS[@]} ]; do
+##MANUAL_OPTIONS Now serves as the number of elements in the array
+##-lt is less than
+    NAME="${MANUAL_OPTIONS[$i]}"
+    DESC="${MANUAL_OPTIONS[$i+1]}"
+
+    PACKAGE_LIST+="$NAME  -  $DESC\n"
+
+    i=$((i+3)) ##is set to 3 because each line has 3 items
+done
+
+## Display the message box
+whiptail --title "$TITLE" --msgbox "$PACKAGE_LIST" 30 80
+
 #==================================== Funtions ====================================
 manual_selection_menu() {
-    whiptail --title "Manual Package Selection" \
+    whiptail --title "Manual Package Selection for $TITLE" \
         --checklist "Choose applications to install/un-install/reconfigure:" \
         25 75 15 \
         "${MANUAL_OPTIONS[@]}" \
@@ -30,7 +51,7 @@ manual_selection_menu() {
 
 }
 #==================================== Main Menu ====================================
-CHOICE=$(whiptail --title "Linux Bulk App Chooser" --menu "Choose an installation mode:" \
+CHOICE=$(whiptail --title "$TITLE" --menu "Choose an installation mode:" \
     20 60 10 \
     1 "Install All" \
     2 "Manual Selection" \
@@ -96,7 +117,7 @@ case "$CHOICE" in
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
         ## Forcefully Reconfigures Packages
-        echo "Force Reconfiguring Selected Packages: ${SELECTED_PACKAGES[*]}"
+        echo "Forcefully Reconfiguring Selected Packages: ${SELECTED_PACKAGES[*]}"
         $FORCE_RECONFIGURE ${SELECTED_PACKAGES[@]}
     ;;
     *)

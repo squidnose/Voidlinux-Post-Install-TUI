@@ -3,7 +3,7 @@
 # https://codeberg.org/squidnose-code/Linux-Bulk-App-Chooser
 #==================================== Configs ====================================
 ## Package list:
-PACKAGES=(xorg wayland dbus NetworkManager python3-dbus kde-plasma kde-baseapps plasma-integration plasma-browser-integration plasma-wayland-protocols xdg-desktop-portal-kde kwalletmanager breeze spectacle ark 7zip-unrar kolourpaint krename filelight kdeconnect discover octoxbps kio-gdrive ufw plasma-firewall flatpak-kcm kontact calendarsupport kdepim-addons kdepim-runtime akonadi-calendar akonadi-contacts akonadi-import-wizard kdegraphics-thumbnailers ffmpegthumbs clinfo  aha  fwupd wayland-utils)
+PACKAGES=(xorg wayland dbus NetworkManager python3-dbus kde-plasma kde-baseapps plasma-integration plasma-browser-integration plasma-wayland-protocols xdg-desktop-portal-kde kwalletmanager breeze spectacle ark 7zip-unrar kolourpaint krename filelight kdeconnect discover octoxbps kio-gdrive kio-extras ufw plasma-firewall flatpak-kcm kontact calendarsupport kdepim-addons kdepim-runtime akonadi-calendar akonadi-contacts akonadi-import-wizard kdegraphics-thumbnailers ffmpegthumbs clinfo  aha  fwupd wayland-utils)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
@@ -34,6 +34,7 @@ MANUAL_OPTIONS=(
     "octoxbps"          "Voids Qt-based XBPS front-end" OFF
 ##Optional Tools for Plasma
     "kio-gdrive"         "KIO slave that enables access and edit Google Drive files" OFF
+    "kio-extras"         "Additional KIO components" OFF
     "ufw"                "Uncomplicated Firewall" OFF
     "plasma-firewall"    "Control Panel for ufw (Uncomplicated Firewall)" OFF
     "flatpak-kcm"        "KDE Config Module for Flatpak Permissions" OFF

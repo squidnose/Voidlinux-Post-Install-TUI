@@ -11,7 +11,7 @@
 - [X] Proton tricks
 - [ ] appmenu-gtk3-module
 - [ ] Speech-dispatcher
-- [ ] Kio extras
+- [X] Kio extras
 - [X] For musl: steam-udev-rules
 - [X] Add a message: add permissions to steam flatpak
 - [ ] Gnome-Disks not there????
