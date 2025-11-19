@@ -1,10 +1,8 @@
 # To Do List For Project
 ## in Progress
 - [ ] Add 0.info.md to each directory with usefull information
-- [ ] Have a Option to preinstall apps for: Office work, Internet, Games, SW managment.(in progress)
 - [ ] Setup Wizzard is awesome! But needs: Pulseaudio, Alsa
-- [ ] Add info files to each directory.
-- [ ] Remove single line installers in favor of list based (flatpak and xbps) Use functions 
+- [X] Remove single line installers in favor of list based (flatpak and xbps) Use functions 
 ## Fixes
 - [ ] Suspend: Nvidia, Elogind
 - [ ] Kde connect seperate because of networking
@@ -23,7 +21,6 @@
 - [ ] Select all break when selected more
 - [ ] Waydroid where??? Desktop file missing
 - [ ] Xdg portal looks like xfce even after un-installing it
-- [x] Fix updater crash on old void installs - If you are affected, re-install the TUI
 - [ ] Remove Bazar and replace with https://flathub.org/en/apps/org.dupot.easyflatpak
 
 ## Add features
@@ -39,10 +36,9 @@
 - [ ] LocalSend
 - [ ] Add cups Printing
 - [ ] Add hw clock to Wizzard
-- [ ] Look at drkonqi
 - [ ] Sddm, lightdm confing
 - [ ] Virus total cli? New tool??
-- [ ] Nextcloud
+- [X] Nextcloud
 - [ ] Qgis
 - [ ] Wayfire: wayfire, wf-shell, wayfire-plugins-extra, wcm, wl-clipboard, wl-clip-persist, 
 - [ ] Watch sensors and nvidia-smi
@@ -77,8 +73,8 @@
 - [ ] Bash colourization
 - [ ] Look into https://www.bitlbee.org/main.php/news.r.html
 - [ ] colors are cool but need to be put into .config/Voidlinux-Post-Install-TUI
-- [ ] add plank panel XFCE
-- [ ] Proton up QT
+- [ ] add plank panel XFCE?
+- [X] Proton up QT
 - [ ] Fork libre gaming for Void: https://github.com/Ahmed-Al-Balochi/LibreGaming
 
 ## Stalled - I dont know how to do
