@@ -7,7 +7,7 @@ PACKAGES=(PrismLauncher openjdk8-jre openjdk17-jre openjdk21-jre steam steamguar
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
-    "PrismLauncher"      "Custom launcher for Minecraft" OFF
+    "PrismLauncher"      "Custom launcher for Minecraft. MC 1.17+ doesnt work well on MUSL use flatpak." OFF
     "openjdk8-jre"       "Java 8 for Minecraft 1.16.5 and older" OFF
     "openjdk17-jre"      "Java 17 for Minecraft 1.17 - 1.20.4" OFF
     "openjdk21-jre"      "Java 21 for Minecraft 1.20.5 and higher" OFF
