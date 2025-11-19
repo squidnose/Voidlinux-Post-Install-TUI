@@ -1,6 +1,5 @@
 #!/bin/bash
 # Simple Whiptail-based Kernel Parameter TUI for GRUB
-# License: MIT
 
 GRUB_FILE="/etc/default/grub"
 BACKUP_FILE="/etc/default/grub.backup"
