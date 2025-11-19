@@ -3,7 +3,7 @@
 # https://codeberg.org/squidnose-code/Linux-Bulk-App-Chooser
 #==================================== Configs ====================================
 ## Package list:
-PACKAGES=(PrismLauncher openjdk8-jre openjdk17-jre openjdk21-jre steam steamguard-cli protontricks MangoHud MangoHud-32bit luanti kpat)
+PACKAGES=(PrismLauncher openjdk8-jre openjdk17-jre openjdk21-jre steam steamguard-cli steam-udev-rules protontricks MangoHud MangoHud-32bit luanti kpat)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
@@ -13,6 +13,7 @@ MANUAL_OPTIONS=(
     "openjdk21-jre"      "Java 21 for Minecraft 1.20.5 and higher" OFF
     "steam"              "GLIBC ONLY! Digital distribution client bootstrap package - Valve's steam client" OFF
     "steamguard-cli"     "Utility for Steam 2FA and for managing trade confirmations" OFF
+    "steam-udev-rules"   "NEEDED FOR MUSL AND STEAM FLATPAK" OFF
     "protontricks"       "Simple wrapper that does winetricks things for Proton enabled games" OFF
     "MangoHud"           "Vulkan and OpenGL overlay for monitoring FPS, temperatures and more" OFF
     "MangoHud-32bit"     "GLIBC ONLY! 32-bit version of mangohud" OFF
@@ -29,7 +30,7 @@ FORCE_RECONFIGURE="sudo xbps-reconfigure --force"
 #==================================== Funtions ====================================
 manual_selection_menu() {
     whiptail --title "Manual Package Selection" \
-        --checklist "Choose applications to install:" \
+        --checklist "Choose applications to install/un-install/reconfigure:" \
         25 75 15 \
         "${MANUAL_OPTIONS[@]}" \
         3>&1 1>&2 2>&3
@@ -90,7 +91,7 @@ case "$CHOICE" in
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
         ## Reconfigures Packages
-        echo "Removing Selected Packages: ${SELECTED_PACKAGES[*]}"
+        echo "Reconfiguring  Selected Packages: ${SELECTED_PACKAGES[*]}"
         $RECONFIGURE ${SELECTED_PACKAGES[@]}
     ;;
     5)
@@ -102,7 +103,7 @@ case "$CHOICE" in
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
         ## Forcefully Reconfigures Packages
-        echo "Removing Selected Packages: ${SELECTED_PACKAGES[*]}"
+        echo "Force Reconfiguring Selected Packages: ${SELECTED_PACKAGES[*]}"
         $FORCE_RECONFIGURE ${SELECTED_PACKAGES[@]}
     ;;
     *)

@@ -3,46 +3,40 @@
 # https://codeberg.org/squidnose-code/Linux-Bulk-App-Chooser
 #==================================== Configs ====================================
 ## Package list:
-PACKAGES=(PrismLauncher openjdk8-jre openjdk17-jre openjdk21-jre steam steamguard-cli protontricks MangoHud MangoHud-32bit luanti kpat)
+PACKAGES=(org.kde.kdenlive io.mpv.Mpv org.shotcut.Shotcut org.videolan.VLC fr.handbrake.ghb)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
-    "PrismLauncher"      "Custom launcher for Minecraft" OFF
-    "openjdk8-jre"       "Java 8 for Minecraft 1.16.5 and older" OFF
-    "openjdk17-jre"      "Java 17 for Minecraft 1.17 - 1.20.4" OFF
-    "openjdk21-jre"      "Java 21 for Minecraft 1.20.5 and higher" OFF
-    "steam"              "GLIBC ONLY! Digital distribution client bootstrap package - Valve's steam client" OFF
-    "steamguard-cli"     "Utility for Steam 2FA and for managing trade confirmations" OFF
-    "protontricks"       "Simple wrapper that does winetricks things for Proton enabled games" OFF
-    "MangoHud"           "Vulkan and OpenGL overlay for monitoring FPS, temperatures and more" OFF
-    "MangoHud-32bit"     "GLIBC ONLY! 32-bit version of mangohud" OFF
-    "luanti"             "Voxel game-creation platform with easy modding and game creation" OFF
-    "kpat"               "Relaxing card sorting game - Kdes solitare" OFF
+    "org.kde.kdenlive"       "Non-linear video editor" OFF
+    "io.mpv.Mpv"            "Video player based on MPlayer/mplayer2" OFF
+    "org.shotcut.Shotcut"        "Free, open source, cross-platform video editor" OFF
+    "org.videolan.VLC"            "Cross-platform multimedia player" OFF
+    "fr.handbrake.ghb"            "Multithreaded video transcoder" OFF
 )
 ## OFF/ON refers if the menu item will be automaticly selected(ON) or de-selected(OFF)
 
 ## Commands:
-INSTALL="sudo xbps-install -Su"
-REMOVE="sudo xbps-remove"
-RECONFIGURE="sudo xbps-reconfigure"
-FORCE_RECONFIGURE="sudo xbps-reconfigure --force"
+INSTALL="flatpak install"
+REMOVE="flatpak remove"
+REPAIR="flatpak repair"
+SHOW_PERMISION="flatpak permission-show"
 #==================================== Funtions ====================================
 manual_selection_menu() {
     whiptail --title "Manual Package Selection" \
-        --checklist "Choose applications to install:" \
+        --checklist "Choose applications to install/un-install/repair:" \
         25 75 15 \
         "${MANUAL_OPTIONS[@]}" \
         3>&1 1>&2 2>&3
 
 }
 #==================================== Main Menu ====================================
-CHOICE=$(whiptail --title "Linux Bulk App Chooser" --menu "Choose an installation mode:" \
+CHOICE=$(whiptail --title "Linux Bulk App Chooser - Flatpak" --menu "Choose an installation mode:" \
     20 60 10 \
     1 "Install All" \
     2 "Manual Selection" \
     3 "Un-install selected" \
-    4 "Reconfigure Selected" \
-    5 "Force Reconfigure" \
+    4 "Repair Selected" \
+    5 "Show Permissions" \
     3>&1 1>&2 2>&3)
 
 case "$CHOICE" in
@@ -89,9 +83,9 @@ case "$CHOICE" in
         fi
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
-        ## Reconfigures Packages
-        echo "Removing Selected Packages: ${SELECTED_PACKAGES[*]}"
-        $RECONFIGURE ${SELECTED_PACKAGES[@]}
+        ## Repair Packages
+        echo "Reconfigure Selected Packages: ${SELECTED_PACKAGES[*]}"
+        $REPAIR ${SELECTED_PACKAGES[@]}
     ;;
     5)
         RAW=$(manual_selection_menu)
@@ -101,9 +95,10 @@ case "$CHOICE" in
         fi
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
-        ## Forcefully Reconfigures Packages
-        echo "Removing Selected Packages: ${SELECTED_PACKAGES[*]}"
-        $FORCE_RECONFIGURE ${SELECTED_PACKAGES[@]}
+        ## Show permissions for Packages
+        echo "Permissions for Selected Packages: ${SELECTED_PACKAGES[*]}"
+        $SHOW_PERMISION ${SELECTED_PACKAGES[@]}
+        echo "If you get an error, please only select one..."
     ;;
     *)
         echo "Exiting."

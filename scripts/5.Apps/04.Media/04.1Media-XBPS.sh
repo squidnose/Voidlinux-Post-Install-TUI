@@ -23,7 +23,7 @@ FORCE_RECONFIGURE="sudo xbps-reconfigure --force"
 #==================================== Funtions ====================================
 manual_selection_menu() {
     whiptail --title "Manual Package Selection" \
-        --checklist "Choose applications to install:" \
+        --checklist "Choose applications to install/un-install/reconfigure:" \
         25 75 15 \
         "${MANUAL_OPTIONS[@]}" \
         3>&1 1>&2 2>&3
@@ -84,7 +84,7 @@ case "$CHOICE" in
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
         ## Reconfigures Packages
-        echo "Removing Selected Packages: ${SELECTED_PACKAGES[*]}"
+        echo "Reconfiguring Selected Packages: ${SELECTED_PACKAGES[*]}"
         $RECONFIGURE ${SELECTED_PACKAGES[@]}
     ;;
     5)
@@ -96,7 +96,7 @@ case "$CHOICE" in
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
         ## Forcefully Reconfigures Packages
-        echo "Removing Selected Packages: ${SELECTED_PACKAGES[*]}"
+        echo "Force Reconfiguring Selected Packages: ${SELECTED_PACKAGES[*]}"
         $FORCE_RECONFIGURE ${SELECTED_PACKAGES[@]}
     ;;
     *)

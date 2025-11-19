@@ -3,40 +3,43 @@
 # https://codeberg.org/squidnose-code/Linux-Bulk-App-Chooser
 #==================================== Configs ====================================
 ## Package list:
-PACKAGES=(kdenlive mpv shotcut vlc handbrake)
+PACKAGES=(org.prismlauncher.PrismLauncher com.valvesoftware.Steam com.github.Matoking.protontricks org.freedesktop.Platform.VulkanLayer.MangoHud org.luanti.luanti org.kde.kpat)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
-    "kdenlive"      "Non-linear video editor" OFF
-    "mpv"           "Video player based on MPlayer/mplayer2" OFF
-    "shotcut"       "Free, open source, cross-platform video editor" OFF
-    "vlc"           "Cross-platform multimedia player" OFF
-    "handbrake"     "Multithreaded video transcoder" OFF
+    "org.prismlauncher.PrismLauncher"      "PrismLauncher" OFF
+    "com.valvesoftware.Steam"              "Steam" OFF
+    "com.github.Matoking.protontricks"      "Protontricks" OFF
+    "org.freedesktop.Platform.VulkanLayer.MangoHud"           "Manghohud" OFF
+    "org.luanti.luanti"             "Luanti" OFF
+    "org.kde.kpat"                  "Kdes solitare" OFF
+    "com.heroicgameslauncher.hgl"   "Heroic game laucnher, for GOG, Epic and Amazon." OFF
+    "net.davidotek.pupgui2"         "ProtonUp-Qt, for installing custom proton runners." OFF
 )
 ## OFF/ON refers if the menu item will be automaticly selected(ON) or de-selected(OFF)
 
 ## Commands:
-INSTALL="sudo xbps-install -Su"
-REMOVE="sudo xbps-remove"
-RECONFIGURE="sudo xbps-reconfigure"
-FORCE_RECONFIGURE="sudo xbps-reconfigure --force"
+INSTALL="flatpak install"
+REMOVE="flatpak remove"
+REPAIR="flatpak repair"
+SHOW_PERMISION="flatpak permission-show"
 #==================================== Funtions ====================================
 manual_selection_menu() {
     whiptail --title "Manual Package Selection" \
-        --checklist "Choose applications to install:" \
-        25 75 15 \
+        --checklist "Choose applications to install/un-install/repair:" \
+        25 110 15 \
         "${MANUAL_OPTIONS[@]}" \
         3>&1 1>&2 2>&3
 
 }
 #==================================== Main Menu ====================================
-CHOICE=$(whiptail --title "Linux Bulk App Chooser" --menu "Choose an installation mode:" \
+CHOICE=$(whiptail --title "Linux Bulk App Chooser - Flatpak" --menu "Choose an installation mode:" \
     20 60 10 \
     1 "Install All" \
     2 "Manual Selection" \
     3 "Un-install selected" \
-    4 "Reconfigure Selected" \
-    5 "Force Reconfigure" \
+    4 "Repair Selected" \
+    5 "Show Permissions" \
     3>&1 1>&2 2>&3)
 
 case "$CHOICE" in
@@ -83,9 +86,9 @@ case "$CHOICE" in
         fi
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
-        ## Reconfigures Packages
-        echo "Removing Selected Packages: ${SELECTED_PACKAGES[*]}"
-        $RECONFIGURE ${SELECTED_PACKAGES[@]}
+        ## Repair Packages
+        echo "Reconfigure Selected Packages: ${SELECTED_PACKAGES[*]}"
+        $REPAIR ${SELECTED_PACKAGES[@]}
     ;;
     5)
         RAW=$(manual_selection_menu)
@@ -95,9 +98,10 @@ case "$CHOICE" in
         fi
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
-        ## Forcefully Reconfigures Packages
-        echo "Removing Selected Packages: ${SELECTED_PACKAGES[*]}"
-        $FORCE_RECONFIGURE ${SELECTED_PACKAGES[@]}
+        ## Show permissions for Packages
+        echo "Permissions for Selected Packages: ${SELECTED_PACKAGES[*]}"
+        $SHOW_PERMISION ${SELECTED_PACKAGES[@]}
+        echo "If you get an error, please only select one..."
     ;;
     *)
         echo "Exiting."

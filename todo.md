@@ -24,6 +24,7 @@
 - [ ] Waydroid where??? Desktop file missing
 - [ ] Xdg portal looks like xfce even after un-installing it
 - [x] Fix updater crash on old void installs - If you are affected, re-install the TUI
+- [ ] Remove Bazar and replace with https://flathub.org/en/apps/org.dupot.easyflatpak
 
 ## Add features
 - [ ] Usbmuxd service
