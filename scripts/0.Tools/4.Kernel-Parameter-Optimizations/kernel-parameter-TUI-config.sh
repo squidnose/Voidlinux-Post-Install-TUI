@@ -1,36 +1,44 @@
 #!/bin/bash
-# Simple Whiptail-based Kernel Parameter TUI for GRUB
+#Linux-Kernel-Parameters-TUI
+##https://codeberg.org/squidnose-code/Linux-Kernel-Parameters-TUI
+##A TUI for setting kernel parameters using Bash and Whiptale.
 
+#==================================== Configs ====================================
 GRUB_FILE="/etc/default/grub"
 BACKUP_FILE="/etc/default/grub.backup"
 
-# Directory where this script lives
-SCRIPT_DIR="$(cd "$(dirname "$(realpath "${BASH_SOURCE[0]}")")" && pwd)"
-
-# One parameter per line, sitting next to this script
+#==================================== Parameters ====================================
+## Directory where this script lives
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+## One parameter per line, sitting next to this script
 PARAM_LIST_FILE="$SCRIPT_DIR/kernel_params.conf"
-
-# Check parameter list file
+## Check parameter list file
 if [[ ! -f "$PARAM_LIST_FILE" ]]; then
     echo "Error: $PARAM_LIST_FILE not found."
     echo "Create it with one kernel parameter per line."
     exit 1
 fi
 
-# Read parameters into array, skipping empty lines and comments
-mapfile -t AVAILABLE_PARAMS < <(grep -v '^\s*#' "$PARAM_LIST_FILE" | grep -v '^\s*$')
-
-# Function: get current GRUB_CMDLINE_LINUX_DEFAULT
+#==================================== Functions ====================================
+## get current GRUB_CMDLINE_LINUX_DEFAULT
 get_current_params() {
     grep '^GRUB_CMDLINE_LINUX_DEFAULT=' "$GRUB_FILE" \
         | sed 's/^GRUB_CMDLINE_LINUX_DEFAULT="//;s/"$//'
 }
+#============================= Loading existing Kernel Parameters ================================
+# Read parameters into array, skipping empty lines and comments
+mapfile -t AVAILABLE_PARAMS < <(
+    grep -v '^\s*#' "$PARAM_LIST_FILE" |   # remove comments
+    grep -v '^\s*$'                        # remove empty lines
+)
 
 # Get current params and split into array
 CURRENT_PARAMS_STR=$(get_current_params)
 read -r -a CURRENT_PARAMS <<< "$CURRENT_PARAMS_STR"
 
-# Build whiptail menu items (ON if currently set, OFF otherwise)
+#==================================== Menu ====================================
+##Build whiptail menu items
+##ON if currently set, OFF if not present
 MENU_ITEMS=()
 for param in "${AVAILABLE_PARAMS[@]}"; do
     if printf '%s\n' "${CURRENT_PARAMS[@]}" | grep -Fxq "$param"; then
@@ -48,7 +56,7 @@ CHOICES=$(whiptail --title "Kernel Parameter Manager" \
 
 # Exit if cancelled
 [ $? -ne 0 ] && echo "Cancelled." && exit 0
-
+#==================================== Set new Kenrel Parameters ====================================
 # Convert selection to array
 read -r -a SELECTED_PARAMS <<< "$(echo "$CHOICES" | tr -d '"')"
 
