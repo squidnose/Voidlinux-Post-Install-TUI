@@ -13,7 +13,7 @@ MANUAL_OPTIONS=(
     "openjdk21-jre"      "Java 21 for Minecraft 1.20.5 and higher" OFF
     "steam"              "GLIBC ONLY! Digital distribution client bootstrap package - Valve's steam client" OFF
     "steamguard-cli"     "Utility for Steam 2FA and for managing trade confirmations" OFF
-    "steam-udev-rules"   "NEEDED FOR MUSL AND STEAM FLATPAK" OFF
+    "steam-udev-rules"   "NEEDED STEAM FLATPAK, usefull for MUSL" OFF
     "protontricks"       "Simple wrapper that does winetricks things for Proton enabled games" OFF
     "MangoHud"           "Vulkan and OpenGL overlay for monitoring FPS, temperatures and more" OFF
     "MangoHud-32bit"     "GLIBC ONLY! 32-bit version of mangohud" OFF
