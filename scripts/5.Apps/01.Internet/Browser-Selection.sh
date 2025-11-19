@@ -1,6 +1,5 @@
 #!/bin/bash
 # Whiptail-based Web Browser Installation Script
-# License: MIT
 
 TITLE="Web Browser Installer"
 BROWSERS=(

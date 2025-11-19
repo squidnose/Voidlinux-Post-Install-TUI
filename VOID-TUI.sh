@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+#Linux-Scritp-Runner https://codeberg.org/squidnose-code/Linux-Script-Runner
 #VOID Terminal User Interface
 #==================================== Dependecies ====================================
 ## Ensure whiptail exists
