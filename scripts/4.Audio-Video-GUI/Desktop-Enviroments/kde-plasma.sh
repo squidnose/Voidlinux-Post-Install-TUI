@@ -3,7 +3,7 @@
 # https://codeberg.org/squidnose-code/Linux-Bulk-App-Chooser
 #==================================== Configs ====================================
 ## Package list:
-PACKAGES=(xorg wayland dbus NetworkManager python3-dbus kde-plasma kde-baseapps plasma-integration plasma-browser-integration plasma-wayland-protocols xdg-desktop-portal-kde kwalletmanager breeze spectacle ark 7zip-unrar kolourpaint krename filelight kdeconnect discover octoxbps kio-gdrive kio-extras ufw plasma-firewall flatpak-kcm kontact calendarsupport kdepim-addons kdepim-runtime akonadi-calendar akonadi-contacts akonadi-import-wizard kdegraphics-thumbnailers ffmpegthumbs clinfo  aha  fwupd wayland-utils)
+PACKAGES=(xorg wayland dbus NetworkManager python3-dbus kde-plasma kde-baseapps plasma-integration plasma-browser-integration plasma-wayland-protocols xdg-desktop-portal-kde kwalletmanager breeze spectacle ark 7zip-unrar kolourpaint krename filelight kdeconnect kcalc discover octoxbps kio-gdrive kio-extras ufw plasma-firewall flatpak-kcm korganizer kontact calendarsupport kdepim-addons kdepim-runtime akonadi-calendar akonadi-contacts akonadi-import-wizard kdegraphics-thumbnailers ffmpegthumbs clinfo  aha  fwupd wayland-utils)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
@@ -30,6 +30,7 @@ MANUAL_OPTIONS=(
     "krename"           "Powerful batch renamer for KDE" OFF
     "filelight"         "Interactive map that helps visualize disk usage on your computer" OFF
     "kdeconnect"        "Multi-platform app that allows your devices to communicate" OFF
+    "kcalc"             "Simple and scientific calculator from KDE" OFF
     "discover"          "KDE resources management flatpak, plasma plugins" OFF
     "octoxbps"          "Voids Qt-based XBPS front-end" OFF
 ##Optional Tools for Plasma
@@ -38,6 +39,7 @@ MANUAL_OPTIONS=(
     "ufw"                "Uncomplicated Firewall" OFF
     "plasma-firewall"    "Control Panel for ufw (Uncomplicated Firewall)" OFF
     "flatpak-kcm"        "KDE Config Module for Flatpak Permissions" OFF
+    "korganizer"         "Calendar and scheduling Program from KDE" OFF
     "kontact"            "KDE Personal Information Manager (PIM)" OFF
     "calendarsupport"    "Calendar support library from KDE" OFF
     "kdepim-addons"      "Addons for KDE PIM applications" OFF

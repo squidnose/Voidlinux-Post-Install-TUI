@@ -3,23 +3,28 @@
 # https://codeberg.org/squidnose-code/Linux-Bulk-App-Chooser
 #==================================== Configs ====================================
 ##Title Name
-TITLE="Internet Apps - Flatpak"
+TITLE="Internet Apps - XBPS"
 ## Package list:
-PACKAGES=(com.discordapp.Discord org.nickvision.tubeconverter org.telegram.desktop)
+PACKAGES=(libreoffice libreoffice-common libreoffice-kde libreoffice-gnome libreoffice-qt6 libreoffice-libgtk nextcloud-client xournalpp)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
-    "com.discordapp.Discord"                "Discord Communication platform" OFF
-    "org.nickvision.tubeconverter"          "yt-dlp graphical front end" OFF
-    "org.telegram.desktop"                  "Telegram Communication platform" OFF
+    "libreoffice"               "Productivity suite" OFF
+    "libreoffice-common"        "Productivity suite - Common files" OFF
+    "libreoffice-kde"           "Productivity suite - KDE integration" OFF
+    "libreoffice-gnome"         "Productivity suite - Gnome integration" OFF
+    "libreoffice-qt6"           "Productivity suite - Qt6 integration" OFF
+    "libreoffice-libgtk"        "GTK+3 widget wrapping LibreOffice functionality" OFF
+    "nextcloud-client"          "NextCloud Desktop client" OFF
+    "xournalpp"                 "Handwriting Notetaking software with PDF annotation support" OFF
 )
 ## OFF/ON refers if the menu item will be automaticly selected(ON) or de-selected(OFF)
 
 ## Commands:
-INSTALL="flatpak install"
-REMOVE="flatpak remove"
-REPAIR="flatpak repair"
-SHOW_PERMISION="flatpak permission-show"
+INSTALL="sudo xbps-install -Su"
+REMOVE="sudo xbps-remove"
+RECONFIGURE="sudo xbps-reconfigure"
+FORCE_RECONFIGURE="sudo xbps-reconfigure --force"
 #==================================== Show Package List ====================================
 ## Build a readable list for whiptail
 PACKAGE_LIST="Available Packages:\n\n"
@@ -42,8 +47,8 @@ whiptail --title "$TITLE" --msgbox "$PACKAGE_LIST" 30 80
 #==================================== Funtions ====================================
 manual_selection_menu() {
     whiptail --title "Manual Package Selection for $TITLE" \
-        --checklist "Choose applications to install/un-install/repair:" \
-        25 75 15 \
+        --checklist "Choose applications to install/un-install/reconfigure:" \
+        25 90 15 \
         "${MANUAL_OPTIONS[@]}" \
         3>&1 1>&2 2>&3
 
@@ -54,8 +59,8 @@ CHOICE=$(whiptail --title "$TITLE" --menu "Choose an installation mode:" \
     1 "Install All" \
     2 "Manual Selection" \
     3 "Un-install selected" \
-    4 "Repair Selected" \
-    5 "Show Permissions" \
+    4 "Reconfigure Selected" \
+    5 "Force Reconfigure" \
     3>&1 1>&2 2>&3)
 
 case "$CHOICE" in
@@ -102,9 +107,9 @@ case "$CHOICE" in
         fi
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
-        ## Repair Packages
-        echo "Reconfigure Selected Packages: ${SELECTED_PACKAGES[*]}"
-        $REPAIR ${SELECTED_PACKAGES[@]}
+        ## Reconfigures Packages
+        echo "Reconfiguring Selected Packages: ${SELECTED_PACKAGES[*]}"
+        $RECONFIGURE ${SELECTED_PACKAGES[@]}
     ;;
     5)
         RAW=$(manual_selection_menu)
@@ -114,10 +119,9 @@ case "$CHOICE" in
         fi
         RAW=${RAW//\"/}
         read -r -a SELECTED_PACKAGES <<< "$RAW"
-        ## Show permissions for Packages
-        echo "Permissions for Selected Packages: ${SELECTED_PACKAGES[*]}"
-        $SHOW_PERMISION ${SELECTED_PACKAGES[@]}
-        echo "If you get an error, please only select one..."
+        ## Forcefully Reconfigures Packages
+        echo "Forcefully Reconfiguring Selected Packages: ${SELECTED_PACKAGES[*]}"
+        $FORCE_RECONFIGURE ${SELECTED_PACKAGES[@]}
     ;;
     *)
         echo "Exiting."

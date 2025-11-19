@@ -9,10 +9,11 @@ PACKAGES=(transmission transmission-qt transmission-gtk yt-dlp)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
-    "transmission"          "Fast, easy and free BitTorrent client" OFF
-    "transmission-qt"       "Fast, easy and free BitTorrent client - Qt frontend" OFF
-    "transmission-gtk"      "Fast, easy and free BitTorrent client - GTK+ frontend" OFF
-    "yt-dlp"                "CLI program to download videos from YouTube and other sites" OFF
+    "transmission"              "Fast, easy and free BitTorrent client" OFF
+    "transmission-qt"           "Fast, easy and free BitTorrent client - Qt frontend" OFF
+    "transmission-gtk"          "Fast, easy and free BitTorrent client - GTK+ frontend" OFF
+    "transmission-remote-gtk"   "GTK client for remote management of the Transmission BitTorrent client" OFF
+    "yt-dlp"                    "CLI program to download videos from YouTube and other sites" OFF
 )
 ## OFF/ON refers if the menu item will be automaticly selected(ON) or de-selected(OFF)
 

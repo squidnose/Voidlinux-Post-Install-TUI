@@ -5,13 +5,12 @@
 ##Title Name
 TITLE="Internet Apps - Flatpak"
 ## Package list:
-PACKAGES=(com.discordapp.Discord org.nickvision.tubeconverter org.telegram.desktop)
+PACKAGES=(org.onlyoffice.desktopeditors io.github.david_swift.Flashcards)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
-    "com.discordapp.Discord"                "Discord Communication platform" OFF
-    "org.nickvision.tubeconverter"          "yt-dlp graphical front end" OFF
-    "org.telegram.desktop"                  "Telegram Communication platform" OFF
+    "org.onlyoffice.desktopeditors"             "OnlyOffice Desktop Editors" OFF
+    "io.github.david_swift.Flashcards"          "simple Flashcards app" OFF
 )
 ## OFF/ON refers if the menu item will be automaticly selected(ON) or de-selected(OFF)
 
