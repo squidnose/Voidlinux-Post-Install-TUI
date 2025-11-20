@@ -2,19 +2,21 @@
 # Linux Bulk App Chooser (LBAC)
 # https://codeberg.org/squidnose-code/Linux-Bulk-App-Chooser
 #==================================== Configs ====================================
+##Title Name
+TITLE="Games Flatpak"
 ## Package list:
 PACKAGES=(org.prismlauncher.PrismLauncher com.valvesoftware.Steam com.github.Matoking.protontricks org.freedesktop.Platform.VulkanLayer.MangoHud org.luanti.luanti org.kde.kpat)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
-    "org.prismlauncher.PrismLauncher"      "PrismLauncher" OFF
-    "com.valvesoftware.Steam"              "Steam" OFF
-    "com.github.Matoking.protontricks"      "Protontricks" OFF
-    "org.freedesktop.Platform.VulkanLayer.MangoHud"           "Manghohud" OFF
-    "org.luanti.luanti"             "Luanti" OFF
-    "org.kde.kpat"                  "Kdes solitare" OFF
-    "com.heroicgameslauncher.hgl"   "Heroic game laucnher, for GOG, Epic and Amazon." OFF
-    "net.davidotek.pupgui2"         "ProtonUp-Qt, for installing custom proton runners." OFF
+    "org.prismlauncher.PrismLauncher"               "PrismLauncher" OFF
+    "com.valvesoftware.Steam"                       "Steam" OFF
+    "com.github.Matoking.protontricks"              "Protontricks" OFF
+    "org.freedesktop.Platform.VulkanLayer.MangoHud" "Manghohud" OFF
+    "org.luanti.luanti"                             "Luanti" OFF
+    "org.kde.kpat"                                  "Kdes solitare" OFF
+    "com.heroicgameslauncher.hgl"                   "Heroic game laucnher, for GOG, Epic and Amazon." OFF
+    "net.davidotek.pupgui2"                         "ProtonUp-Qt, for installing custom proton runners." OFF
 )
 ## OFF/ON refers if the menu item will be automaticly selected(ON) or de-selected(OFF)
 
@@ -23,17 +25,36 @@ INSTALL="flatpak install"
 REMOVE="flatpak remove"
 REPAIR="flatpak repair"
 SHOW_PERMISION="flatpak permission-show"
+#==================================== Show Package List ====================================
+## Build a readable list for whiptail
+PACKAGE_LIST="Available Packages:\n\n"
+
+i=0 ##Index helper
+while [ $i -lt ${#MANUAL_OPTIONS[@]} ]; do
+##MANUAL_OPTIONS Now serves as the number of elements in the array
+##-lt is less than
+    NAME="${MANUAL_OPTIONS[$i]}"
+    DESC="${MANUAL_OPTIONS[$i+1]}"
+
+    PACKAGE_LIST+="$NAME  -  $DESC\n"
+
+    i=$((i+3)) ##is set to 3 because each line has 3 items
+done
+
+## Display the message box
+whiptail --title "$TITLE" --msgbox "$PACKAGE_LIST" 30 80
+
 #==================================== Funtions ====================================
 manual_selection_menu() {
-    whiptail --title "Manual Package Selection" \
+    whiptail --title "Manual Package Selection for $TITLE" \
         --checklist "Choose applications to install/un-install/repair:" \
-        25 110 15 \
+        25 75 15 \
         "${MANUAL_OPTIONS[@]}" \
         3>&1 1>&2 2>&3
 
 }
 #==================================== Main Menu ====================================
-CHOICE=$(whiptail --title "Linux Bulk App Chooser - Flatpak" --menu "Choose an installation mode:" \
+CHOICE=$(whiptail --title "$TITLE" --menu "Choose an installation mode:" \
     20 60 10 \
     1 "Install All" \
     2 "Manual Selection" \
