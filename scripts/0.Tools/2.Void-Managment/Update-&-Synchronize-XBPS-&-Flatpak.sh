@@ -5,5 +5,5 @@ sudo xbps-install -Syu xbps
 sudo xbps-install -Syu
 
 echo "Updating Flatpak Packages"
-flatpak update -y --noninteractive
-echo "Update-complete"
+flatpak update -y
+echo "Updates complete"

@@ -6,4 +6,4 @@ sudo xbps-install -Syu
 
 echo "Updating Flatpak Packages"
 flatpak update -y
-echo "Update-complete"
+echo "Updates complete"

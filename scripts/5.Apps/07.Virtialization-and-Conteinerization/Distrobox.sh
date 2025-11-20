@@ -1,5 +1,5 @@
 #/bin/bash
-if whiptail --title "WARNING!!!" --yesno "This may break Networking for Qemu/KVM virtual Machines and other\nI do not know yet how to fix this\nRun at your own risk!!!" 10 60; then
+if whiptail --title "WARNING!!!" --yesno "This will break Networking for Qemu/KVM virtual Machines and other!\nI do not know yet how to fix this\nRun at your own risk!!!" 10 60; then
 
 echo "To install Distrobox you need Docker, do you wish to install and configure Docker?"
 echo "Carefull, my method of installing docker isnt very safe, consider using LXC+VirtManager"
