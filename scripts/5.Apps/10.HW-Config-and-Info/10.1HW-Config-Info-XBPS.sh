@@ -50,6 +50,17 @@ manual_selection_menu() {
         3>&1 1>&2 2>&3
 
 }
+optional_script() {
+if whiptail --title "$TITLE" --yesno "Enable the LACT service?" 15 60; then
+    sudo ln -s /etc/sv/lact /var/service
+    echo "Enabled the LACT service, reboot to apply."
+fi
+
+if whiptail --title "$TITLE" --yesno "Run sensors-detect to detect sensors?(lm_sensors)" 15 60; then
+    sudo sensors-detect
+    echo "Sensors were detcted."
+fi
+}
 #==================================== Main Menu ====================================
 CHOICE=$(whiptail --title "$TITLE" --menu "Choose an installation mode:" \
     20 60 10 \
@@ -64,6 +75,7 @@ case "$CHOICE" in
     1)
         echo "Installing All Packages: ${PACKAGES[*]}"
         $INSTALL "${PACKAGES[@]}"
+        optional_script
         ;;
     2)
         RAW=$(manual_selection_menu)
@@ -83,6 +95,7 @@ case "$CHOICE" in
         ## Install Packages
         echo "Installing Selected Packages: ${SELECTED_PACKAGES[*]}"
         $INSTALL "${SELECTED_PACKAGES[@]}"
+        optional_script
         ;;
     3)
         RAW=$(manual_selection_menu)
@@ -125,14 +138,5 @@ case "$CHOICE" in
         exit 0
         ;;
 esac
-
-if whiptail --title "$TITLE" --yesno "Enable the LACT service?" 15 60; then
-    sudo ln -s /etc/sv/lact /var/service
-    echo "Enabled the LACT service, reboot to apply."
-fi
-
-if whiptail --title "$TITLE" --yesno "Run sensors-detect to detect sensors?(lm_sensors)" 15 60; then
-    sudo sensors-detect
-    echo "Sensors were detcted."
-fi
+#just in case
 exit 0

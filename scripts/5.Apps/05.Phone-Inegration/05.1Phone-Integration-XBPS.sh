@@ -46,10 +46,24 @@ whiptail --title "$TITLE" --msgbox "$PACKAGE_LIST" 30 80
 manual_selection_menu() {
     whiptail --title "Manual Package Selection for $TITLE" \
         --checklist "Choose applications to install/un-install/reconfigure:" \
-        25 75 15 \
+        25 110 15 \
         "${MANUAL_OPTIONS[@]}" \
         3>&1 1>&2 2>&3
 
+}
+optional_script() {
+if whiptail --title "$TITLE" --yesno "Add yourself to the Dialout group(For ADB)" 15 60; then
+    sudo usermod -aG dialout $USER
+    echo "Added user $USER to dialout group"
+fi
+
+if whiptail --title "$TITLE" --yesno "If you are using UFW, do you wish to allow kdeconnect?" 15 60; then
+    sudo ufw allow 1714:1764/udp
+    sudo ufw allow 1714:1764/tcp
+    sudo ufw reload
+    echo "Added rules to UFW for Kde Connect"
+    echo "You will need to restart to apply"
+fi
 }
 #==================================== Main Menu ====================================
 CHOICE=$(whiptail --title "$TITLE" --menu "Choose an installation mode:" \
@@ -65,6 +79,7 @@ case "$CHOICE" in
     1)
         echo "Installing All Packages: ${PACKAGES[*]}"
         $INSTALL "${PACKAGES[@]}"
+        optional_script
         ;;
     2)
         RAW=$(manual_selection_menu)
@@ -84,6 +99,7 @@ case "$CHOICE" in
         ## Install Packages
         echo "Installing Selected Packages: ${SELECTED_PACKAGES[*]}"
         $INSTALL "${SELECTED_PACKAGES[@]}"
+        optional_script
         ;;
     3)
         RAW=$(manual_selection_menu)
@@ -126,18 +142,5 @@ case "$CHOICE" in
         exit 0
         ;;
 esac
-
-if whiptail --title "$TITLE" --yesno "Add yourself to the Dialout group(For ADB)" 15 60; then
-    sudo usermod -aG dialout $USER
-    echo "Added user $USER to dialout group"
-fi
-
-if whiptail --title "$TITLE" --yesno "If you are using UFW, do you wish to allow kdeconnect?" 15 60; then
-    sudo ufw allow 1714:1764/udp
-    sudo ufw allow 1714:1764/tcp
-    sudo ufw reload
-    echo "Added rules to UFW for Kde Connect"
-    echo "You will need to restart to apply"
-fi
-
+#just in case:)
 exit 0
