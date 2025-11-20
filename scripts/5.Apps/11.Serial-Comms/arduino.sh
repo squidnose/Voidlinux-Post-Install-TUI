@@ -13,11 +13,11 @@ if [[ "$arduino_version" == "1" ]]; then
 
 # Arduino 1.8 flatpak
 elif [[ "$arduino_version" == "2" ]]; then # <-- Changed 'else if' to 'elif'
-    flatpak install flathub cc.arduino.arduinoide
+    flatpak install -y flathub cc.arduino.arduinoide
 
 # Arduino 2.X flatpak
 elif [[ "$arduino_version" == "3" ]]; then # <-- Changed condition to '3' and 'elif'
-    flatpak install flathub cc.arduino.IDE2
+    flatpak install -y flathub cc.arduino.IDE2
 
 else # <-- This 'else' now correctly catches invalid inputs
     echo "Invalid choice. No Arduino IDE version installed."

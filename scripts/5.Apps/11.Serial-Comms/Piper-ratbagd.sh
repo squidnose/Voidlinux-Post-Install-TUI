@@ -1,3 +1,3 @@
 #/bin/bash
-sudo xbps-install -y piper
+sudo xbps-install -y piper libratbag
 
