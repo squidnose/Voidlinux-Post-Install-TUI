@@ -48,7 +48,7 @@ whiptail --title "$TITLE" --msgbox "$PACKAGE_LIST" 30 80
 manual_selection_menu() {
     whiptail --title "Manual Package Selection for $TITLE" \
         --checklist "Choose applications to install/un-install/repair:" \
-        25 75 15 \
+        25 110 15 \
         "${MANUAL_OPTIONS[@]}" \
         3>&1 1>&2 2>&3
 
