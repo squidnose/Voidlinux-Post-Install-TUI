@@ -3,7 +3,7 @@
 # https://codeberg.org/squidnose-code/Linux-Bulk-App-Chooser
 #==================================== Configs ====================================
 ## Package list:
-PACKAGES=(xorg wayland dbus NetworkManager python3-dbus kde-plasma kde-baseapps plasma-integration plasma-browser-integration plasma-wayland-protocols xdg-desktop-portal-kde kwalletmanager breeze spectacle ark 7zip-unrar kolourpaint krename filelight kdeconnect kcalc discover octoxbps kio-gdrive kio-extras ufw plasma-firewall flatpak-kcm korganizer kontact calendarsupport kdepim-addons kdepim-runtime akonadi-calendar akonadi-contacts akonadi-import-wizard kdegraphics-thumbnailers ffmpegthumbs clinfo  aha  fwupd wayland-utils)
+PACKAGES=(xorg wayland dbus NetworkManager python3-dbus kde-plasma kde-baseapps plasma-integration plasma-browser-integration plasma-wayland-protocols xdg-desktop-portal-kde kwalletmanager breeze spectacle ark 7zip-unrar kolourpaint krename filelight kdeconnect kcalc discover octoxbps kio-gdrive kio-extras ufw plasma-firewall flatpak-kcm korganizer kontact calendarsupport kdepim-addons kdepim-runtime akonadi-calendar akonadi-contacts akonadi-import-wizard kdegraphics-thumbnailers ffmpegthumbs ksystemlog clinfo  aha  fwupd wayland-utils)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
@@ -48,7 +48,8 @@ MANUAL_OPTIONS=(
     "akonadi-contacts"   "Libraries and daemons to implement Contact Management in Akonadi" OFF
     "akonadi-import-wizard"             "Import data from other mail clients to KMail" OFF
     "kdegraphics-thumbnailers"          "KDE Plasma 6 Thumbnailers for various graphics file formats" OFF
-    "ffmpegthumbs"        "FFmpeg-based thumbnail creator for video files " OFF
+    "ffmpegthumbs"       "FFmpeg-based thumbnail creator for video files" OFF
+    "ksystemlog"         "KDE System log viewer tool" OFF
 ##Info Utils for Plasma
     "clinfo"             "Prints all information about OpenCL in the system" OFF
     "aha"                "Converts SGR-colored Input to W3C conform HTML-Code (used in info center)" OFF
