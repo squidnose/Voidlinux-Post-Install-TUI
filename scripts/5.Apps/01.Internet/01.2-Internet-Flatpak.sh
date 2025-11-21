@@ -5,13 +5,15 @@
 ##Title Name
 TITLE="Internet Apps - Flatpak"
 ## Package list:
-PACKAGES=(com.discordapp.Discord org.nickvision.tubeconverter org.telegram.desktop)
+PACKAGES=(org.nickvision.tubeconverter org.localsend.localsend_app com.discordapp.Discord org.telegram.desktop com.viber.Viber)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
+    "org.nickvision.tubeconverter"          "Parabolic yt-dlp graphical front end" OFF
+    "org.localsend.localsend_app"           "Share files to nearby devices" OFF
     "com.discordapp.Discord"                "Discord Communication platform" OFF
-    "org.nickvision.tubeconverter"          "yt-dlp graphical front end" OFF
     "org.telegram.desktop"                  "Telegram Communication platform" OFF
+    "com.viber.Viber"                       "Viber Communication platform" OFF
 )
 ## OFF/ON refers if the menu item will be automaticly selected(ON) or de-selected(OFF)
 
