@@ -12,8 +12,9 @@ else
 fi
 
 
-sudo xbps-install nvidia470 nvidia470-libs-32bit nvidia470-opencl linux6.12 linux6.12-headers vulkan-loader vulkan-loader-32bit Vulkan-Headers Vulkan-Tools libspa-vulkan libspa-vulkan-32bit ocl-icd ocl-icd-32bit nvidia-vaapi-driver
-echo "Nvidia470 driver may have issues with kernels newer than 6.12."
-echo "You must select linux 6.12 at startup."
+sudo xbps-install nvidia470 nvidia470-libs-32bit nvidia470-opencl linux6.1 linux6.1-headers vulkan-loader vulkan-loader-32bit Vulkan-Headers Vulkan-Tools libspa-vulkan libspa-vulkan-32bit ocl-icd ocl-icd-32bit nvidia-vaapi-driver
+echo "Nvidia470 driver may have issues with kernels newer than 6.1."
+echo "You must select linux 6.1 at startup."
+echo "This driver is OLD and doesnt support Wayland to well. Use Xorg based enviroments like XFCE."
 echo "For GRUB Customizer configuration, I recommend the package: download in octoxbps or via sudo xbps-install grub-customizer"
 

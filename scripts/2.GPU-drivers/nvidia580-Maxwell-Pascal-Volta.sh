@@ -1,6 +1,6 @@
 #/bin/bash
 echo "For NVIDIA Maxwell, Pascal and Volta cards (Geforce 900/1000)"
-echo "At the time of of writing, Nvidia580 is not a Package."
+echo "At the time of of writing, Nvidia580 is not a Package, run nvidia-New-Stable.sh if that is the case"
 read -p "Press Enter to install, CTRL+c to cancel"
 
 echo "Highly reccomended to remove unsed kernels."
