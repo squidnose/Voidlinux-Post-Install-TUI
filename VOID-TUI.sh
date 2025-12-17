@@ -114,6 +114,14 @@ display_dynamic_menu() {
     ### 2. Main menu loop (runs until user exits)
     while true; do
 
+    ## Detect terminal size
+    TERM_HEIGHT=$(tput lines)
+    TERM_WIDTH=$(tput cols)
+    ## Set TUI size based on terminal size
+    HEIGHT=$(( TERM_HEIGHT * 3 / 4 ))
+    WIDTH=$(( TERM_WIDTH * 4 / 5 ))
+    MENU_HEIGHT=$(( HEIGHT - 10 ))
+
     ### 3. Build dynamic menu options based on current folder
     local menu_options=()
 

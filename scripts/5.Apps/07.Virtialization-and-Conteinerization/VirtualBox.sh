@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 echo "Install and Configure Virtualbox"
 read -p "Press Enter to install, CTRL+c to cancel"
 echo "Installing VirtualBox"

@@ -1,4 +1,4 @@
-#/bin/bash
+#!bin/bash
 read -rp "Install Docker? (y/N):"
 sudo xbps-install docker
 sudo ln -s /etc/sv/docker /var/service/

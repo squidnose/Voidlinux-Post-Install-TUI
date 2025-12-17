@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 echo "For NVIDIA Maxwell cards and above (Geforce 900+)"
 
 echo "Highly reccomended to remove unsed kernels."

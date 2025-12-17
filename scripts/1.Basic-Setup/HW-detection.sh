@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 CPU=$(lscpu | grep -E '^Model name:' | sed 's/Model name:\s*//')
 GPU=$(lspci | grep -E "VGA|3D" | sed 's/.*: //')
 WIFI=$(lspci | grep -i "network" | sed 's/.*: //')

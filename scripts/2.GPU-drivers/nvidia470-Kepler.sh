@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 echo "For NVIDIA Kepler cards (Geforce 600/700)"
 
 echo "Highly reccomended to remove unsed kernels."

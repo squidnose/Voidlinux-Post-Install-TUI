@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 echo "For all AMD and ATI cards Terrascale, GCN, RDNA, UDNA. (ATI HD 2000 and up)"
 echo "RADV Vulkan driver for GCN+ (Radeon HD 7000+)"
 #read -p "Press Enter to install, CTRL+c to cancel"

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 echo "For Intel cards Gen 5 and above (Intel HD 2000+)"
 echo "May have issues with Intel Gen 1-4 (GMA and similar). Solution is mesa-amber (Archlinux) or Debian Linux."
 

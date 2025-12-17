@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 echo "For NVIDIA Fermi cards (Geforce 400/500)"
 
 echo "Highly reccomended to remove unsed kernels."

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 echo "Waydroid - Intel or AMD (or Nvidia with Nouveau drivers)"
 sudo xbps-install waydoid python3-pyclip wl-clipboard
 sudo ln -s /etc/sv/waydroid-container /var/service

@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 echo "Synchronize and Update:"
 sudo xbps-install -Syu
 echo "Adding 32 bit repos (Will fail on musl)"

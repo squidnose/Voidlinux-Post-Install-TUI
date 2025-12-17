@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 echo "For NVIDIA cards (Any)"
 echo "These are FOSS alternatives to NVIDIA drivers."
 echo "Ever since mesa 25.1.6 NVK vulkan driver has been enabled For Maxwell(GTX 900+) and Higher"
