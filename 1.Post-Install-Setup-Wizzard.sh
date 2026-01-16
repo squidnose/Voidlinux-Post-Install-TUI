@@ -2,7 +2,7 @@
 # Post-Install-Setup-Wizard.sh
 clear
 echo "=========================================="
-echo "  Debug Output, plese chek for any erors: "
+echo "  Debug Output, plese check for any erors: "
 echo "=========================================="
 #Direcotry setup
 set -e
@@ -260,5 +260,5 @@ if whiptail --title "$TITLE" --yesno "Reboot to apply some changes?" 10 60; then
 fi
 
 echo "=========================================="
-echo "Thank you for using My Voidlinux wizzard! "
+echo " Thank you for using My Voidlinux wizzard! "
 echo "=========================================="
