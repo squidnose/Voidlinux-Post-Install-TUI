@@ -1,4 +1,13 @@
 # To Do List For Project
+## Remove apps, just focus on:
+- [ ] System (DEs)
+- [ ] Drivers
+- [ ] Config Files
+- [ ] usergroups
+- [ ] services
+- [ ] remove cache
+- [ ] add emoticons
+- [ ] Instead of apps install, use 1 big script for all apps. 
 ## in Progress
 - [ ] Add 0.info.md to each directory with usefull information
 - [ ] Setup Wizzard is awesome! But needs: Pulseaudio, Alsa

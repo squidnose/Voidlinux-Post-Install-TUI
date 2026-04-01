@@ -12,9 +12,9 @@ sudo xbps-install -Sy xf86-video-nouveau
 echo "Installing 3D accelaration packages"
 sudo xbps-install -Sy mesa-dri mesa-opencl gamemode ocl-icd mesa-vulkan-nouveau vulkan-loader Vulkan-Headers Vulkan-Tools
 echo "Installing Video accelaration packages"
-sudo xbps-install -Sy mesa-vaapi mesa-vdpau libspa-vulkan libva
+sudo xbps-install -Sy mesa-vaapi libspa-vulkan libva
 
 echo "Installing 32bit 3D accelaration packages, Will fail on Musl"
 sudo xbps-install -Sy mesa-dri-32bit mesa-opencl-32bit libgamemode-32bit ocl-icd-32bit mesa-vulkan-nouveau-32bit vulkan-loader-32bit
 echo "Installing 32bit Video accelaration packages, Will fail on Musl"
-sudo xbps-install -Sy mesa-vaapi-32bit mesa-vdpau-32bit libspa-vulkan-32bit libva-32bit
+sudo xbps-install -Sy mesa-vaapi-32bit libspa-vulkan-32bit libva-32bit
