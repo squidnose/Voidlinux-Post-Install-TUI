@@ -1,5 +1,6 @@
 #!/bin/bash
-echo "Waydroid - Intel or AMD (or Nvidia with Nouveau drivers)"
+if whiptail --title "Waydroid" --yesno "Waydroid - Intel or AMD (or Nvidia with Nouveau drivers)" 15 60; then
+
 sudo xbps-install waydoid python3-pyclip wl-clipboard
 sudo ln -s /etc/sv/waydroid-container /var/service
 echo "To make google apps, like google play store to work:"
@@ -13,3 +14,5 @@ echo "in the terminal open the Waydroid shell:"
 echo "sudo waydroid shell"
 echo "to enter the ID, find the command on this website:"
 echo "https://docs.waydro.id/faq/google-play-certification"
+fi
+exit 0

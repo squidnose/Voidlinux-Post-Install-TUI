@@ -1,16 +1,20 @@
 #!/bin/bash
 set -e
-#Linux-Scritp-Runner https://codeberg.org/squidnose-code/Linux-Script-Runner
-#VOID Terminal User Interface
-#==================================== Dependecies ====================================
+
+# This code is based on :
+# Linux-Scritp-Runner https://codeberg.org/squidnose-code/Linux-Script-Runner
+# Abriviated to LSR
+# Voidlinux Manager TUI
+
+#================ 0 - Dependecy Check ================
 ## Ensure whiptail exists
 if ! command -v whiptail >/dev/null 2>&1; then
-    sudo xbps-install -Syu newt
+   echlog "Whiptail not found, please install newt package:"
+   exit 1
 fi
 
-#==================================== Parameters ====================================
-
-## Detect terminal size
+#================  1 - Parameters ================
+# Detect terminal size
 TERM_HEIGHT=$(tput lines)
 TERM_WIDTH=$(tput cols)
 ## Set TUI size based on terminal size
@@ -18,80 +22,141 @@ HEIGHT=$(( TERM_HEIGHT * 3 / 4 ))
 WIDTH=$(( TERM_WIDTH * 4 / 5 ))
 MENU_HEIGHT=$(( HEIGHT - 10 ))
 
-## SCRIPT_DIR should point to the base directory containing your numbered script folders.
+# SCRIPT_DIR points to the base directory
 SCRIPT_DIR="$(dirname "$(realpath "$0")")/scripts"
 
-## Colors
-## Uses NEWT colors file to run with diferent colors
-export NEWT_COLORS_FILE="$SCRIPT_DIR/0.Tools/5.Config-Files/colors.conf"
+# Directory to store config and logs files
+mkdir -p "$HOME/.local/state/VOID-TUI"
 
-## Title
-TITLE="Void-Post-Install-Script GIT" # This will be the main title
+# Title
+TITLE="Void-Post-Install-Script GIT" # Main title
 BACKTITLE="Select and Item" # appears in top-left
 
+#================  2 - Newt Color Themes ================
+# Color of the TUI
+## if no color file found, Set default to Matrix Green,
+## Colors are changeable in TUI-Settings.sh
+NEWT_COLORS_FILE="$HOME/.local/state/VOID-TUI/colors.conf"
+if [ -f "$NEWT_COLORS_FILE" ]; then
+    export NEWT_COLORS_FILE
+else
+cat > "$NEWT_COLORS_FILE" <<EOF
+# Matrix
+root=,black
+window=,black
+title=brightgreen,black
+border=green,black
+textbox=brightgreen,black
+button=black,green
+compactbutton=green,black
+listbox=green,black
+actlistbox=black,brightgreen
+helpline=green,black
+roottext=brightgreen,black
+EOF
+export NEWT_COLORS_FILE
+whiptail --msgbox "Colors set to Matrix Green, you can later change this in settings" "$HEIGHT" "$WIDTH"
+fi
 
+#================  3 - Side Functions ================
+# Save Config file choices
+change_conf_file()
+{
+if whiptail --title "$TITLE - loggs" --yesno "Do you wish to have loggs enabled?" $HEIGHT $WIDTH; then
+    loggs="true"
+else
+    loggs="false"
+fi
 
-#==================================== Functions ====================================
-## Check initial SCRIPT_DIR permissions and existence
+cat > "$VOID_TUI_CONF" <<EOF
+loggs="$loggs"
+EOF
+
+}
+# Load Config file to read is user wants logs or not
+## If not existing, make a new one
+VOID_TUI_CONF="$HOME/.local/state/VOID-TUI/VOID-TUI.conf"
+if [ -f "$VOID_TUI_CONF" ]; then
+    source "$VOID_TUI_CONF"
+else
+    change_conf_file
+fi
+
+# Log what happens in TUI
+LOGFILE="$HOME/.local/state/VOID-TUI/VOID-TUI.log"
+
+# Echo into terminal, then log into file (if logs are enabled )
+echlog()
+{
+    local msg="$*"
+    echo "$msg"
+    if [ "$loggs" == "true" ]; then
+        echo "$(date '+%Y-%m-%d %H:%M:%S') $msg" >> "$LOGFILE"
+    fi
+}
+
+#================ 4 - LSR Functions ================
+# Check initial SCRIPT_DIR permissions and existence
 check_base_dir_permissions() {
 
-    # Check if directory exists
+    ## Check if directory exists
     if [ ! -d "$SCRIPT_DIR" ]; then
-        echo "Error: The directory '$SCRIPT_DIR' does not exist." >&2
-        echo "It should contain your script files." >&2
+        echlog "Error: The directory '$SCRIPT_DIR' does not exist." >&2
+        echlog "It should contain your script files." >&2
         exit 1
     fi
 
-    # Check read permission
+    ## Check read permission
     if [ ! -r "$SCRIPT_DIR" ]; then
-        echo "Error: You do not have READ permission for '$SCRIPT_DIR'." >&2
-        echo "Use: chmod u+r \"$SCRIPT_DIR\"" >&2
+        echlog "Error: You do not have READ permission for '$SCRIPT_DIR'." >&2
+        echlog "Use: chmod u+r \"$SCRIPT_DIR\"" >&2
         exit 1
     fi
 
-    # Check execute permission
+    ## Check execute permission
     if [ ! -x "$SCRIPT_DIR" ]; then
-        echo "Error: You do not have EXECUTE permission for '$SCRIPT_DIR'." >&2
-        echo "Use: chmod u+x \"$SCRIPT_DIR\"" >&2
+        echlog "Error: You do not have EXECUTE permission for '$SCRIPT_DIR'." >&2
+        echlog "Use: chmod u+x \"$SCRIPT_DIR\"" >&2
         exit 1
     fi
 }
 
-## Generic Function to run a script
+# Generic Function to run a script
 run_script() {
-    ### The full path to the script to run (passed as argument $1).
+    ## The full path to the script to run (passed as argument $1).
     local script_path="$1"
-    ### Extract the script's file name from the full path.
+
+    ## Extract the script's file name from the full path.
     local script_name="$(basename "$script_path")"
 
-    ### Check if the script file actually exists
+    ## Check if the script file actually exists
     if [ ! -f "$script_path" ]; then
         whiptail --msgbox "Error: Script '$script_name' not found at '$script_path'. How did you do that... LOL" "$HEIGHT" "$WIDTH"
         return 1
     fi
 
-    ### Executable permissions check
+    ## Executable permissions check
     if [ ! -x "$script_path" ]; then
         whiptail --msgbox "Script '$script_name' is not executable. Attempting to add permissions..." "$HEIGHT" "$WIDTH"
-        sudo chmod +x "$script_path"
-        if [ $? -ne 0 ]; then #Grab the exit status of the previous command(chmod) if failed then message
+        chmod +x "$script_path"
+        if [ $? -ne 0 ]; then ### Grab the exit status of the previous command(chmod) if failed then message
             whiptail --msgbox "Error: Failed to make '$script_name' executable. Cannot run. Check your permissions." "$HEIGHT" "$WIDTH"
             return 1
         fi
     fi
 
-### Confirmation Logic
+## Confirmation Logic
     if ! (whiptail --title "Confirm Run" --yesno "Are you sure you want to run '$script_name'?" 10 60); then
-        echo "User cancelled running '$script_name'." >&2
-        return 0 # User chose not to run, return to menu
+        echlog "User cancelled running '$script_name'." >&2
+        return 0 ### User chose not to run, return to menu
     fi
 
-### Script Execution
-    echo "=========================================="
-    echo "Running $script_path"
+## Script Execution
+    echlog "=========================================="
+    echlog "Running $script_path"
     "$script_path"
-    echo "Ran $script_path"
-    echo "=========================================="
+    echlog "Ran $script_path"
+    echlog "=========================================="
     read -p "Done, press enter to continue"
     return 0
 }
@@ -179,9 +244,9 @@ display_dynamic_menu() {
         ### Process the user's choice based on the selected option.
         if [[ "$choice" == "Exit" ]]; then
         ### The user explicitly chose to exit the script.
-        echo "=========================================="
-        echo "  Thank you for using My Voidlinux-Post-Install-TUI!   "
-        echo "=========================================="
+        echlog "=========================================="
+        echlog "  Thank you for using My Voidlinux-Post-Install-TUI!   "
+        echlog "=========================================="
         read -p "Press Enter To continue"
         exit 0
         ### The user chose to go back. We update the current path to the parent directory.
@@ -216,9 +281,9 @@ display_dynamic_menu() {
 #==================================== Main Script Logic ====================================
 
 clear # Clear the screen before the first menu appears.
-echo "=========================================="
-echo " Debug Output, please check for any errors:"
-echo "=========================================="
+echlog "=========================================="
+echlog " Debug Output, please check for any errors:"
+echlog "=========================================="
 # 1. Check initial directory permissions (dependency check now in install_deps.sh)
 check_base_dir_permissions
 

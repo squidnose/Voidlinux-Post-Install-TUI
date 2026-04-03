@@ -24,13 +24,13 @@ sudo xbps-install -Su git dialog newt
 git clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
 cd Voidlinux-Post-Install-TUI
 ```
-## 3.1 Instalation Wizard (1.Post-Install-Setup-Wizzard.sh)
+## 3.1 Instalation Wizard (Setup-Wizard.sh)
 - This setup wizzard is a linear setup helper.
 - Not all scripts are included in the Wizard.
 - This is meant for users that dont know what to run.
 ```
-chmod +x 1.Post-Install-Setup-Wizzard.sh
-./1.Post-Install-Setup-Wizzard.sh
+chmod +x Setup-Wizard.sh
+./Setup-Wizard.sh
 ```
 ## 3.2 VOID-TUI.sh
 - This is the main script that uses my [[Linux-Script-Manager]](https://codeberg.org/squidnose-code/Linux-Script-Runner)

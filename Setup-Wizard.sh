@@ -1,5 +1,5 @@
 #!/bin/bash
-# Post-Install-Setup-Wizard.sh
+# Setup-Wizard for Voidlinux Post Install TUI
 clear
 echo "=========================================="
 echo "  Debug Output, plese check for any erors: "
@@ -72,33 +72,7 @@ else
     echo "NetworkManager and dbus are already enabled. Skipping service setup."
 fi
 
-# 4.0 Install recommended utilities
-if whiptail --title "$TITLE" --yesno "Install recommended utilities:\n git, wget, curl, nano?" 10 60; then
-    bash "$SCRIPT_DIR/1.Basic-Setup/utils-recommended.sh"
-    echo "Installed recommended utilities"
-    pause "recommended utilities installed."
-fi
-
-# 4.1 Install optional utilities
-if whiptail --title "$TITLE" --yesno "Install Informational utilities:\n ncdu, fastfetch, htop, tmux, btop, cmatrix, nvme-cli?" 10 60; then
-    bash "$SCRIPT_DIR/1.Basic-Setup/utils-informational.sh"
-    echo "Installed informational utilities"
-    pause "Informational utilities installed."
-fi
-
-# 4.2 Install Fun utilities
-if whiptail --title "$TITLE" --yesno "Install Fun utilities: cmatrix, oneko, cowsay, espeak, fortune-mod-void?" 10 60; then
-    bash "$SCRIPT_DIR/1.Basic-Setup/utils-fun.sh"
-    echo "Installed Fun utilities"
-    pause "Fun utilities installed."
-fi
-
-# 4.3 Install Disk utilities
-if whiptail --title "$TITLE" --yesno "Install Disk utilities: ntfs-3g exfat gsmartcontroll" 10 60; then
-    bash "$SCRIPT_DIR/1.Basic-Setup/utils-disks.sh"
-    echo "Installed Fun utilities"
-    pause "Fun utilities installed."
-fi
+# 4. Reccomended utils removed, mooved to 5.Apps
 
 # 5. Add repositories
 if whiptail --title "$TITLE" --yesno "Enable More Repositories?\nnonfree, multilib-nonfree and flathub\nImportant for Steam, Discord, Nvidia or Broadcom Users!" 10 60; then
@@ -130,13 +104,13 @@ esac
 
 # 7.5 kernel Optimization
 if whiptail --title "$TITLE" --yesno "Set Custom Kernel parameters?" 15 60; then
-    bash "$SCRIPT_DIR/0.Tools/4.Kernel-Parameter-Optimizations/kernel-parameter-TUI-config.sh"
+    bash "$SCRIPT_DIR/0.Tools/1.Basic-Setup/Grub-Kernel-Parameters/kernel-parameter-TUI-config.sh"
     echo "Ran Kernel parameter selector"
 fi
 
 # 8. GPU driver choice
 if whiptail --title "$TITLE" --yesno "Install GPU drivers and GPU related packages?" 10 60; then
-    bash "$SCRIPT_DIR/2.GPU-drivers/1.GPU-Auto-driver-selector.sh"
+    bash "$SCRIPT_DIR/2.Drivers/Graphics/1.GPU-Auto-driver-selector.sh"
     echo "ran 1.GPU-Auto-driver-selector.sh."
 fi
 
@@ -151,11 +125,11 @@ DRIVER=$(whiptail --title "$TITLE" --menu "Install DKMS Wi-Fi Drivers\nYou may n
     3>&1 1>&2 2>&3)
 case $DRIVER in
     1) echo "No DKMS wifi driver installed" ;;
-    2) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/Broadcom-WL-BT.sh" && echo "Ran Broadcom-WL-BT.sh" ;;
-    3) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/rtl8822bu-dkms.sh" && echo "Ran rtl8822bu-dkms.sh" ;;
-    4) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/rtl8821cu-dkms.sh" && echo "Ran rtl8821cu-dkms.sh" ;;
-    5) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/rtl8821au-dkms.sh" && echo "Ran rtl8821au-dkms.sh" ;;
-    6) bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/rtl8812au-dkms.sh" && echo "Ran rtl8812au-dkms.sh" ;;
+    2) bash "$SCRIPT_DIR/2.Drivers/WiFi-and-Bluetooth/Broadcom-WL-BT.sh" && echo "Ran Broadcom-WL-BT.sh" ;;
+    3) bash "$SCRIPT_DIR/2.Drivers/WiFi-and-Bluetooth/rtl8822bu-dkms.sh" && echo "Ran rtl8822bu-dkms.sh" ;;
+    4) bash "$SCRIPT_DIR/2.Drivers/WiFi-and-Bluetooth/rtl8821cu-dkms.sh" && echo "Ran rtl8821cu-dkms.sh" ;;
+    5) bash "$SCRIPT_DIR/2.Drivers/WiFi-and-Bluetooth/rtl8821au-dkms.sh" && echo "Ran rtl8821au-dkms.sh" ;;
+    6) bash "$SCRIPT_DIR/2.Drivers/WiFi-and-Bluetooth/rtl8812au-dkms.sh" && echo "Ran rtl8812au-dkms.sh" ;;
 esac
 
 #9.1 eduroam
@@ -167,7 +141,7 @@ fi
 
 #9.2 Bluetooth service
 if whiptail --title "$TITLE" --yesno "Install and enalbe Bluetooth?\nbluez bluez-alsa libspa-bluetooths" 10 60; then
-    bash "$SCRIPT_DIR/7.Drivers-Wifi-and-Others/Bluetooth-service.sh"
+    bash "$SCRIPT_DIR/2.Drivers/WiFi-and-Bluetooth/Bluetooth-service.sh"
 fi
 
 # 10. Power management
@@ -177,8 +151,8 @@ PM=$(whiptail --title "$TITLE" --menu "Choose power management" 15 60 3 \
     "3" "None" \
     3>&1 1>&2 2>&3)
 case $PM in
-    1) bash "$SCRIPT_DIR/6.Power-Managment/Power-Porfiles-Daemon.sh" && echo "Ran Power-Porfiles-Daemon.sh" ;;
-    2) bash "$SCRIPT_DIR/6.Power-Managment/TLP.sh" && echo "Ran TLP.sh" ;;
+    1) bash "$SCRIPT_DIR/1.Basic-Setup/Power-Managment/Power-Porfiles-Daemon.sh" && echo "Ran Power-Porfiles-Daemon.sh" ;;
+    2) bash "$SCRIPT_DIR/1.Basic-Setup/Power-Managment/TLP.sh" && echo "Ran TLP.sh" ;;
     3) echo "No Power managment Feature configured" ;;
 esac
 
@@ -223,24 +197,20 @@ case $AUDIO in
 
 esac
 
-# 11.2 OctoXBPS and Discover
-if whiptail --title "$TITLE" --yesno "Do you want to install GUI front ends for XBPS and flathub?\nInstall octoxbps and discover?" 10 60; then
-    sudo xbps-install -Syu octoxbps discover
-    pause "octoxbps and discover are now installed."
-    echo "octoxbps and discover are now installed."
+# 11.2 OctoXBPS and Easy Flatpak
+if whiptail --title "$TITLE" --yesno "Do you want to install GUI front ends for XBPS and flathub?\nInstall octoxbps and Easy Flatpak?" 10 60; then
+    sudo xbps-install -Syu octoxbps
+    flatpak install org.dupot.easyflatpak
+    pause "octoxbps and Easy Flatpak are now installed."
+    echo "octoxbps and Easy Flatpak are now installed."
 fi
 
-#11.3
-if whiptail --title "$TITLE" --yesno "Do You want to install a Web Browser of your choosing?" 10 60; then
-    bash "$SCRIPT_DIR/5.Apps/01.Internet/Browser-Selection.sh"
-    pause "A web browser of your choosing is now installed."
-    echo "A web browser of your choosing is now installed."
-fi
 
-if whiptail --title "$TITLE" --yesno "Do You wish to run a App selection Script?\n You can choose between recommended and manually selected apps" 10 60; then
-    bash "$SCRIPT_DIR/5.Apps/GUI-apps-AIO.sh"
+# 11.3 Apps
+if whiptail --title "$TITLE" --yesno "Do You wish to run a App selection Script?\n You can choose between recommended and manually selected apps and programs" 10 60; then
+    bash "$SCRIPT_DIR/5.Apps/00.Run-All.sh"
     pause "Apps based on your selection are installed"
-    echo "A web browser of your choosing is now installed."
+    echo "Apps based on your selection are installed."
 fi
 
 # 12. Desktop shortcut

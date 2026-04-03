@@ -30,7 +30,7 @@
 - [ ] Select all break when selected more
 - [ ] Waydroid where??? Desktop file missing
 - [ ] Xdg portal looks like xfce even after un-installing it
-- [ ] Remove Bazar and replace with https://flathub.org/en/apps/org.dupot.easyflatpak
+- [X] Remove Bazar and replace with https://flathub.org/en/apps/org.dupot.easyflatpak
 
 ## Add features
 - [ ] Usbmuxd service
@@ -53,7 +53,6 @@
 - [ ] Watch sensors and nvidia-smi
 - [ ] Add loging featute make log for TUI output
 - [ ] Add make disk-images For VMs
-- [ ] Switch to Bazzar(Other) from discover(kde only)
 - [ ] Obs missing???? And virt cam
 - [ ] Add note to wizzard: dkms usefull for obs virt cam
 - [ ] Intel ucode
@@ -64,7 +63,7 @@
 - [ ] Add https://github.com/shvchk/fallout-grub-theme
 - [ ] Add UFW 
 - [ ] add bbswitch for Nvdidia 390
-- [ ] make a .conf for color and Languages
+- [X] make a .conf for color and Languages
 - [ ] Make a separate TUI for Terminal applicaitons and utils
 - [ ] Add swap support
 - [ ] add nvtop, libva-glx, opencl-clhpp. opencl2-headers, python3-opencl, clinfo, libclc, libvpl(intel)

@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+if whiptail --title "Intel RAPL permissions" --yesno "Do you wish to add permissions to Intel-rapl powercap, makes power readout not require root password." 15 60; then
 sudo mkdir -p /etc/udev/rules.d/
 UDEV_RULE="/etc/udev/rules.d/99-rapl.rules"
 
@@ -11,3 +12,5 @@ EOF
 # Reload Udev
 sudo udevadm control --reload
 sudo udevadm trigger
+fi
+exit 0
