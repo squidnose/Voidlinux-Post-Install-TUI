@@ -104,7 +104,7 @@ esac
 
 # 7.5 kernel Optimization
 if whiptail --title "$TITLE" --yesno "Set Custom Kernel parameters?" 15 60; then
-    bash "$SCRIPT_DIR/0.Tools/1.Basic-Setup/Grub-Kernel-Parameters/kernel-parameter-TUI-config.sh"
+    bash "$SCRIPT_DIR/1.Basic-Setup/Grub-Kernel-Parameters/kernel-parameter-TUI-config.sh"
     echo "Ran Kernel parameter selector"
 fi
 
