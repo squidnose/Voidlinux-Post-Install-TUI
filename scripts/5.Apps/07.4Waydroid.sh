@@ -1,7 +1,7 @@
 #!/bin/bash
 if whiptail --title "Waydroid" --yesno "Waydroid - Intel or AMD (or Nvidia with Nouveau drivers)" 15 60; then
 
-sudo xbps-install waydoid python3-pyclip wl-clipboard
+sudo xbps-install waydroid python3-pyclip wl-clipboard
 sudo ln -s /etc/sv/waydroid-container /var/service
 echo "To make google apps, like google play store to work:"
 echo "Restart your machine"

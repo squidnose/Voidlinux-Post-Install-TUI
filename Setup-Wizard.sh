@@ -94,12 +94,14 @@ fi
 KERNEL=$(whiptail --title "$TITLE" --menu "Choose a kernel" 15 60 4 \
     "1" "Normal/Stable (Installed by Default)" \
     "2" "Latest/Mainline +DKMS (For Newer HW)" \
-    "3" "LTS/Old +DKMS (For older Nvidia drivers 390 and 470)" \
+    "3" "LTS/Old +DKMS (For older HW)" \
+    "4" "Custom (Voidlinux Kernel Manager)" \
     3>&1 1>&2 2>&3)
 case $KERNEL in
     1) echo "Kept the Normal/Stable kernel" ;;
     2) bash "$SCRIPT_DIR/1.Basic-Setup/new-kernel+dkms.sh" && echo "Installed the New mainline kernel +dkms" ;;
     3) bash "$SCRIPT_DIR/1.Basic-Setup/old-kernel+dkms.sh" && echo "Installed the older LTS kernel +dkms. You may need to manually select it during boot." ;;
+    4) bash "$SCRIPT_DIR/1.Basic-Setup/Voidlinux-Kernel-Manager.sh" ;;
 esac
 
 # 7.5 kernel Optimization
@@ -140,20 +142,20 @@ if whiptail --title "$TITLE" --yesno "Install dependencie for Eduroam WiFi?\npyt
 fi
 
 #9.2 Bluetooth service
-if whiptail --title "$TITLE" --yesno "Install and enalbe Bluetooth?\nbluez bluez-alsa libspa-bluetooths" 10 60; then
+if whiptail --title "$TITLE" --yesno --defaultno "Install and enalbe Bluetooth?\nbluez bluez-alsa libspa-bluetooths" 10 60; then
     bash "$SCRIPT_DIR/2.Drivers/WiFi-and-Bluetooth/Bluetooth-service.sh"
 fi
 
 # 10. Power management
 PM=$(whiptail --title "$TITLE" --menu "Choose power management" 15 60 3 \
-    "1" "Power Profiles" \
-    "2" "TLP and run TLPUI" \
-    "3" "None" \
+    "1" "None" \
+    "2" "Power Profiles" \
+    "3" "TLP and run TLPUI" \
     3>&1 1>&2 2>&3)
 case $PM in
-    1) bash "$SCRIPT_DIR/1.Basic-Setup/Power-Managment/Power-Porfiles-Daemon.sh" && echo "Ran Power-Porfiles-Daemon.sh" ;;
-    2) bash "$SCRIPT_DIR/1.Basic-Setup/Power-Managment/TLP.sh" && echo "Ran TLP.sh" ;;
-    3) echo "No Power managment Feature configured" ;;
+    1) echo "No Power managment Feature configured" ;;
+    2) bash "$SCRIPT_DIR/1.Basic-Setup/Power-Managment/Power-Porfiles-Daemon.sh" && echo "Ran Power-Porfiles-Daemon.sh" ;;
+    3) bash "$SCRIPT_DIR/1.Basic-Setup/Power-Managment/TLP.sh" && echo "Ran TLP.sh" ;;
 esac
 
 # 11. Desktop environment choice
@@ -184,16 +186,12 @@ esac
 
 #11.1 Audio Setup
 AUDIO=$(whiptail --title "$TITLE" --menu "Install a Audio Server" 15 60 4 \
-    "1" "Alsa+Pipewire+SOF firmware (recommended)" \
-    "2" "ALSA not ready" \
-    "3" "Pulse Audio not ready" \
-    "4" "None" \
+    "1" "None/Default" \
+    "2" "Alsa+Pipewire+SOF firmware (recommended)" \
     3>&1 1>&2 2>&3)
 case $AUDIO in
-    1) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-alsa.sh" && bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-autostart.sh" && echo "Ran pipewire-alsa.sh and pipewire-autostart.sh" ;;
-    2) pause "TBD" ;;
-    3) pause "TBD" ;;
-    4) echo "No audio server changes" ;;
+    1) echo "No audio server changes" ;;
+    2) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-alsa.sh" && bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-autostart.sh" && echo "Ran pipewire-alsa.sh and pipewire-autostart.sh" ;;
 
 esac
 
