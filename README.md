@@ -24,22 +24,15 @@ sudo xbps-install -Su git dialog newt
 git clone https://github.com/squidnose/Voidlinux-Post-Install-TUI.git
 cd Voidlinux-Post-Install-TUI
 ```
-## 3.1 Instalation Wizard (Setup-Wizard.sh)
-- This setup wizzard is a linear setup helper.
-- Not all scripts are included in the Wizard.
-- This is meant for users that dont know what to run.
-```
-chmod +x Setup-Wizard.sh
-./Setup-Wizard.sh
-```
-## 3.2 VOID-TUI.sh
+
+## 3. VOID-TUI.sh
 - This is the main script that uses my [[Linux-Script-Manager]](https://codeberg.org/squidnose-code/Linux-Script-Runner)
 - It is a non-linear menu of all the scripts
 ```
 chmod +x VOID-TUI.sh
 ./VOID-TUI.sh
 ```
-## 4.VOID-TUI.desktop
+## 4. VOID-TUI.desktop
 - If you want a desktop icon, copy this file to your desktop:
 ```
 VOID-TUI.desktop

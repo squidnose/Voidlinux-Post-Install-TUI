@@ -33,8 +33,8 @@ MANUAL_OPTIONS=(
     "filelight"         "Interactive map that helps visualize disk usage on your computer" OFF
     "kdeconnect"        "Multi-platform app that allows your devices to communicate" OFF
     "kcalc"             "Simple and scientific calculator from KDE" OFF
+    "plasma-vault"      "Plasma applet and services for creating encrypted vaults" OFF
     "discover"          "KDE resources management flatpak, plasma plugins" OFF
-    "octoxbps"          "Voids Qt-based XBPS front-end" OFF
 ##Optional Tools for Plasma
     "kio-gdrive"         "KIO slave that enables access and edit Google Drive files" OFF
     "kio-extras"         "Additional KIO components" OFF
@@ -52,6 +52,7 @@ MANUAL_OPTIONS=(
     "kdegraphics-thumbnailers"          "KDE Plasma 6 Thumbnailers for various graphics file formats" OFF
     "ffmpegthumbs"       "FFmpeg-based thumbnail creator for video files" OFF
     "ksystemlog"         "KDE System log viewer tool" OFF
+    "colord-kde"         "KDE colord integration" OFF
 ##Info Utils for Plasma
     "clinfo"             "Prints all information about OpenCL in the system" OFF
     "aha"                "Converts SGR-colored Input to W3C conform HTML-Code (used in info center)" OFF

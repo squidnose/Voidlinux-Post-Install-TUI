@@ -191,6 +191,7 @@ while true; do
         logs            "📜 View Logs from the TUI's" \
         config          "📂 Set Logging (Curently: $loggs)" \
         colors          "🎨 Change the Colors of the TUI" \
+        desktop_file    "🖥️ Add a VOID-TUI.desktop to your desktop" \
         go_back         ".. Go Back" \
         3>&1 1>&2 2>&3) || CHOICE="exit" ##exit for cancel button
     case "$CHOICE" in
@@ -220,6 +221,17 @@ EOF
     ;;
     colors)
         set_colors
+    ;;
+    desktop_file)
+        if ! xbps-query -c -s xdg-user-dirs >/dev/null 2>&1; then
+            echlog "Install xdg-user-dirs:"
+            sudo xbps-install -Syu xdg-user-dirs
+        fi
+        DESKTOP_DIR=$(xdg-user-dir DESKTOP)
+        mkdir -p $DESKTOP_DIR
+        cp "$(dirname "$(realpath "$0")")/VOID-TUI.desktop" "$DESKTOP_DIR/"
+        echlog "Coppied VOID-TUI.desktop to $DESKTOP_DIR"
+        whiptail --title "$TITLE" --msgbox "Coppied VOID-TUI.desktop to $DESKTOP_DIR" $HEIGHT $WIDTH
     ;;
     *) exit 0 ;;
     esac

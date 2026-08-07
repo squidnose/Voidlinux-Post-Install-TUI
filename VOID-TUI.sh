@@ -1,16 +1,16 @@
 #!/bin/bash
 set -e
 
-# This code is based on :
+# This code has parts from:
 # Linux-Scritp-Runner https://codeberg.org/squidnose-code/Linux-Script-Runner
 # Abriviated to LSR
-# Voidlinux Manager TUI
 
 #================ 0 - Dependecy Check ================
 ## Ensure whiptail exists
 if ! command -v whiptail >/dev/null 2>&1; then
-   echlog "Whiptail not found, please install newt package:"
-   exit 1
+   echo "Whiptail not found, attempting to install the newt package:"
+   sudo xbps-install -Syu xbps
+   sudo xbps-install -Syu newt
 fi
 
 #================  1 - Parameters ================
@@ -55,7 +55,7 @@ helpline=green,black
 roottext=brightgreen,black
 EOF
 export NEWT_COLORS_FILE
-whiptail --msgbox "Colors set to Matrix Green, you can later change this in settings" "$HEIGHT" "$WIDTH"
+whiptail --msgbox "Colors set to Matrix Green.\nYou can later change this in Settings" "$HEIGHT" "$WIDTH"
 fi
 
 #================  3 - Side Functions ================
@@ -243,12 +243,8 @@ display_dynamic_menu() {
 
         ### Process the user's choice based on the selected option.
         if [[ "$choice" == "Exit" ]]; then
-        ### The user explicitly chose to exit the script.
-        echlog "=========================================="
-        echlog "  Thank you for using My Voidlinux-Post-Install-TUI!   "
-        echlog "=========================================="
-        read -p "Press Enter To continue"
-        exit 0
+            ### Return to main menu
+            return 0
         ### The user chose to go back. We update the current path to the parent directory.
         elif [[ "$choice" == "..-back" ]]; then
 
@@ -280,16 +276,38 @@ display_dynamic_menu() {
 
 #==================================== Main Script Logic ====================================
 
+# 1. Prep
 clear # Clear the screen before the first menu appears.
 echlog "=========================================="
 echlog " Debug Output, please check for any errors:"
 echlog "=========================================="
-# 1. Check initial directory permissions (dependency check now in install_deps.sh)
+# Check initial directory permissions (dependency check now in install_deps.sh)
 check_base_dir_permissions
 
-# 2. Set all .sh scripts to executable
+# Set all .sh scripts to executable
 find scripts/ -type f -name "*.sh" -exec chmod +x {} \;
 
-# 3. Start the dynamic menu navigation from the root 'scripts' directory
-display_dynamic_menu "Main Menu" "$SCRIPT_DIR"
-return 0
+# 2. Main Menu
+
+while true; do
+    CHOICE=$(whiptail --title "$TITLE" --menu "Choose:" $HEIGHT $WIDTH $MENU_HEIGHT \
+    "Scripts"   "Choose What to run" \
+    "Setup"     "Assisted Setup" \
+    "Settings"  "Change Color and Logs" \
+    "x"         "exit" \
+    3>&1 1>&2 2>&3)
+    case "$CHOICE" in
+    Scripts) display_dynamic_menu "Main Menu" "$SCRIPT_DIR";;
+    Setup) bash "Setup-Wizard.sh" ;;
+    Settings) bash "TUI-Settings.sh";;
+    *)
+        echlog "=========================================="
+        echlog "  Thank you for using My Voidlinux-Post-Install-TUI!   "
+        echlog "=========================================="
+        read -p "Press Enter To continue"
+        exit 0
+    ;;
+    esac
+done
+
+exit 0

@@ -27,6 +27,7 @@ if [ ! -L "/var/service/$CHOICEDM" ]; then
     sudo ln -s "/etc/sv/$CHOICEDM" /var/service/
 fi
     sudo reboot
+    whiptail --title "System Reboot" --msgbox "Your System Will Reboot:)" 15 60
 exit 0
 }
 

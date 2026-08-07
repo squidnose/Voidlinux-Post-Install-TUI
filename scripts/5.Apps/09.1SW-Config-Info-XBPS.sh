@@ -9,9 +9,9 @@ PACKAGES=(grub-customizer octoxbps gnome-system-monitor)
 ## Manual list entries:
 ## "TAG" "DESCRIPTION" "OFF/ON"
 MANUAL_OPTIONS=(
-    "grub-customizer"       "Graphical grub2 settings manager" OFF
-    "octoxbps"              "Qt-based XBPS front-end" OFF
-    "gnome-system-monitor"  "Process viewer and system resource monitor from GNOME" OFF
+    "grub-customizer"           "Graphical grub2 settings manager" OFF
+    "octoxbps"                  "Qt-based XBPS front-end" OFF
+    "system-monitoring-center"  "Multi-featured system monitor (Ala Task Manager)" OFF
 )
 ## OFF/ON refers if the menu item will be automaticly selected(ON) or de-selected(OFF)
 

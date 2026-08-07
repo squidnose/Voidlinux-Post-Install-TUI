@@ -41,19 +41,17 @@ done
 }
 # kernel_query()
 
-
-
 #================  3 - Main Menu ================
 # Debug:
 echo "List of Avaliable Kernels:"
 kernel_query
 while true; do
     # Create an array of items for whiptail --menu
-    mapfile -t MENU_ITEMS < <(kernel_query)
+    mapfile -t MENU_ITEMS_KERNELS < <(kernel_query)
     CHOSEN_KERNEL=$(whiptail --title "Void Linux Kernel Manager" \
-        --menu "Select a Linux Kernel series to manage:\n Curently nothing will hapen, Proof of concept" \
+        --menu "Select a Linux Kernel series to manage:" \
         $HEIGHT $WIDTH $MENU_HEIGHT \
-        "${MENU_ITEMS[@]}" \
+        "${MENU_ITEMS_KERNELS[@]}" \
     3>&1 1>&2 2>&3)
 
     # Check if user presses cancel
@@ -61,8 +59,20 @@ while true; do
     # Debug:
     echo "Chosen $CHOSEN_KERNEL kernel to manage"
 
-# After user chooses kernel, offer to either: Instal Kernel, Remove Kernel, Reconfigure Kernel, Instal Headers, Remove Headers, Reconfigure Header, Set as default kernel
+# Manage Kernel:
+    CHOSEN_KERNEL_OPTION=$(whiptail --title "Void Linux Kernel Manager" \
+        --menu "You chose $CHOSEN_KERNEL, what would you like to do?" $HEIGHT $WIDTH $MENU_HEIGHT \
+        "Install" "$CHOSEN_KERNEL and $CHOSEN_KERNEL-headers" \
+        "Remove" "$CHOSEN_KERNEL and $CHOSEN_KERNEL-headers" \
+        "Reconfigure" "$CHOSEN_KERNEL and $CHOSEN_KERNEL-headers" \
+        "Force_Reconfigure" "$CHOSEN_KERNEL and $CHOSEN_KERNEL-headers" \
+    3>&1 1>&2 2>&3)
+
+    case $CHOSEN_KERNEL_OPTION in
+    Install) sudo xbps-install -Su $CHOSEN_KERNEL $CHOSEN_KERNEL-headers ;;
+    Remove) sudo xbps-remove $CHOSEN_KERNEL $CHOSEN_KERNEL-headers ;;
+    Reconfigure) sudo xbps-reconfigure $CHOSEN_KERNEL $CHOSEN_KERNEL-headers ;;
+    Force_Reconfigure) sudo xbps-reconfigure --force $CHOSEN_KERNEL $CHOSEN_KERNEL-headers ;;
+    esac
 
 done
-
-
