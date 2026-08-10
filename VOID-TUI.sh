@@ -223,7 +223,7 @@ display_dynamic_menu() {
         done <<< "$items" # The loop runs once for each path found by find.
 
         # Add an "Exit" option to the menu. This option is be available at all levels.
-        menu_options+=("Exit" "Exit the script")
+        menu_options+=("Exit" "Go back to the Main menu")
 
 
     ### 6. Display the Menu
@@ -291,14 +291,16 @@ find scripts/ -type f -name "*.sh" -exec chmod +x {} \;
 
 while true; do
     CHOICE=$(whiptail --title "$TITLE" --menu "Choose:" $HEIGHT $WIDTH $MENU_HEIGHT \
-    "Scripts"   "Choose What to run" \
-    "Setup"     "Assisted Setup" \
-    "Settings"  "Change Color and Logs" \
-    "x"         "exit" \
+    "Scripts"       "Choose What to run" \
+    "Setup"         "Assisted Setup" \
+    "Maintenance"   "Updates and Clean Up" \
+    "Settings"      "Change TUI Color and Logs" \
+    "x"             "exit" \
     3>&1 1>&2 2>&3)
     case "$CHOICE" in
     Scripts) display_dynamic_menu "Main Menu" "$SCRIPT_DIR";;
     Setup) bash "Setup-Wizard.sh" ;;
+    Maintenance) bash "$SCRIPT_DIR/0.Info-Tools/3.Voidlinux-Maintenance.sh" ;;
     Settings) bash "TUI-Settings.sh";;
     *)
         echlog "=========================================="
