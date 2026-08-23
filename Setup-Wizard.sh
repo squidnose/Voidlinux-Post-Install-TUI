@@ -200,7 +200,11 @@ while true; do
             3>&1 1>&2 2>&3)
         case $AUDIO in
             1) echlog "No audio server changes" ;;
-            2) bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-alsa.sh" && bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-autostart.sh" && echlog "Ran pipewire-alsa.sh and pipewire-autostart.sh" ;;
+            2)
+                bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-alsa.sh"
+                bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-autostart.sh"
+                echlog "Ran pipewire-alsa.sh and pipewire-autostart.sh"
+            ;;
         esac
     ;;
     6) desktop ;;

@@ -44,7 +44,7 @@
 - [ ] Sabma service
 - [ ] LocalSend
 - [ ] Add cups Printing
-- [ ] Add hw clock to Wizzard
+- [X] Add hw clock to Wizzard
 - [ ] Sddm, lightdm confing
 - [ ] Virus total cli? New tool??
 - [X] Nextcloud
