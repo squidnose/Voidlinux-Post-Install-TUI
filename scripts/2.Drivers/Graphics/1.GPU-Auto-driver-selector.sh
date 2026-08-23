@@ -127,6 +127,10 @@ elif echo "$gpu_info" | grep -qi " amd \| ati "; then
     VENDOR="AMD"
     echo -e "${RED}Vendor: $VENDOR${NC}"
     install_amd
+elif echo "$gpu_info" | grep -qi "advanced micro devices"; then
+    VENDOR="AMD"
+    echo -e "${RED}Vendor: $VENDOR${NC}"
+    install_amd
 elif echo "$gpu_info" | grep -qi " intel "; then
     VENDOR="Intel"
     echo -e "${BLUE}Vendor: $VENDOR${NC}"

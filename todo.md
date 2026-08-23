@@ -84,6 +84,7 @@
 - [ ] add plank panel XFCE?
 - [X] Proton up QT
 - [ ] Fork libre gaming for Void: https://github.com/Ahmed-Al-Balochi/LibreGaming
+- [ ] Unify linux kernel maanger with vkpurge
 
 ## Stalled - I dont know how to do
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
