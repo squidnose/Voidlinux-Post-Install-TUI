@@ -53,6 +53,8 @@ MANUAL_OPTIONS=(
     "ffmpegthumbs"       "FFmpeg-based thumbnail creator for video files" OFF
     "ksystemlog"         "KDE System log viewer tool" OFF
     "colord-kde"         "KDE colord integration" OFF
+    "ocean-sound-theme"  "Ocean Sound Theme for Plasma" OFF
+    "oxygen"             "Oxygen Sound Theme" OFF
 ##Info Utils for Plasma
     "clinfo"             "Prints all information about OpenCL in the system" OFF
     "aha"                "Converts SGR-colored Input to W3C conform HTML-Code (used in info center)" OFF

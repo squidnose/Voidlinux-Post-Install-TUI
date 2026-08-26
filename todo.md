@@ -6,14 +6,13 @@
 - [ ] usergroups
 - [ ] services
 - [ ] remove cache
-- [ ] add emoticons
-- [ ] Instead of apps install, use 1 big script for all apps. 
+- [X] Instead of apps install, use 1 big script for all apps. 
 ## in Progress
 - [ ] Add 0.info.md to each directory with usefull information
 - [ ] Setup Wizzard is awesome! But needs: Pulseaudio, Alsa
 - [X] Remove single line installers in favor of list based (flatpak and xbps) Use functions 
 ## Fixes
-- [ ] Suspend: Nvidia, Elogind
+- [X] Suspend: Nvidia, Elogind
 - [ ] Kde connect seperate because of networking
 - [X] Proton tricks
 - [ ] appmenu-gtk3-module
@@ -56,7 +55,7 @@
 - [ ] Obs missing???? And virt cam
 - [ ] Add note to wizzard: dkms usefull for obs virt cam
 - [ ] Intel ucode
-- [ ] Gstreamer-vaapi and 32 bit
+- [ ] Gstreamer1 and 32 bit for nvidia
 - [ ] Vulkan validation layers?
 - [ ] Add virtual keyborad support: maliit-framework, maliit-keyboard, maliit-keyboard-doc THE SDDM THEME MUST HAVE A VIRTUAL DESKTOP BUTTON
 - [ ] Look into: https://github.com/depthrush/void-kde-install-script
@@ -66,7 +65,7 @@
 - [X] make a .conf for color and Languages
 - [ ] Make a separate TUI for Terminal applicaitons and utils
 - [ ] Add swap support
-- [ ] add nvtop, libva-glx, opencl-clhpp. opencl2-headers, python3-opencl, clinfo, libclc, libvpl(intel)
+- [ ] add nvtop, libva-glx, opencl-clhpp, opencl2-headers, python3-opencl, clinfo, libclc, libvpl(intel)
 - [ ] add easyeffects and claf plugin
 - [X] add nvidia-vaapi-driver
 - [ ] XDG portal managment
@@ -84,7 +83,7 @@
 - [ ] add plank panel XFCE?
 - [X] Proton up QT
 - [ ] Fork libre gaming for Void: https://github.com/Ahmed-Al-Balochi/LibreGaming
-- [ ] Unify linux kernel maanger with vkpurge
+- [ ] Unify linux kernel manger with vkpurge
 
 ## Stalled - I dont know how to do
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS

@@ -187,10 +187,6 @@ while true; do
     3)
         bash "$SCRIPT_DIR/1.Basic-Setup/Voidlinux-Kernel-Manager.sh"
         echlog Voidlinux-Kernel-Manager.sh
-        if whiptail --title "$TITLE" --yesno --defaultno "Set Custom Linux Kernel parameters?" $HEIGHT $WIDTH; then
-            bash "$SCRIPT_DIR/1.Basic-Setup/Grub-Kernel-Parameters/kernel-parameter-TUI-config.sh"
-            echlog "Ran kernel-parameter-TUI-config"
-        fi
     ;;
     4) drivers ;;
     5)

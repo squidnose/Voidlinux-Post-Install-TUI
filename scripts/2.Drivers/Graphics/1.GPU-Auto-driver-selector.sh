@@ -87,8 +87,6 @@ install_intel() {
 
 install_mesa_glhf() {
 #Install mesa GLHF
-    echo "Failed to Detect GPU."
-    read -p "Install basic Mesa drivers? Enter to install, CTRL+c to cancel"
     sudo xbps-install -Syu mesa
     sudo xbps-install -Syu mesa-32bit #will fail on musl
     echo "32-bit packages will fail on Musl"
@@ -98,23 +96,25 @@ install_mesa_glhf() {
 #check if you have dual gpus
 gpu_count=$(lspci -nn | grep -Ei "vga|3d" | wc -l)
 if [ "$gpu_count" -gt 1 ]; then
-    echo "Multiple GPUs detected!"
-    echo "You must manually select your gpu combination:"
-    echo "1) AMD + Intel"
-    echo "2) AMD + NVIDIA"
-    echo "3) Intel + NVIDIA"
-    echo "4) Only AMD"
-    echo "5) Only Intel"
-    echo "6) Only NVIDIA"
-    read -rp "Choice: " combo
-    case "$combo" in
+
+    CHOICE_GPU=$(whiptail --title "$TITLE" --menu "Select an action:" "$HEIGHT" "$WIDTH" "$MENU_HEIGHT" \
+        1 "AMD + Intel" \
+        2 "AMD + NVIDIA" \
+        3 "Intel + NVIDIA" \
+        4 "Only AMD" \
+        5 "Only Intel" \
+        6 "Only NVIDIA" \
+        7 "I dont know (Generic Mesa Drivers)" \
+        3>&1 1>&2 2>&3) || exit 0
+    case "$CHOICE_GPU" in
         1) install_amd; install_intel; exit 0 ;;
         2) install_amd; install_nvidia; exit 0 ;;
         3) install_intel; install_nvidia; exit 0 ;;
         4) install_amd; exit 0 ;;
         5) install_intel; exit 0 ;;
         6) install_nvidia; exit 0 ;;
-        *) echo "Invalid option. Aborting."; exit 1 ;;
+        7) install_mesa_glhf; exit 0 ;;
+        *) echo "Invalid option. Aborting."; exit 0 ;;
     esac
 fi
 
@@ -137,5 +137,7 @@ elif echo "$gpu_info" | grep -qi " intel "; then
     install_intel
 else
     VENDOR="Unknown"
+    echo "Failed to Detect GPU."
+    read -p "Install basic Mesa drivers? Enter to install, CTRL+c to cancel"
     install_mesa_glhf
 fi
