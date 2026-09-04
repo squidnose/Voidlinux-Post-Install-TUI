@@ -63,7 +63,7 @@ RAW=${RAW//\"/}
 read -r -a SELECTED_PACKAGES <<< "$RAW"
 ## Install Packages
 echlog "Installing Selected Packages: ${SELECTED_PACKAGES[*]}"
-$INSTALL "${SELECTED_PACKAGES[@]}"
+sudo xbps-install -Syu "${SELECTED_PACKAGES[@]}"
 
 
 whiptail --title "$TITLE" --msgbox "! Nvidia470 driver may have issues with kernels newer than 6.1 ! \n\nRun Voidlinux-Kernel-Manager and set your systems kernel to linux6.1" $HEIGHT $WIDTH

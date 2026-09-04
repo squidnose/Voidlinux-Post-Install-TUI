@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #================  1 - Parameters ================
 # Detect terminal size
 TERM_HEIGHT=$(tput lines)
@@ -25,7 +24,6 @@ echlog()
         echo "$(date '+%Y-%m-%d %H:%M:%S') $msg" >> "$LOGFILE"
     fi
 }
-
 
 #================  3 - Functions ================
 # TBD LOL:))))

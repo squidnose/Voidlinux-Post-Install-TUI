@@ -63,6 +63,6 @@ RAW=${RAW//\"/}
 read -r -a SELECTED_PACKAGES <<< "$RAW"
 ## Install Packages
 echlog "Installing Selected Packages: ${SELECTED_PACKAGES[*]}"
-$INSTALL "${SELECTED_PACKAGES[@]}"
+sudo xbps-install -Syu "${SELECTED_PACKAGES[@]}"
 
 exit 0
