@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 if whiptail --title "Docker" --yesno "Install Docker and setup?" 15 60; then
 
 read -rp " (y/N):"

@@ -30,6 +30,9 @@
 - [ ] Waydroid where??? Desktop file missing
 - [ ] Xdg portal looks like xfce even after un-installing it
 - [X] Remove Bazar and replace with https://flathub.org/en/apps/org.dupot.easyflatpak
+- [ ] When multigpu selected, nvidia only runs latest, not allowing older drivers
+- [ ] Settings goes fullscreen, not /4 and /3
+- [ ] 
 
 ## Add features
 - [ ] Usbmuxd service
