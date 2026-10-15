@@ -10,49 +10,6 @@ WIDTH=$(( TERM_WIDTH * 4 / 5 ))
 MENU_HEIGHT=$(( HEIGHT - 10 ))
 
 TITLE="Voidlinux Repo Manager"
-
-#================  2 - XBPS - Query ================
-#if whiptail --title "$TITLE" --yesno "Update System - RECCOMENDED!!!" $HEIGHT $WIDTH; then
-#    echo "Synchronize and Update:"
-#    sudo xbps-install -Syu
-#fi
-# nonfree
-if xbps-query -l | grep -Eq void-repo-nonfree; then
-    NON_FREE_STAT="Enabled"
-else
-    NON_FREE_STAT="Disabled"
-fi
-
-# multilib
-if xbps-query -l | grep -Eq void-repo-multilib; then
-    MULTILIB_STAT="Enabled"
-else
-    MULTILIB_STAT="Disabled"
-fi
-
-# multilib nonfree
-if xbps-query -l | grep -Eq void-repo-nonfree; then
-    MULTILIB_NON_FREE_STAT="Enabled"
-else
-    MULTILIB_NON_FREE_STAT="Disabled"
-fi
-
-#================  3 - Flatpak - Query ================
-# Checks if flatpak and the flathub remote are installed
-if command -v flatpak >/dev/null 2>&1; then
-    FLATHUB="Flatpak Installed BUT flathub not enabled!"
-    if flatpak remotes 2>/dev/null | grep -q "^flathub"; then
-       FLATHUB="Enabled"
-    fi
-else
-    FLATHUB="Disabled"
-fi
-
-if ! command -v flatpak >/dev/null 2>&1; then
-   echo "Flatpak Not Installed"
-fi
-
-
 #================  4 - Install Commands ================
 
 flathub()
@@ -61,8 +18,50 @@ sudo xbps-install -Syu flatpak
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 }
 
-#================  5 - Main Menu ================
+#================  2 - Main Menu loop ================
 while true; do
+
+    #================  3 - XBPS - Query ================
+    #Check if repo is installed
+
+    # nonfree
+    if xbps-query -c -s "void-repo-nonfree" >/dev/null 2>&1; then
+        NON_FREE_STAT="Enabled"
+    else
+        NON_FREE_STAT="Disabled"
+    fi
+
+    # multilib
+    if xbps-query -c -s "void-repo-multilib" >/dev/null 2>&1; then
+        MULTILIB_STAT="Enabled"
+    else
+        MULTILIB_STAT="Disabled"
+    fi
+
+    # multilib nonfree
+    if xbps-query -c -s "void-repo-multilib-nonfree" >/dev/null 2>&1; then
+        MULTILIB_NON_FREE_STAT="Enabled"
+    else
+        MULTILIB_NON_FREE_STAT="Disabled"
+    fi
+
+    #================  3 - Flatpak - Query ================
+    # Checks if flatpak and the flathub remote are installed
+    if command -v flatpak >/dev/null 2>&1; then
+        FLATHUB="Flatpak Installed BUT flathub not enabled!"
+        if flatpak remotes 2>/dev/null | grep -q "^flathub"; then
+        FLATHUB="Enabled"
+        fi
+    else
+        FLATHUB="Disabled"
+    fi
+
+    if ! command -v flatpak >/dev/null 2>&1; then
+    echo "Flatpak Not Installed"
+    fi
+
+
+    #================  4 - Main menu ================
     REPO=$(whiptail --title "$TITLE" --menu "Select SW repository to Manage:" \
     $HEIGHT $WIDTH $MENU_HEIGHT  \
         "void-repo-nonfree"          "Non FOSS SW - Nvidia, Broadcom... ($NON_FREE_STAT) " \
