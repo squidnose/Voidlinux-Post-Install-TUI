@@ -41,8 +41,8 @@ MANUAL_OPTIONS=(
     "vulkan-loader"             "Vulkan Installable Client Driver (ICD) loader" ON
     "Vulkan-Headers"            "Vulkan header files" ON
     "Vulkan-Tools"              "Official Vulkan tools and utilities" ON
-    "libspa-vulkan"             "Server and user space API to deal with multimedia pipelines - vulkan plugins" ON
     "gamemode"                  "Optimise Linux system performance on demand" ON
+    "libspa-vulkan"             "Server and user space API to deal with multimedia pipelines - vulkan plugins" ON
     "mesa-vaapi"                "Mesa VA-API drivers" ON
     "libva"                     "Video Acceleration VA-API" ON
     "gstreamer1"                "Core GStreamer libraries and elements (Multimedia Framework)" ON
@@ -78,6 +78,7 @@ MANUAL_OPTIONS=(
     #"PACKAGE"      "DESCRIPTION"            "OFF/ON"
     "mesa-dri-32bit"                  "Mesa DRI drivers (32bit)" ON
     "mesa-opencl-32bit"               "Mesa implementation of OpenCL (r600+ only) (32bit)" ON
+    "libgamemode-32bit"               "Optimise Linux system performance on demand - shared libraries (32bit)" ON
     "ocl-icd-32bit"                   "Generic OpenCL ICD loader/demultiplexer (32bit)" ON
     "mesa-vulkan-radeon-32bit"        "Mesa Radeon Vulkan driver (RADV)" ON
     "vulkan-loader-32bit"             "Vulkan Installable Client Driver (ICD) loader (32bit)" ON

@@ -14,13 +14,17 @@ if ! command -v whiptail >/dev/null 2>&1; then
 fi
 
 #================  1 - Parameters ================
-# Detect terminal size
+# TUI size - with a Border
+## Detect terminal size
 TERM_HEIGHT=$(tput lines)
 TERM_WIDTH=$(tput cols)
 ## Set TUI size based on terminal size
 HEIGHT=$(( TERM_HEIGHT * 3 / 4 ))
 WIDTH=$(( TERM_WIDTH * 4 / 5 ))
 MENU_HEIGHT=$(( HEIGHT - 10 ))
+## Example implementations
+### use $HEIGHT $WIDTH for --inputbox --msgbox --yesno --infobox --passwordbox
+### or $HEIGHT $WIDTH $MENU_HEIGHT for --menu --checklist --radiolist --gauge
 
 # SCRIPT_DIR points to the base directory
 SCRIPT_DIR="$(dirname "$(realpath "$0")")/scripts"
@@ -95,7 +99,7 @@ echlog()
     fi
 }
 
-#================ 4 - LSR Functions ================
+#================ 4 - LSR (Linux Script Runner) ================
 # Check initial SCRIPT_DIR permissions and existence
 check_base_dir_permissions() {
 
@@ -274,17 +278,17 @@ display_dynamic_menu() {
 }
 
 
-#==================================== Main Script Logic ====================================
+#==================================== 5 - Main Menu ====================================
 
 # 1. Prep
 clear # Clear the screen before the first menu appears.
 echlog "=========================================="
 echlog " Debug Output, please check for any errors:"
 echlog "=========================================="
-# Check initial directory permissions (dependency check now in install_deps.sh)
+## Check initial directory permissions (dependency check now in install_deps.sh)
 check_base_dir_permissions
 
-# Set all .sh scripts to executable
+## Set all .sh scripts to executable
 find scripts/ -type f -name "*.sh" -exec chmod +x {} \;
 
 # 2. Main Menu

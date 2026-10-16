@@ -28,13 +28,18 @@ echlog()
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 #============================ Term Size ============================
-TERM_HEIGHT=$(tput lines 2>/dev/null || echo 24)
-TERM_WIDTH=$(tput cols 2>/dev/null || echo 80)
-HEIGHT="$TERM_HEIGHT"
-WIDTH="$TERM_WIDTH"
-MENU_HEIGHT=$((HEIGHT - 10))
-### use $HEIGHT $WIDTH for --inputbox --msgbox --yesno
-### or $HEIGHT $WIDTH $MENU_HEIGHT for --menu
+# TUI size - with a Border
+## Detect terminal size
+TERM_HEIGHT=$(tput lines)
+TERM_WIDTH=$(tput cols)
+## Set TUI size based on terminal size
+HEIGHT=$(( TERM_HEIGHT * 3 / 4 ))
+WIDTH=$(( TERM_WIDTH * 4 / 5 ))
+MENU_HEIGHT=$(( HEIGHT - 10 ))
+## Example implementations
+### use $HEIGHT $WIDTH for --inputbox --msgbox --yesno --infobox --passwordbox
+### or $HEIGHT $WIDTH $MENU_HEIGHT for --menu --checklist --radiolist --gauge
+
 TITLE="Void-Post-Install-Script GIT"
 
 #============================ Functinos ============================

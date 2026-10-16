@@ -1,4 +1,17 @@
 #!/bin/bash
+#================ 1. Parameters and Config ================
+# TUI size - with a Border
+## Detect terminal size
+TERM_HEIGHT=$(tput lines)
+TERM_WIDTH=$(tput cols)
+## Set TUI size based on terminal size
+HEIGHT=$(( TERM_HEIGHT * 3 / 4 ))
+WIDTH=$(( TERM_WIDTH * 4 / 5 ))
+MENU_HEIGHT=$(( HEIGHT - 10 ))
+## Example implementations
+### use $HEIGHT $WIDTH for --inputbox --msgbox --yesno --infobox --passwordbox
+### or $HEIGHT $WIDTH $MENU_HEIGHT for --menu --checklist --radiolist --gauge
+TITLE="GPU auto Installer VoidTUI"
 #Colorisation
 GREEN='\033[1;32m'
 RED='\033[1;31m'
@@ -13,28 +26,31 @@ gpu_info=$(lspci -nn | grep -Ei "vga|3d")
 echo "Detected GPU: $gpu_info"
 NVIDIA_FIX_DIR="$SCRIPT_DIR/Nvidia-FIX"
 
+#================ 2. Driver Install Functions ================
+# Offeres to run an array of diferent fixes for nvidia GPUs
 nvidia_fix() {
 
-if whiptail --title "$TITLE" --yesno "Set DRM modeset for Better Wayland support?" 10 60; then
+if whiptail --title "$TITLE" --yesno "Set DRM modeset for Better Wayland support?" $HEIGHT $WIDTH; then
     bash "$NVIDIA_FIX_DIR/Nvidia-FIX-DRM-modeset.sh"
     echo "Ran Nvidia-FIX-DRM-modeset.sh"
 fi
 
-if whiptail --title "$TITLE" --yesno "Set Nvidia GPU for primary display?(Reccomended for hybrid laptop graphics)" 10 60; then
-    bash "$NVIDIA_FIX_DIR/Nvidia-FIX/Nvidia-FIX-Only-Hybrid-Setup.sh"
+if whiptail --title "$TITLE" --yesno "Set Nvidia GPU for primary display?(Reccomended for hybrid laptop graphics)" $HEIGHT $WIDTH; then
+    bash "$NVIDIA_FIX_DIR/Nvidia-FIX-Only-Hybrid-Setup.sh"
     echo "Ran Nvidia-FIX-Only-Hybrid-Setup.sh"
 fi
 
-if whiptail --title "$TITLE" --yesno "Fix Sleep mode with Nvidia (May reboot system)" 10 60; then
-    bash "$NVIDIA_FIX_DIR/Nvidia-FIX/Nvidia-FIX-Suspend.sh"
-    echo "Nvidia-FIX-Suspend.sh"
+if whiptail --title "$TITLE" --yesno "Fix Sleep mode with Nvidia (May reboot system)" $HEIGHT $WIDTH; then
+    bash "$NVIDIA_FIX_DIR/Nvidia-FIX-Suspend.sh"
+    echo "Ran Nvidia-FIX-Suspend.sh"
 fi
 
-if whiptail --title "$TITLE" --yesno "Fix Brighness Controll on Some laptops with Nvidia Only GPUS?" 10 60; then
-    bash "$NVIDIA_FIX_DIR/Nvidia-FIX/Nvidia-FIX-Brightness-Controll.sh"
-    echo "Nvidia-FIX-Brightness-Controll-Nvidia.sh"
+if whiptail --title "$TITLE" --yesno "Fix Brighness Controll on Some laptops with Nvidia Only GPUS?" $HEIGHT $WIDTH; then
+    bash "$NVIDIA_FIX_DIR/Nvidia-FIX-Brightness-Controll.sh"
+    echo "Ran Nvidia-FIX-Brightness-Controll-Nvidia.sh"
 fi
 
+# Install Nvidia drivers and select corect driver version based on GPU code name
 }
 install_nvidia() {
 # Detect Nvidia Generation
@@ -46,9 +62,9 @@ install_nvidia() {
         echo "Detected Generation: Kepler"
         "$SCRIPT_DIR/nvidia470-Kepler.sh"
         nvidia_fix
-    elif echo "$gpu_info" | grep -q " GM1\| GM2\| GP1\| GP2"; then
+    elif echo "$gpu_info" | grep -q " GM1\| GM2\| GP1\| GP2\| GV1"; then
         echo "Detected Generation: Maxwell Or Pascal"
-        "$SCRIPT_DIR/nvidia-New-Stable.sh"
+        "$SCRIPT_DIR/nvidia580-Maxwell-Pascal-Volta.sh"
         nvidia_fix
     elif echo "$gpu_info" | grep -q " TU1\| TU2"; then
         echo "Detected Generation: Turing"
@@ -72,12 +88,12 @@ install_nvidia() {
         "$SCRIPT_DIR/nvidia-Nouveau-drivers.sh"
     fi
 
-
 }
 
 install_amd() {
     echo "Detected AMD GPU, installing for Terrascale, GCN, RDNA and UDNA."
     "$SCRIPT_DIR/amd-ati-RADV.sh"
+
 }
 
 install_intel() {
@@ -93,31 +109,79 @@ install_mesa_glhf() {
 }
 
 
-#check if you have dual gpus
-gpu_count=$(lspci -nn | grep -Ei "vga|3d" | wc -l)
-if [ "$gpu_count" -gt 1 ]; then
+#================ 3. Manual Menu ================
+# Manually select driver packages
+manual_drivers()
+{
+    MANUAL_OPTIONS=(
+    #"PACKAGE"      "DESCRIPTION"            "OFF/ON"
+    "amd-mesa"          "For AMD/ATI GPUs from HD2400+ (Terrascale+)" OFF
+    "intel-mesa"        "For Intel GPUs from Intel HD+ (1.gen Core series+)" OFF
+    "nvidia-autodetect" "Automatically detect apropriate driver version" OFF
+    "nvidia"            "For Nvidia 16XX+ series (Turing)" OFF
+    "nvidia-580"        "For Nvidia 800/900/1000 series (Maxwell, Pascal and Volta)" OFF
+    "nvidia-470"        "For Nvidia 600/700 series (Kepler)" OFF
+    "nvidia-390"        "For Nvidia 400/500 series (Fermi)" OFF
+    "nvidia-mesa"       "Open Source Nvidia drivers (Slower, but works on MUSL)" OFF
+    "mesa-generic"      "Simply installs the Mesa driver package" OFF
+    )
+    CHOICE_GPU=$(whiptail --title "$TITLE" --checklist "You have multiple GPUS\n Manually select what drivers to install:"\
+    "$HEIGHT" "$WIDTH" "$MENU_HEIGHT" \
+    "${MANUAL_OPTIONS[@]}" \
+    3>&1 1>&2 2>&3)
+    ## The CHOICE_GPU output has " that package managers dont like
+    ## The following commands remove quotes and convert into clean array
+    CHOICE_GPU=${CHOICE_GPU//\"/}
+    ## for reference: ${CHOICE_GPU//pattern/replacement}
+    ## explanation:
+        ### // replace for all occurrences
+        ### \" the patern. The backslash is used inside quotes to prevent confusion in the script. Effectively this pattern is "
+    read -r -a SELECTED_DRIVERS <<< "$CHOICE_GPU"
+    ## Install Packages
+    echo "${SELECTED_DRIVERS[*]}"
 
-    CHOICE_GPU=$(whiptail --title "$TITLE" --menu "Select an action:" "$HEIGHT" "$WIDTH" "$MENU_HEIGHT" \
-        1 "AMD + Intel" \
-        2 "AMD + NVIDIA" \
-        3 "Intel + NVIDIA" \
-        4 "Only AMD" \
-        5 "Only Intel" \
-        6 "Only NVIDIA" \
-        7 "I dont know (Generic Mesa Drivers)" \
-        3>&1 1>&2 2>&3) || exit 0
-    case "$CHOICE_GPU" in
-        1) install_amd; install_intel; exit 0 ;;
-        2) install_amd; install_nvidia; exit 0 ;;
-        3) install_intel; install_nvidia; exit 0 ;;
-        4) install_amd; exit 0 ;;
-        5) install_intel; exit 0 ;;
-        6) install_nvidia; exit 0 ;;
-        7) install_mesa_glhf; exit 0 ;;
-        *) echo "Invalid option. Aborting."; exit 0 ;;
-    esac
-fi
+    # Run corect driver
+    for driver in "${SELECTED_DRIVERS[@]}"; do
+        case "$driver" in
+            "amd-mesa")
+                install_amd
+                ;;
+            "intel-mesa")
+                install_intel
+                ;;
+            "nvidia-autodetect")
+                install_nvidia
+                ;;
+            "nvidia")
+                "$SCRIPT_DIR/nvidia-New-Stable.sh"
+                nvidia_fix
+                ;;
+            "nvidia-580")
+                "$SCRIPT_DIR/nvidia580-Maxwell-Pascal-Volta.sh"
+                nvidia_fix
+                ;;
+            "nvidia-470")
+                "$SCRIPT_DIR/nvidia470-Kepler.sh"
+                nvidia_fix
+                ;;
+            "nvidia-390")
+                "$SCRIPT_DIR/nvidia390-Fermi.sh"
+                nvidia_fix
+                ;;
+            "nvidia-mesa")
+                "$SCRIPT_DIR/nvidia-Nouveau-drivers.sh"
+                ;;
+            "mesa-generic")
+                install_mesa_glhf
+                ;;
+        esac
+    done
+}
 
+automatic_drivers()
+{
+#================ 4. Automatic Menu ================
+# Automatically detect gpu and run apropriate driver installer
 # Detect Vendor
 if echo "$gpu_info" | grep -qi "nvidia"; then
     VENDOR="NVIDIA"
@@ -136,8 +200,30 @@ elif echo "$gpu_info" | grep -qi " intel "; then
     echo -e "${BLUE}Vendor: $VENDOR${NC}"
     install_intel
 else
-    VENDOR="Unknown"
-    echo "Failed to Detect GPU."
-    read -p "Install basic Mesa drivers? Enter to install, CTRL+c to cancel"
-    install_mesa_glhf
+    if whiptail --title "$TITLE - ! Unknow GPU !" --yesno "Do you wish to manually select drivers?" $HEIGHT $WIDTH; then
+        manual_drivers
+    else
+        whiptail --title "$TITLE" --msgbox "No GPU drivers installed" $HEIGHT $WIDTH
+    fi
 fi
+}
+
+#================ 5 - Main Menu ================
+# Automatically run manual gpu driver selector when more than 1 gpu is detected
+#check if you have dual gpus
+gpu_count=$(lspci -nn | grep -Ei "vga|3d" | wc -l)
+if [ "$gpu_count" -gt 1 ]; then
+    manual_drivers
+else
+    AUTO_MANUAL=$(whiptail --title "$TITLE" --menu "Welcome! \nWhat mode do you wish to run?" $HEIGHT $WIDTH $MENU_HEIGHT\
+    "automatic" "Automatically detect gpu and run apropriate driver installer"\
+    "manual"    "Manually select driver or set of drivers to install"\
+    "exit"      "Make no changes to system Graphics drivers" \
+    3>&1 1>&2 2>&3) || exit 0
+    case "$AUTO_MANUAL" in
+        "automatic") automatic_drivers ;;
+        "manual") manual_drivers ;;
+        *) exit 0 ;;
+    esac
+fi
+exit 0
