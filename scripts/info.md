@@ -6,16 +6,15 @@ Linux is not Windows, but this TUI makes it feel even better then windows:)
 ## What Scripts To run?
 ### 0.Tools
 - Usefull tools that manage or somhow configure Voidlinux
-- Key-phrases: Update, XBPS, flatpak, flathub, kernel parameters, config files
+- Key-phrases: Update, XBPS, clear cache, flatpak, flathub, config files
 - [[More Info]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.Tools/0.info.md)
 ### 1.Basic Setup
 - Basic setup scripts
-- Key-phrases: DKMS, Repositories, User groups, mainline Kernel, LTS kernel
+- Key-phrases: DKMS, Repositories, User groups, Change Linux kernel version and parameters
 - [[More Info]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/1.Basic-Setup/0.info.md)
-### 2.GPU drivers
-- GPU driver or packages related to HW accelaration
-- Key-phrases: Nvidia, Mesa, Vulkan, Va-Api
-- [[More Info]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/2.GPU-drivers/0.info.md)
+### 2.Drivers
+- Key-phrases: Nvidia, Mesa, Vulkan, Va-Api, WiFi, Broadcom, Fingerprint
+- [[More Info]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/2.Drivers/0.info.md)
 ### 3.Language Setup 
 - TBD
 - not done yet
@@ -33,13 +32,5 @@ Linux is not Windows, but this TUI makes it feel even better then windows:)
 - Apps are Grouped in categories. 
 - There is a GUI-apps-AIO installer script. 
 - Key-phrases: Flatpak, Flathub, XBPS, GUI, Office, Web browsers, Games.
-### 6.Power Managment
-- Power-Porfiles-Daemon.sh | Power performance slider backend. May not yield best battery life.
-- TLP.sh | A more configurable power managment SW. TLPUI doesnt come with a .desktop file so you need to manually run it using tlpui.
-## 7.Drivers-Wifi-and-Others
-- Bluetooth-service.sh | Enables Bluetooth. 
-- Wifi drivers for Broadcom and certin Realtech WiFi adapters (RTL8812au, RTL8821au, RTL8821cu, RTL8822bu)
-- Broadcom users need to add BCM-WL-FIX.desktop to there desktop.
-  - The Broadcom driver loads weirdly on Void.
-  - This .desktop file Unloads and re-loads it back. 
+ 
 ## [[Go back]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/tree/main)

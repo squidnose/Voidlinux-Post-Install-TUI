@@ -8,7 +8,7 @@ HEIGHT=$(( TERM_HEIGHT * 3 / 4 ))
 WIDTH=$(( TERM_WIDTH * 4 / 5 ))
 MENU_HEIGHT=$(( HEIGHT - 10 ))
 
-TITLE="Voidlinux HW Tester"
+TITLE="Voidlinux HW Tester TBD"
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 #================  2 - Logs ================

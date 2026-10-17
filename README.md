@@ -49,7 +49,7 @@ VOID-TUI.desktop
 
 ## 5. Documentation
 - If dont know what scripts to run, you can read any 0.info.md files in the script.
-- You can read 0.info.md online: [[What to run? 0.info.md]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.info.md)
+- You can read 0.info.md online: [[What to run? info.md]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/info.md)
 - The wiki is a work in progress: https://github.com/squidnose/Voidlinux-Post-Install-TUI/wiki
 ### External scripts
 - VOID-TUI.sh Uses my Linux Script manager (LSR): [[Linux-Script-Manager]](https://codeberg.org/squidnose-code/Linux-Script-Runner)
