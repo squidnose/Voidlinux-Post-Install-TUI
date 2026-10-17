@@ -4,10 +4,10 @@ The instalation uses my preferences which are more Post-Windows cetric.
 Linux is not Windows, but this TUI makes it feel even better then windows:)
 
 ## What Scripts To run?
-### 0.Tools
+### 0.Info-Tools
 - Usefull tools that manage or somhow configure Voidlinux
 - Key-phrases: Update, XBPS, clear cache, flatpak, flathub, config files
-- [[More Info]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.Tools/0.info.md)
+- [[More Info]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/0.Info-Tools/0.info.md)
 ### 1.Basic Setup
 - Basic setup scripts
 - Key-phrases: DKMS, Repositories, User groups, Change Linux kernel version and parameters
@@ -15,7 +15,7 @@ Linux is not Windows, but this TUI makes it feel even better then windows:)
 ### 2.Drivers
 - Key-phrases: Nvidia, Mesa, Vulkan, Va-Api, WiFi, Broadcom, Fingerprint
 - [[More Info]](https://github.com/squidnose/Voidlinux-Post-Install-TUI/blob/main/scripts/2.Drivers/0.info.md)
-### 3.Language Setup 
+### 3.Config-Files-and-languagesLanguage Setup 
 - TBD
 - not done yet
 ### 4.Audio Video GUI
