@@ -30,7 +30,7 @@ else
     echlog "Skipping kernel removal in nvidia580 installer."
 fi
 
-PACKAGES=(nvidia580 nvidia580-opencl nvidia580-libs-32bit nvidia-container-toolkit nvidia-vaapi-driver vulkan-loader vulkan-loader-32bit Vulkan-Headers Vulkan-Tools libspa-vulkan libspa-vulkan-32bit)
+PACKAGES=(nvidia580 nvidia580-opencl nvidia580-libs-32bit nvidia-container-toolkit nvidia-vaapi-driver vulkan-loader vulkan-loader-32bit Vulkan-Headers Vulkan-Tools libspa-vulkan libspa-vulkan-32bit gstreamer1 gstreamer1-32bit)
 ## Menu list entries:
 ### "PACKAGE" "DESCRIPTION" "OFF/ON"
 ### OFF/ON refers if the menu item will be automaticly selected(ON) or de-selected(OFF)
@@ -47,6 +47,8 @@ MANUAL_OPTIONS=(
     "Vulkan-Tools"              "Official Vulkan tools and utilities" ON
     "libspa-vulkan"             "Server and user space API to deal with multimedia pipelines - vulkan plugins" ON
     "libspa-vulkan-32bit"       "Server and user space API to deal with multimedia pipelines - vulkan plugins (32bit)" ON
+    "gstreamer1"                "Core GStreamer libraries and elements (Multimedia Framework)" ON
+    "gstreamer1-32bit"          "Core GStreamer libraries and elements (Multimedia Framework) (32bit)" ON
 )
 
 RAW=$( whiptail --title "$TITLE" --checklist "Do you wish to install all these driver packages?" \

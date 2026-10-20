@@ -165,12 +165,12 @@ bash "$SCRIPT_DIR/4.Audio-Video-GUI/ChangeDM.sh"
 while true; do
     CHOICE=$(whiptail --title "$TITLE" --menu "Choose an installation mode:" $HEIGHT $WIDTH $MENU_HEIGHT \
     "1" "HW Info - Get advice about what you need based on your HW" \
-    "2" "Repositories - Add or Remove SW Repositories (Propriatary and 32 Bit)" \
-    "3" "Linux Kernel - Choose Linux kernel Versions and Parameters" \
-    "4" "Drivers - Install and Setup drivers for your GPU and WiFi cards + Bluetooth" \
-    "5" "Audio - Install and Setup Audio" \
-    "6" "Desktop - Install a Desktop Enviroment" \
-    "7" "Power Management - Setup Power Management services" \
+    "2" "Repositories - Add or Remove SW Repositories (Propriatary, 32 Bit and Flathub)" \
+    "3" "Linux Kernel - Choose a Linux kernel Versions and Boot Parameters" \
+    "4" "Drivers - Install and Setup drivers for your GPU or WiFi cards (+ Bluetooth services)" \
+    "5" "Audio - Install and Setup Audio (Pipewire)" \
+    "6" "Desktop - Install a Desktop Enviroment (XFCE, KDE etc.)" \
+    "7" "Power Management - Setup Power Management services (Power Profiles)" \
     "8" "Miscellaneous setup - Usergroups, HW clock for Dualboot, Config Files" \
     "9" "Apps - Install programs from reccomended lists (Takes a Long Time)" \
     "x" "back to the Main menu" \

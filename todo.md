@@ -53,12 +53,12 @@
 - [ ] Qgis
 - [ ] Wayfire: wayfire, wf-shell, wayfire-plugins-extra, wcm, wl-clipboard, wl-clip-persist, 
 - [ ] Watch sensors and nvidia-smi
-- [ ] Add loging featute make log for TUI output
+- [X] Add loging featute make log for TUI output
 - [ ] Add make disk-images For VMs
 - [ ] Obs missing???? And virt cam
 - [ ] Add note to wizzard: dkms usefull for obs virt cam
 - [ ] Intel ucode
-- [ ] Gstreamer1 and 32 bit for nvidia
+- [X] Gstreamer1 and 32 bit for nvidia (Nvidia470+)
 - [ ] Vulkan validation layers?
 - [ ] Add virtual keyborad support: maliit-framework, maliit-keyboard, maliit-keyboard-doc THE SDDM THEME MUST HAVE A VIRTUAL DESKTOP BUTTON
 - [ ] Look into: https://github.com/depthrush/void-kde-install-script
@@ -82,11 +82,11 @@
 - [ ] Numlock automaticly start sddm
 - [ ] Bash colourization
 - [ ] Look into https://www.bitlbee.org/main.php/news.r.html
-- [ ] colors are cool but need to be put into .config/Voidlinux-Post-Install-TUI
+- [X] colors are cool but need to be put into .config/Voidlinux-Post-Install-TUI
 - [ ] add plank panel XFCE?
 - [X] Proton up QT
 - [ ] Fork libre gaming for Void: https://github.com/Ahmed-Al-Balochi/LibreGaming
-- [ ] Unify linux kernel manger with vkpurge
+- [X] Unify linux kernel manger with vkpurge
 
 ## Stalled - I dont know how to do
 - [ ] Add a Build and compile for Mesa-amber for non-galium3D GPUS
