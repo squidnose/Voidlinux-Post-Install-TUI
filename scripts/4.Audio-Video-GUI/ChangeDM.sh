@@ -1,6 +1,6 @@
 #!/bin/bash
 dms=("lightdm" "gdm" "lxdm" "slim" "xdm" "sddm") # List of available DMs
-
+TITLE="Change Display Manager - Voidlinux Post Install TUI"
 # Find current DM
 CURRENTDM="None detected"
 for dm in "${dms[@]}"; do
@@ -32,7 +32,7 @@ exit 0
 }
 
 # Menu
-DRIVER=$(whiptail --title "$TITLE" --menu "LAST QUESTION: Change or Add a Display Manager:\nCurrent DM: $CURRENTDM\n!!!Changing this will result in a reboot!!!" 20 70 7 \
+DRIVER=$(whiptail --title "$TITLE" --menu "Change or Add a Display Manager:\nCurrent DM: $CURRENTDM\n!!!Changing this will result in a reboot!!!" 20 70 7 \
     "1" "None" \
     "2" "SDDM (For KDE Plasma, LXQt)" \
     "3" "LightDM (For XFCE, Cinnamon, MATE, Enlightenment, Budgie)" \

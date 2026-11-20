@@ -22,6 +22,8 @@ export NEWT_COLORS_FILE="$HOME/.local/state/VOID-TUI/colors.conf"
 TITLE="Void Linux Post-Install Wizard"
 BACKTITLE="Void Linux Streamlined Setup"
 
+menu_succesion="1" # Sets --default-item so that you dont have to scroll up and down to select the next item
+
 #==================================== Functions ====================================
 # Echlog
 LOGFILE="$HOME/.local/state/VOID-TUI/VOID-TUI.log"
@@ -118,7 +120,7 @@ desktop()
 # Services
 ## Enable services (runs only if not already enabled)
 if [ ! -e /var/service/dbus ] || [ ! -e /var/service/NetworkManager ]; then
-    if whiptail --title "$TITLE" --yesno "Enable: NetworkManager and dbus\nThis will reboot the system\nRun if you did not select them during install or are not sure, re-run the script afterwards skipping this part" 10 60; then
+    if whiptail --title "$TITLE" --yesno "Enable: NetworkManager and dbus\nThis will reboot the system\nRun if you did not select them during install or are not sure, re-run the script afterwards skipping this part" $HEIGHT $WIDTH; then
         sudo xbps-install -Syu NetworkManager dbus
         for svc in NetworkManager dbus; do
             sudo ln -sf /etc/sv/$svc /var/service/
@@ -133,7 +135,7 @@ else
     echlog "NetworkManager and dbus are already enabled. Skipping service setup."
 fi
 # Desktop Enviroment
-DE=$(whiptail --title "$TITLE" --menu "Install/change Desktop Environment" 20 60 10 \
+DE=$(whiptail --title "$TITLE" --menu "Install/change Desktop Environment" $HEIGHT $WIDTH $MENU_HEIGHT \
     "0" "None (No Changes)" \
     "1" "XFCE + plugins" \
     "2" "KDE Plasma" \
@@ -163,7 +165,7 @@ bash "$SCRIPT_DIR/4.Audio-Video-GUI/ChangeDM.sh"
 
 #==================================== Main Menu ====================================
 while true; do
-    CHOICE=$(whiptail --title "$TITLE" --menu "Choose an installation mode:" $HEIGHT $WIDTH $MENU_HEIGHT \
+    CHOICE=$(whiptail --title "$TITLE" --menu "Choose an installation mode:" $HEIGHT $WIDTH $MENU_HEIGHT --default-item "$menu_succesion" \
     "1" "HW Info - Get advice about what you need based on your HW" \
     "2" "Repositories - Add or Remove SW Repositories (Propriatary, 32 Bit and Flathub)" \
     "3" "Linux Kernel - Choose a Linux kernel Versions and Boot Parameters" \
@@ -179,31 +181,41 @@ while true; do
     1)
         bash "$SCRIPT_DIR/1.Basic-Setup/HW-detection.sh"
         echlog "Ran HW-detection.sh"
+        menu_succesion="2"
     ;;
     2)
         bash "$SCRIPT_DIR/1.Basic-Setup/repos.sh"
         echlog "Ran repos.sh"
+        menu_succesion="3"
     ;;
     3)
         bash "$SCRIPT_DIR/1.Basic-Setup/Voidlinux-Kernel-Manager.sh"
         echlog Voidlinux-Kernel-Manager.sh
+        menu_succesion="4"
     ;;
-    4) drivers ;;
+    4)
+        drivers || menu_succesion="5"
+        menu_succesion="5"
+    ;;
     5)
         AUDIO=$(whiptail --title "$TITLE" --menu "Install a Audio Server" $HEIGHT $WIDTH $MENU_HEIGHT \
-            "1" "Cancel" \
-            "2" "Alsa+Pipewire+SOF firmware (recommended)" \
-            3>&1 1>&2 2>&3)
+            "1" "Alsa+Pipewire+SOF firmware (recommended)" \
+            "x" "Cancel" \
+            3>&1 1>&2 2>&3) || menu_succesion="6"
         case $AUDIO in
-            1) echlog "No audio server changes" ;;
-            2)
+            1)
                 bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-alsa.sh"
                 bash "$SCRIPT_DIR/4.Audio-Video-GUI/Audio/pipewire-autostart.sh"
                 echlog "Ran pipewire-alsa.sh and pipewire-autostart.sh"
             ;;
+            x) echlog "No audio server changes" ;;
         esac
+        menu_succesion="6"
     ;;
-    6) desktop ;;
+    6)
+        desktop || menu_succesion="7"
+        menu_succesion="7"
+    ;;
     7)
         PM=$(whiptail --title "$TITLE" --menu "Choose power management" $HEIGHT $WIDTH $MENU_HEIGHT \
             "1" "Cancel" \
@@ -215,33 +227,36 @@ while true; do
             2) bash "$SCRIPT_DIR/1.Basic-Setup/Power-Managment/Power-Porfiles-Daemon.sh" && echlog "Ran Power-Porfiles-Daemon.sh" ;;
             3) bash "$SCRIPT_DIR/1.Basic-Setup/Power-Managment/TLP.sh" && echlog "Ran TLP.sh" ;;
         esac
+        menu_succesion="8"
     ;;
     8)
         # Usergroups
-        if whiptail --title "$TITLE" --yesno "Add user $USER to recommended groups: wheel,floppy,dialout,audio,video,cdrom,optical,kvm,users,xbuilder,network?" 10 60; then
+        if whiptail --title "$TITLE" --yesno "Add user $USER to recommended groups: wheel,floppy,dialout,audio,video,cdrom,optical,kvm,users,xbuilder,network?" $HEIGHT $WIDTH; then
             bash "$SCRIPT_DIR/1.Basic-Setup/UserGroups.sh"
             echlog "added user to: wheel,floppy,dialout,audio,video,cdrom,optical,kvm,users,xbuilder,network groups"
             pause "User groups updated."
         fi
         # HW clock
-        if whiptail --title "$TITLE" --yesno --defaultno "Use the HW clock (For windows Dualboot)" 10 60; then
+        if whiptail --title "$TITLE" --yesno --defaultno "Use the HW clock (For windows Dualboot)" $HEIGHT $WIDTH; then
             bash "$SCRIPT_DIR/1.Basic-Setup/HW-clock-For-Windows-Dualboot.sh"
             echlog "Set the clock to use HW clock"
             pause "HW clock set"
         fi
         # Config Files
-        if whiptail --title "$TITLE" --yesno --defaultno "Add better config files for:\n-Mangohud\n-Fastfetch" 10 60; then
+        if whiptail --title "$TITLE" --yesno --defaultno "Add better config files for:\n-Mangohud\n-Fastfetch" $HEIGHT $WIDTH; then
             bash "$SCRIPT_DIR/0.Info-Tools/5.Config-Files/install-config-files.sh"
             echlog "Added Mangohud and Fastfetch Config files to system"
             pause "Config Files Added."
         fi
+        menu_succesion="9"
     ;;
     9)
-        if whiptail --title "$TITLE" --yesno --defaultno "Do You wish to run a App selection Script?\n You can choose between recommended and manually selected apps and programs" 10 60; then
+        if whiptail --title "$TITLE" --yesno --defaultno "Do You wish to run a App selection Script?\n You can choose between recommended and manually selected apps and programs" $HEIGHT $WIDTH; then
             bash "$SCRIPT_DIR/5.Apps/00.Run-All.sh"
             pause "Apps based on your selection are installed"
             echlog "Ran 00.Run-All.sh"
         fi
+        menu_succesion="x"
     ;;
     *) exit 0 ;;
     esac
